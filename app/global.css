@@ -430,3 +430,12 @@ body{
     padding: 0;
     margin: 0;
 }
+
+.ant-input {
+    border-radius: 18px;
+    height: 36px;
+}
+
+.ant-input-outlined:focus-within, .ant-input-outlined:hover {
+    border-color: #7EB0C6;
+}

@@ -1,12 +1,12 @@
-'use client'
-import {isWindowDefined} from "swr/_internal";
+'use client';
+import { isWindowDefined } from 'swr/_internal';
 
 export const defaultPatientSelectedColumns = () => {
-    if (isWindowDefined){
-        const patientsSelectedColumns = localStorage.getItem("patientsSelectedColumns")
-        if(patientsSelectedColumns){
-            return patientsSelectedColumns.split(",")
-        }
+  if (isWindowDefined) {
+    const patientsSelectedColumns = localStorage.getItem('patientsSelectedColumns');
+    if (patientsSelectedColumns) {
+      return patientsSelectedColumns.split(',');
     }
-    return ["id", "full_name", "gender", "age", "location", "district", "address"]
-}
+  }
+  return ['id', 'full_name', 'gender', 'age', 'location', 'district', 'address'];
+};

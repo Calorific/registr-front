@@ -1,18 +1,18 @@
-.link{
-    color: black;
-    text-decoration: none;
+.link {
+  color: black;
+  text-decoration: none;
 }
 
-.linkIcon{
-    
+.linkIcon {
+
 }
 
-.linkText{
-    margin: 10px;
+.linkText {
+  margin: 10px;
 }
 
-.activeLink{
-    font-weight: bold;
-    text-decoration: none;
-    color: #7EB0C6;
+.activeLink {
+  font-weight: bold;
+  text-decoration: none;
+  color: #7EB0C6;
 }

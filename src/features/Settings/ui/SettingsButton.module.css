@@ -1,9 +1,9 @@
-.link{
-    color: black;
-    cursor: pointer;
-    text-decoration: none;
+.link {
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.linkText{
-    margin: 10px;
+.linkText {
+  margin: 10px;
 }

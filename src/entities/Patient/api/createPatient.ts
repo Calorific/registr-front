@@ -1,16 +1,16 @@
-import {IPatientNew} from "@/entities/Patient/model/IPatientNew";
-import axiosInstance from "@/app/axiosProvider/axiosProvider";
-import {dateFormatConverter} from "@/shared/helpers/dateFormatConverter";
+import { IPatientNew } from '@/entities/Patient/model/IPatientNew';
+import axiosInstance from '@/app/axiosProvider/axiosProvider';
+import { dateFormatConverter } from '@/shared/helpers/dateFormatConverter';
 
-export const createPatient = async (values: IPatientNew)=> {
-    if (values.birth_date) {
-        values.birth_date = dateFormatConverter(values.birth_date)
-    }
-    if (values.dod) {
-        values.dod = dateFormatConverter(values.dod)
-    }
-    if (values.last_hospitalization_date) {
-        values.last_hospitalization_date = dateFormatConverter(values.last_hospitalization_date)
-    }
-    return axiosInstance.post("patients/", values).then(res => res.data)
-}
+export const createPatient = async (values: IPatientNew) => {
+  if (values.birth_date) {
+    values.birth_date = dateFormatConverter(values.birth_date);
+  }
+  if (values.dod) {
+    values.dod = dateFormatConverter(values.dod);
+  }
+  if (values.last_hospitalization_date) {
+    values.last_hospitalization_date = dateFormatConverter(values.last_hospitalization_date);
+  }
+  return axiosInstance.post('patients/', values).then(res => res.data);
+};

@@ -1,1 +1,1 @@
-export * from "./ui/SettingsButton"
+export * from './ui/SettingsButton';

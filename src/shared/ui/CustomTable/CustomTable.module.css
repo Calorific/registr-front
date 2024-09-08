@@ -1,34 +1,34 @@
-.table{
+.table {
 
 }
 
-.tableRow{
-    cursor: pointer;
+.tableRow {
+  cursor: pointer;
 }
 
-.selector{
-    display: block;
-    margin-bottom: 10px;
+.selector {
+  display: block;
+  margin-bottom: 10px;
 }
 
-.pagination{
-    text-align: center;
-    margin: 10px;
+.pagination {
+  text-align: center;
+  margin: 10px;
 }
 
-.paginationItem > a{
-    background-color: #FFFFFF;
-    border-radius: 100%;
+.paginationItem > a {
+  background-color: #FFFFFF;
+  border-radius: 100%;
 }
 
-.paginationItemActive > a{
-    background-color: #7EB0C6;
-    border-radius: 100%;
+.paginationItemActive > a {
+  background-color: #7EB0C6;
+  border-radius: 100%;
 }
 
-.paginationItemNav{
-    background-color: #E7EEF1;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
+.paginationItemNav {
+  background-color: #E7EEF1;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
 }

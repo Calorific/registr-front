@@ -1,1 +1,1 @@
-export * from "@/entities/Profile/ui/ProfileLink"
+export * from '@/entities/Profile/ui/ProfileLink';

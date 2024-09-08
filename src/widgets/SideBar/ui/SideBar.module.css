@@ -1,32 +1,32 @@
-.sideBar{
-    position: fixed;
-    margin: 20px;
-    background-color: #FFFFFF;
-    border-radius: 20px;
-    width: 320px;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.sideBar {
+  position: fixed;
+  margin: 20px;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  width: 320px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.logo{
-    margin-left: 50px;
-    margin-top: 50px;
+.logo {
+  margin-left: 50px;
+  margin-top: 50px;
 }
 
-.topNav{
-    align-self: flex-start;
+.topNav {
+  align-self: flex-start;
 }
 
-.bottomNav{
-    align-self: flex-start;
+.bottomNav {
+  align-self: flex-start;
 }
 
-.ul{
-    list-style-type: none;
+.ul {
+  list-style-type: none;
 }
 
-.li{
-    margin: 20px;
+.li {
+  margin: 20px;
 }

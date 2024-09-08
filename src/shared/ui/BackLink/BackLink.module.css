@@ -1,10 +1,10 @@
-.link{
-    display: flex;
-    justify-content: center;
-    background-color: #E7EEF1;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    color: black;
+.link {
+  display: flex;
+  justify-content: center;
+  background-color: #E7EEF1;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: black;
 }
