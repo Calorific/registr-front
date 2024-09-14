@@ -10,7 +10,7 @@ import { useGetCurrentEkgData } from '@/entities/Appointment/api/ekgsApi';
 const EkgForm = ({ appointmentId }: { appointmentId: string }) => {
   const { currentData, error: currentDataError, isLoading: currentDataIsLoading } = useGetCurrentEkgData(appointmentId);
   const { appointmentStatus, isLoading: statusIsLoading, error: statusError } = useGetAppointmentStatus(appointmentId);
-  const [status, setStatus] = useState<FormStatus>();
+  const [status, setStatus] = useState<FormStatus>('create');
   useEffect(() => {
     if (currentData && appointmentStatus == 'completed') {
       setStatus('display');
@@ -24,14 +24,9 @@ const EkgForm = ({ appointmentId }: { appointmentId: string }) => {
   if (statusError) return <div>Ошибка загрузки</div>;
   if (currentDataIsLoading || statusIsLoading) return <Spin />;
   return (
-      <>
-        {(status == 'display')
-            ? (<EkgEdit appointmentId={appointmentId} data={currentData} setStatus={setStatus} />)
-            : (status == 'edit')
-                ? (<EkgEdit setStatus={setStatus} appointmentId={appointmentId} data={currentData} />)
-                : (<EkgCreate setStatus={setStatus} appointmentId={appointmentId} />)
-        }
-      </>
+    <>
+      <EkgEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={currentData} />
+    </>
   );
 };
 

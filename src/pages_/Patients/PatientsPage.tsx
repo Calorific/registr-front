@@ -7,9 +7,9 @@ const PatientsPage = ({ page }: { page: number }) => {
     loading: () => <div>Загрузка...</div>,
   });
   return (
-      <>
-        <PatientsList page={page} />
-      </>
+    <>
+      <PatientsList page={page} />
+    </>
   );
 };
 

@@ -27,15 +27,11 @@ const DrugTherapyForm = ({ appointmentId }: { appointmentId: string }) => {
 
   if (statusError) return <div>Ошибка загрузки</div>;
   if (currentDataIsLoading || statusIsLoading) return <Spin />;
+
   return (
-      <>
-        {(status == 'display')
-            ? (<DrugTherapyEdit appointmentId={appointmentId} data={currentData} setStatus={setStatus} />)
-            : (status == 'edit')
-                ? (<DrugTherapyEdit setStatus={setStatus} appointmentId={appointmentId} data={currentData} />)
-                : (<DrugTherapyCreate setStatus={setStatus} appointmentId={appointmentId} />)
-        }
-      </>
+    <>
+      <DrugTherapyEdit setStatus={setStatus} appointmentId={appointmentId} data={currentData} />x
+    </>
   );
 };
 

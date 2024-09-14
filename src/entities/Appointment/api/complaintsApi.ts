@@ -42,7 +42,7 @@ export const useGetCurrentComplaintsData = (appointmentId: string) => {
       {
         revalidateIfStale: false,
         revalidateOnFocus: false,
-        shouldRetryOnError: (err => !(err.response.data.error_code === 404)),
+        shouldRetryOnError: (err => !(err?.response?.data?.error_code === 404)),
       },
   );
   const { data: conditions, error: conditionsError, isLoading: conditionsIsLoading } = useSWR(
@@ -51,7 +51,7 @@ export const useGetCurrentComplaintsData = (appointmentId: string) => {
       {
         revalidateIfStale: false,
         revalidateOnFocus: false,
-        shouldRetryOnError: (err => !(err.response.data.error_code === 404)),
+        shouldRetryOnError: (err => !(err?.response?.data?.error_code === 404)),
       },
   );
   return {

@@ -4,7 +4,6 @@ import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentA
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import { useGetCurrentLabTestsData } from '@/entities/Appointment/api/labTestsApi';
 import LabTestsEdit from '@/entities/Appointment/ui/LabTestsEdit';
-import LabTestsCreate from '@/entities/Appointment/ui/LabTestsCreate';
 import { Spin } from 'antd';
 
 const LabTestsForm = ({ appointmentId }: { appointmentId: string }) => {
@@ -14,7 +13,7 @@ const LabTestsForm = ({ appointmentId }: { appointmentId: string }) => {
     isLoading: currentDataIsLoading,
   } = useGetCurrentLabTestsData(appointmentId);
   const { appointmentStatus, isLoading: statusIsLoading, error: statusError } = useGetAppointmentStatus(appointmentId);
-  const [status, setStatus] = useState<FormStatus>();
+  const [status, setStatus] = useState<FormStatus>('create');
   useEffect(() => {
     if (currentData && appointmentStatus == 'completed') {
       setStatus('display');
@@ -28,14 +27,9 @@ const LabTestsForm = ({ appointmentId }: { appointmentId: string }) => {
   if (statusError) return <div>Ошибка загрузки</div>;
   if (currentDataIsLoading || statusIsLoading) return <Spin />;
   return (
-      <>
-        {(status == 'display')
-            ? (<LabTestsEdit appointmentId={appointmentId} data={currentData} setStatus={setStatus} />)
-            : (status == 'edit')
-                ? (<LabTestsEdit setStatus={setStatus} appointmentId={appointmentId} data={currentData} />)
-                : (<LabTestsCreate setStatus={setStatus} appointmentId={appointmentId} />)
-        }
-      </>
+    <>
+      <LabTestsEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={currentData} />
+    </>
   );
 };
 

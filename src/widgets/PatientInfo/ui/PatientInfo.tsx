@@ -13,15 +13,18 @@ const PatientInfo = ({ patientId, status }: { patientId: string, status: string 
   } else if (error) {
     return <div>Ошибка загрузки</div>;
   }
-  if (isLoading) return <div>Загрузка</div>;
+
+  if (isLoading) {
+    return <div>Загрузка</div>;
+  }
 
   return (
-      <>
-        {(status == 'edit')
-            ? (<PatientEdit data={data} />)
-            : (<PatientDisplay data={data} />)
-        }
-      </>
+    <>
+      {(status == 'edit')
+        ? <PatientEdit data={data} />
+        : <PatientDisplay data={data} />
+      }
+    </>
   );
 };
 

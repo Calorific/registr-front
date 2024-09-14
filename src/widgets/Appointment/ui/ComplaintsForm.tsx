@@ -10,7 +10,7 @@ import { Spin } from 'antd';
 const ComplaintsForm = ({ appointmentId }: { appointmentId: string }) => {
   const { data, error: currentDataError, isLoading: currentDataIsLoading } = useGetCurrentComplaintsData(appointmentId);
   const { appointmentStatus, isLoading: statusIsLoading, error: statusError } = useGetAppointmentStatus(appointmentId);
-  const [status, setStatus] = useState<FormStatus>();
+  const [status, setStatus] = useState<FormStatus>('create');
   useEffect(() => {
     if (data && appointmentStatus == 'completed') {
       setStatus('display');
@@ -24,14 +24,9 @@ const ComplaintsForm = ({ appointmentId }: { appointmentId: string }) => {
   if (statusError) return <div>Ошибка загрузки</div>;
   if (currentDataIsLoading || statusIsLoading) return <Spin />;
   return (
-      <>
-        {(status == 'display')
-            ? (<ComplaintsEdit appointmentId={appointmentId} data={data} setStatus={setStatus} />)
-            : (status == 'edit')
-                ? (<ComplaintsEdit setStatus={setStatus} appointmentId={appointmentId} data={data} />)
-                : (<ComplaintsCreate setStatus={setStatus} appointmentId={appointmentId} />)
-        }
-      </>
+    <>
+      <ComplaintsEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={data} />
+    </>
   );
 };
 

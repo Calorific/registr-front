@@ -1,15 +1,37 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useMemo } from 'react';
 import MaskedInput from 'antd-mask-input';
+import { Form } from 'antd';
 
 interface DateInputProps {
-  value?: any;
-  onChange?: any;
+  required?: boolean;
+  label: string;
+  name: string;
+  initialValue?: string;
 }
 
-const _DateInput: FC<DateInputProps> = ({ value, onChange, }) => {
+const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialValue }) => {
+
+  const rules = useMemo(() => {
+    if (required) {
+      return [
+        { required: true, message: 'Введите дату последней госпитализации', },
+        { pattern: new RegExp(/^\d\d\.\d\d.\d\d\d\d$/), message: "Введите корректную дату" },
+      ];
+    }
+
+    return [{ pattern: new RegExp(/^(\d\d\.\d\d.\d\d\d\d|__\.__\.____)$/), message: "Введите корректную дату" }];
+  }, [required]);
 
   return (
-    <MaskedInput value={value} onChange={onChange} mask="00.00.0000" />
+    <Form.Item
+      label={label}
+      name={name}
+      rules={rules}
+      initialValue={initialValue}
+    >
+      <MaskedInput mask="00.00.0000" />
+    </Form.Item>
+
   );
 }
 

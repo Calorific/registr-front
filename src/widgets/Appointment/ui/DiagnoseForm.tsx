@@ -4,7 +4,6 @@ import { useGetCurrentDiagnoseData, useGetPreviousDiagnoseData } from '@/entitie
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentApi';
 import DiagnoseEdit from '@/entities/Appointment/ui/DiagnoseEdit';
-import DiagnoseCreate from '@/entities/Appointment/ui/DiagnoseCreate';
 import { Spin } from 'antd';
 
 const DiagnoseForm = ({ appointmentId }: { appointmentId: string }) => {
@@ -13,13 +12,16 @@ const DiagnoseForm = ({ appointmentId }: { appointmentId: string }) => {
     error: currentDataError,
     isLoading: currentDataIsLoading,
   } = useGetCurrentDiagnoseData(appointmentId);
+
   const {
     previousData,
     error: previousDataError,
     isLoading: previousDataIsLoading,
   } = useGetPreviousDiagnoseData(appointmentId);
+
   const { appointmentStatus, isLoading: statusIsLoading, error: statusError } = useGetAppointmentStatus(appointmentId);
-  const [status, setStatus] = useState<FormStatus>();
+  const [status, setStatus] = useState<FormStatus>('create');
+
   useEffect(() => {
     if (currentData && appointmentStatus == 'completed') {
       setStatus('display');
@@ -32,15 +34,11 @@ const DiagnoseForm = ({ appointmentId }: { appointmentId: string }) => {
 
   if (statusError) return <div>Ошибка загрузки</div>;
   if (currentDataIsLoading || statusIsLoading) return <Spin />;
+
   return (
-      <>
-        {(status == 'display')
-            ? (<DiagnoseEdit appointmentId={appointmentId} data={currentData} setStatus={setStatus} />)
-            : (status == 'edit')
-                ? (<DiagnoseEdit setStatus={setStatus} appointmentId={appointmentId} data={currentData} />)
-                : (<DiagnoseCreate setStatus={setStatus} appointmentId={appointmentId} data={previousData} />)
-        }
-      </>
+    <>
+      <DiagnoseEdit status={status} appointmentId={appointmentId} data={currentData} setStatus={setStatus} />
+    </>
   );
 };
 

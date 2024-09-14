@@ -22,11 +22,11 @@ export const navRoutes: { general: INavItem[], appointment: INavItem[] } = {
     { href: `/help`, Icon: helpIcon, name: `Помощь` },
   ],
   appointment: [
-    { href: `/generalDetails`, Icon: generalDetailsIcon, name: `Общие сведения` },
-    { href: `/diagnose`, Icon: diagnose, name: `Диагноз` },
-    { href: `/labTests`, Icon: labTests, name: `Лабораторные тесты` },
-    { href: `/complaints`, Icon: complaints, name: `Жалобы` },
-    { href: `/ekg`, Icon: ekg, name: `ЭКГ и ЭХО-КГ` },
-    { href: `/drugTherapy`, Icon: drugTherapy, name: `Лекарственная терапия` },
+    { href: `generalDetails`, Icon: generalDetailsIcon, name: `Общие сведения` },
+    { href: `diagnose`, Icon: diagnose, name: `Диагноз` },
+    { href: `labTests`, Icon: labTests, name: `Лабораторные тесты` },
+    { href: `complaints`, Icon: complaints, name: `Жалобы` },
+    { href: `ekg`, Icon: ekg, name: `ЭКГ и ЭХО-КГ` },
+    { href: `drugTherapy`, Icon: drugTherapy, name: `Лекарственная терапия` },
   ],
 };

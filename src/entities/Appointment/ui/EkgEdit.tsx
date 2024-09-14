@@ -1,163 +1,193 @@
 import React, { Dispatch } from 'react';
-import { Button, Card, Checkbox, Col, DatePicker, Form, Input, InputNumber, message, Row, Space, Spin } from 'antd';
-import { ekgUpdate, useGetEkgFields } from '@/entities/Appointment/api/ekgsApi';
+import { Button, Card, Checkbox, Col, Form, Input, InputNumber, message, Row, Space, Spin } from 'antd';
+import { ekgCreate, ekgUpdate, useGetEkgFields } from '@/entities/Appointment/api/ekgsApi';
 import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
-import dayjs from 'dayjs';
 import { dateFormatConverter } from '@/shared/helpers/dateFormatConverter';
 import { IEkg } from '@/entities/Appointment/model/IEkg';
+import { useRouter } from 'next/navigation';
+import { useSWRConfig } from 'swr';
+import { useValidation } from '@/shared/hooks/useValidation';
+import { useSuccessMessage } from '@/shared/hooks/useSuccessMessage';
+import { DateInput } from '@/shared/ui/Form/DateInput';
 
-const EkgEdit = ({ setStatus, appointmentId, data }: {
+interface EkgEditProps {
+  status: FormStatus;
   setStatus: Dispatch<FormStatus>,
   appointmentId: string,
   data: any
-}) => {
+}
+
+const EkgEdit = ({ status, setStatus, appointmentId, data }: EkgEditProps) => {
+  const router = useRouter();
   const [form] = Form.useForm();
+  const { mutate } = useSWRConfig();
   const { fields, error: fieldsError, isLoading: fieldsIsLoading } = useGetEkgFields();
   const [messageApi, contextHolder] = message.useMessage();
+  const [isValid, handleValidation] = useValidation(form);
+
+  useSuccessMessage();
+
   const formSubmitHandler = async (values: IEkg) => {
     try {
       values.date_ekg = dateFormatConverter(values.date_ekg);
       values.date_echo_ekg = dateFormatConverter(values.date_echo_ekg);
-      await ekgUpdate(appointmentId, values);
-      messageApi.success('Данные успешно обновлены');
-      setStatus('display');
+      if (status === 'edit') {
+        await ekgUpdate(appointmentId, values);
+        messageApi.success('Данные успешно обновлены');
+      } else {
+        await ekgCreate(appointmentId, values);
+        await mutate({
+          key: 'appointments/block/ekg/',
+          appointmentId,
+        });
+        setStatus('edit');
+      }
+
+      return true;
     } catch (e: any) {
-      messageApi.error(e.message);
+      messageApi.error(JSON.stringify(e?.response?.data?.message ?? 'Данные заполнены некорректно'));
+      return false;
     }
   };
+
+  const handleNext = async () => {
+    const res = await formSubmitHandler(form.getFieldsValue());
+    if (res) {
+      router.push(`/appointments/${appointmentId}/drugTherapy?m=success`);
+    }
+  }
+
   if (fieldsError) return <div>Ошибка загрузки</div>;
   if (fieldsIsLoading) return <Spin />;
 
+  data ??= {}
+
   return (
-      <Form
-          form={form}
-          layout={'inline'}
-          onFinish={formSubmitHandler}
+    <Form
+      form={form}
+      onFinish={formSubmitHandler}
+      onChange={handleValidation}
+    >
+      <Card
+        style={{ width: '100%' }}
+        title={'ЭКГ и Эхо-КГ'}
+        extra={
+          <Space>
+            <Form.Item>
+              <Button onClick={() => router.push(`/appointments/${appointmentId}/complaints`)}>
+                Назад
+              </Button>
+            </Form.Item>
+            <Form.Item>
+              <SubmitButton form={form}>
+                Сохранить
+              </SubmitButton>
+            </Form.Item>
+            <Form.Item>
+              <Button disabled={!isValid} onClick={handleNext}>
+                Далее
+              </Button>
+            </Form.Item>
+          </Space>
+        }
       >
-        <Card
-            style={{ width: '100%' }}
-            title={'ЭКГ и Эхо-КГ'}
-            extra={
-              <Space>
-                <Form.Item>
-                  <Button onClick={() => setStatus('display')}>
-                    Отмена
-                  </Button>
-                </Form.Item>
-                <Form.Item>
-                  <SubmitButton form={form}>
-                    Сохранить
-                  </SubmitButton>
-                </Form.Item>
-              </Space>
-            }
-        >
-          {contextHolder}
-          <Space size={'large'}>
+        {contextHolder}
+        <Row gutter={20}>
+          <Col span={12}>
             <Card
-                title={'ЭКГ'}
-                extra={
-                  <Form.Item
-                      label={'Дата'}
-                      name={'date_ekg'}
-                      initialValue={dayjs(data.date_ekg, 'DD.MM.YYYY')}
-                  >
-                    <DatePicker format={'DD.MM.YYYY'} />
-                  </Form.Item>
-                }
+              title={'ЭКГ'}
+              extra={
+                <div style={{ paddingTop: 15 }}>
+                  <DateInput initialValue={data.date_ekg} label="Дата" name="date_ekg" />
+                </div>
+              }
             >
-              <Space
-                  direction={'vertical'}
-                  size={'middle'}
-              >
+              <Space direction={'vertical'} size={'middle'}>
                 {fields.ekg.map(field => (
-                    <Form.Item
-                        key={field.name}
-                        name={field.name}
-                        valuePropName={'checked'}
-                        initialValue={data[field.name]}
-                        rules={[{ required: true, message: 'введите дату' }]}
-                    >
-                      <Checkbox>{field.displayName}</Checkbox>
-                    </Form.Item>
+                  <Form.Item
+                    key={field.name}
+                    name={field.name}
+                    valuePropName={'checked'}
+                    initialValue={data[field.name]}
+                  >
+                    <Checkbox>{field.displayName}</Checkbox>
+                  </Form.Item>
                 ))}
                 <span>Другие изменения:</span>
                 <Form.Item
-                    style={{ width: '100%' }}
-                    name={'another_changes'}
-                    initialValue={data.another_changes}
+                  style={{ width: '100%' }}
+                  name={'another_changes'}
+                  initialValue={data?.another_changes}
                 >
                   <Input.TextArea />
                 </Form.Item>
               </Space>
-
             </Card>
+          </Col>
+
+          <Col span={12}>
             <Card
-                style={{ width: 500 }}
-                title={'Эхо-КГ'}
-                extra={
-                  <Form.Item
-                      label={'Дата'}
-                      name={'date_echo_ekg'}
-                      initialValue={dayjs(data.date_echo_ekg, 'DD.MM.YYYY')}
-                      rules={[{ required: true, message: 'введите дату' }]}
-                  >
-                    <DatePicker format={'DD.MM.YYYY'} />
-                  </Form.Item>
-                }
+              title={'Эхо-КГ'}
+              style={{ height: '100%', }}
+              extra={
+                <div style={{ paddingTop: 15 }}>
+                  <DateInput initialValue={data.date_echo_ekg} label="Дата" name="date_echo_ekg" />
+                </div>
+              }
             >
               <Row gutter={32}>
                 <Col span={12}>
                   <Row gutter={[32, 16]}>
                     {fields.echo_ekg.integer_fields.map(field => (
-                        <>
-                          <Col span={10}>
-                            {field.displayName}:
-                          </Col>
-                          <Col span={14}>
-                            <Form.Item
-                                name={field.name}
-                                initialValue={data[field.name]}
-                                rules={[{ required: true, message: 'заполните поле' }]}
-                            >
-                              <InputNumber />
-                            </Form.Item>
-                          </Col>
-                        </>
+                      <>
+                        <Col span={10}>
+                          <span style={{ color: 'red', }}>*{' '}</span>{field.displayName}:
+                        </Col>
+                        <Col span={14}>
+                          <Form.Item
+                            name={field.name}
+                            initialValue={data[field.name]}
+                            rules={[{ required: true, message: 'Заполните поле' }]}
+                          >
+                            <InputNumber />
+                          </Form.Item>
+                        </Col>
+                      </>
                     ))}
                   </Row>
                 </Col>
                 <Col span={12}>
                   <Space
-                      direction={'vertical'}
-                      size={'middle'}
+                    direction={'vertical'}
+                    size={'middle'}
                   >
                     {fields.echo_ekg.boolean_fields.map(field => (
-                        <Form.Item
-                            key={field.name}
-                            name={field.name}
-                            valuePropName={'checked'}
-                            initialValue={data[field.name]}
-                        >
-                          <Checkbox>{field.displayName}</Checkbox>
-                        </Form.Item>
+                      <Form.Item
+                        key={field.name}
+                        name={field.name}
+                        valuePropName={'checked'}
+                        initialValue={data[field.name]}
+                      >
+                        <Checkbox>{field.displayName}</Checkbox>
+                      </Form.Item>
                     ))}
                   </Space>
                 </Col>
               </Row>
               <span>Примечание:</span>
               <Form.Item
-                  style={{ width: '100%' }}
-                  name={'note'}
-                  initialValue={data.note}
+                style={{ width: '100%' }}
+                name={'note'}
+                initialValue={data.note}
               >
                 <Input.TextArea />
               </Form.Item>
             </Card>
-          </Space>
-        </Card>
-      </Form>
+          </Col>
+        </Row>
+      </Card>
+    </Form>
   );
 };
 

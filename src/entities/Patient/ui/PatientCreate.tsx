@@ -108,21 +108,10 @@ export const PatientCreate = () => {
 
                     </Radio.Group>
                   </Form.Item>
-                  <Form.Item
-                    label={'Дата рождения'}
-                    name={'birth_date'}
-                    rules={[
-                      { required: true, message: 'Введите дату рождения' },
-                      { pattern: new RegExp(/^\d\d\.\d\d.\d\d\d\d$/), message: "Введите корректную дату" },
-                    ]}
-                  >
-                    <DateInput />
-                  </Form.Item>
+                  <DateInput label="Дата рождения" name="birth_date" />
 
                   {showDeathDate ? (
-                    <Form.Item label={'Дата смерти'} name={'dod'} rules={[{ pattern: new RegExp(/^(\d\d\.\d\d.\d\d\d\d|__\.__\.____)$/), message: "Введите корректную дату" }]}>
-                      <DateInput />
-                    </Form.Item>
+                    <DateInput label="Дата смерти" name="dod" required={false} />
                   ) : (
                     <Button type="primary" onClick={() => setShowDeathDate(true)}>Добавить дату смерти</Button>
                   )}
@@ -240,16 +229,7 @@ export const PatientCreate = () => {
                     )}
                   </Space>
                   {hasHospitalization && (
-                    <Form.Item
-                      label={'Дата последней госпитализации'}
-                      name={'last_hospitalization_date'}
-                      rules={[
-                        { required: true, message: 'Введите дату последней госпитализации', },
-                        { pattern: new RegExp(/^\d\d\.\d\d.\d\d\d\d$/), message: "Введите корректную дату" },
-                      ]}
-                    >
-                      <DateInput />
-                    </Form.Item>
+                    <DateInput label="Дата последней госпитализации" name="last_hospitalization_date" />
                   )}
                 </Space>
               </Card>

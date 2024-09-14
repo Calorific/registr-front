@@ -50,39 +50,36 @@ const DrugTherapyCreate = ({ setStatus, appointmentId }: {
   if (fieldsIsLoading) return <Spin></Spin>;
 
   return (
-      <Form
-          form={form}
-          layout={'inline'}
-          onFinish={formSubmitHandler}
+    <Form
+      form={form}
+      layout={'inline'}
+      onFinish={formSubmitHandler}
+    >
+      <Card
+        title={'Лекарственная терапия'}
+        extra={
+          <Form.Item>
+            <SubmitButton form={form}>
+              Сохранить
+            </SubmitButton>
+          </Form.Item>
+        }
       >
-        <Card
-            title={'Лекарственная терапия'}
-            extra={
-              <Form.Item>
-                <SubmitButton form={form}>
-                  Сохранить
-                </SubmitButton>
-              </Form.Item>
-            }
-        >
-          {contextHolder}
-          <Card title={'Лекарственная терапия'}>
-            <Row gutter={[32, 16]}>
-              {fields.map(field => (
-                  <DrugTherapyField field={field} key={field.displayName} />
-              ))}
-            </Row>
-            <span>Примечание:</span>
-            <Form.Item
-                style={{ width: '100%' }}
-                name={'note'}
-            >
-              <Input.TextArea />
-            </Form.Item>
-          </Card>
-
+        {contextHolder}
+        <Card title={'Лекарственная терапия'}>
+          <Row gutter={[32, 16]}>
+            {fields.map(field => (
+              <DrugTherapyField key={field.displayName} field={field} />
+            ))}
+          </Row>
+          <span>Примечание:</span>
+          <Form.Item style={{ width: '100%' }} name={'note'}>
+            <Input.TextArea />
+          </Form.Item>
         </Card>
-      </Form>
+
+      </Card>
+    </Form>
   );
 };
 
@@ -90,56 +87,56 @@ const DrugTherapyCreate = ({ setStatus, appointmentId }: {
 const DrugTherapyField = ({ field }: { field: IDrugTherapyFields }) => {
   const [isActive, setIsActive] = useState(false);
   return (
-      <Form.List name={field.displayName} key={field.displayName}>
-        {() =>
-            <Col span={24}>
-              <Row gutter={32}>
-                <Col span={6}>
+    <Form.List name={field.displayName} key={field.displayName}>
+      {() =>
+          <Col span={24}>
+            <Row gutter={32}>
+              <Col span={6}>
+                <Form.Item
+                  name={'isActive'}
+                  valuePropName={'checked'}
+                  initialValue={false}
+                >
+                  <Checkbox
+                    checked={isActive}
+                    onChange={(e) => setIsActive(e.target.checked)}
+                  >{field.displayName}</Checkbox>
+                </Form.Item>
+              </Col>
+              <Col>
+                <Space>
                   <Form.Item
-                      name={'isActive'}
-                      valuePropName={'checked'}
-                      initialValue={false}
+                    style={{ width: 200 }}
+                    name={'medicine_prescription_id'}
+                    rules={[{ required: isActive }]}
                   >
-                    <Checkbox
-                        checked={isActive}
-                        onChange={(e) => setIsActive(e.target.checked)}
-                    >{field.displayName}</Checkbox>
+                    <Select
+                      options={field.medicine_prescriptions.map(data => ({
+                        label: data.displayName,
+                        value: data.id,
+                      }))}
+                      disabled={!isActive}
+                    />
                   </Form.Item>
-                </Col>
-                <Col>
-                  <Space>
-                    <Form.Item
-                        style={{ width: 200 }}
-                        name={'medicine_prescription_id'}
-                        rules={[{ required: isActive }]}
-                    >
-                      <Select
-                          options={field.medicine_prescriptions.map(data => ({
-                            label: data.displayName,
-                            value: data.id,
-                          }))}
-                      />
-                    </Form.Item>
-                    <Form.Item
-
-                        name={'dosa'}
-                        label={'Доза'}
-                        rules={[{ required: isActive }]}
-                    >
-                      <Input style={{ width: 150 }} />
-                    </Form.Item>
-                    <Form.Item
-                        name={'note'}
-                        label={'Примечание'}
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Space>
-                </Col>
-              </Row>
-            </Col>
-        }
-      </Form.List>
+                  <Form.Item
+                    name={'dosa'}
+                    label={'Доза'}
+                    rules={[{ required: isActive }]}
+                  >
+                    <Input disabled={!isActive} style={{ width: 150 }} />
+                  </Form.Item>
+                  <Form.Item
+                    name={'note'}
+                    label={'Примечание'}
+                  >
+                    <Input disabled={!isActive} />
+                  </Form.Item>
+                </Space>
+              </Col>
+            </Row>
+          </Col>
+      }
+    </Form.List>
   );
 };
 

@@ -37,34 +37,36 @@ const DrugTherapyEdit = ({ setStatus, appointmentId, data }: {
       messageApi.success('Данные успешно обновлены');
       setStatus('display');
     } catch (e: any) {
-      messageApi.error(e.message);
+      messageApi.error(JSON.stringify(e?.response?.data?.message ?? 'Данные заполнены некорректно'));
     }
   };
   if (fieldsError) return <div>Ошибка загрузки</div>;
   if (fieldsIsLoading) return <Spin></Spin>;
 
+  data ??= {}
+
   return (
       <Form
-          form={form}
-          layout={'inline'}
-          onFinish={formSubmitHandler}
+        form={form}
+        layout={'inline'}
+        onFinish={formSubmitHandler}
       >
         <Card
-            title={'Лекарственная терапия'}
-            extra={
-              <Space>
-                <Form.Item>
-                  <Button onClick={() => setStatus('display')}>
-                    Отмена
-                  </Button>
-                </Form.Item>
-                <Form.Item>
-                  <SubmitButton form={form}>
-                    Сохранить
-                  </SubmitButton>
-                </Form.Item>
-              </Space>
-            }
+          title={'Лекарственная терапия'}
+          extra={
+            <Space>
+              <Form.Item>
+                <Button onClick={() => setStatus('display')}>
+                  Отмена
+                </Button>
+              </Form.Item>
+              <Form.Item>
+                <SubmitButton form={form}>
+                  Сохранить
+                </SubmitButton>
+              </Form.Item>
+            </Space>
+          }
         >
           {contextHolder}
           <Card title={'Лекарственная терапия'}>
@@ -75,9 +77,9 @@ const DrugTherapyEdit = ({ setStatus, appointmentId, data }: {
             </Row>
             <span>Примечание:</span>
             <Form.Item
-                style={{ width: '100%' }}
-                name={'note'}
-                initialValue={data.note}
+              style={{ width: '100%' }}
+              name={'note'}
+              initialValue={data.note}
             >
               <Input.TextArea />
             </Form.Item>
@@ -90,58 +92,61 @@ const DrugTherapyEdit = ({ setStatus, appointmentId, data }: {
 
 const DrugTherapyField = ({ field, data }: { field: IDrugTherapyFields, data: any }) => {
   const [isActive, setIsActive] = useState(false);
+
+  data ??= {}
+
   return (
       <Form.List name={field.displayName} key={field.displayName}>
         {() =>
-            <Col span={24}>
-              <Row gutter={32}>
-                <Col span={6}>
+          <Col span={24}>
+            <Row gutter={32}>
+              <Col span={6}>
+                <Form.Item
+                  name={'isActive'}
+                  valuePropName={'checked'}
+                  initialValue={!!data[field.displayName]}
+                >
+                  <Checkbox
+                    checked={isActive}
+                    onChange={(e) => setIsActive(e.target.checked)}
+                  >{field.displayName}</Checkbox>
+                </Form.Item>
+              </Col>
+              <Col>
+                <Space>
                   <Form.Item
-                      name={'isActive'}
-                      valuePropName={'checked'}
-                      initialValue={!!data[field.displayName]}
+                    style={{ width: 200 }}
+                    name={'medicine_prescription_id'}
+                    rules={[{ required: isActive }]}
+                    initialValue={data[field.displayName]?.id}
                   >
-                    <Checkbox
-                        checked={isActive}
-                        onChange={(e) => setIsActive(e.target.checked)}
-                    >{field.displayName}</Checkbox>
+                    <Select
+                      disabled={!isActive}
+                      options={field.medicine_prescriptions.map(data => ({
+                        label: data.displayName,
+                        value: data.id,
+                      }))}
+                    />
                   </Form.Item>
-                </Col>
-                <Col>
-                  <Space>
-                    <Form.Item
-                        style={{ width: 200 }}
-                        name={'medicine_prescription_id'}
-                        rules={[{ required: isActive }]}
-                        initialValue={data[field.displayName]?.id}
-                    >
-                      <Select
-                          options={field.medicine_prescriptions.map(data => ({
-                            label: data.displayName,
-                            value: data.id,
-                          }))}
-                      />
-                    </Form.Item>
-                    <Form.Item
-
-                        name={'dosa'}
-                        label={'Доза'}
-                        rules={[{ required: isActive }]}
-                        initialValue={data[field.displayName]?.dosa}
-                    >
-                      <Input style={{ width: 150 }} />
-                    </Form.Item>
-                    <Form.Item
-                        name={'note'}
-                        label={'Примечание'}
-                        initialValue={data[field.displayName]?.note || ''}
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Space>
-                </Col>
-              </Row>
-            </Col>
+                  <Form.Item
+                    name={'dosa'}
+                    label={'Доза'}
+                    rules={[{ required: isActive }]}
+                    initialValue={data[field.displayName]?.dosa}
+                  >
+                    <Input disabled={!isActive} style={{ width: 150 }} />
+                  </Form.Item>
+                  <Form.Item
+                    name={'note'}
+                    label={'Примечание'}
+                    initialValue={data[field.displayName]?.note || ''}
+                  >
+                    <Input disabled={!isActive} />
+                  </Form.Item>
+                </Space>
+              </Col>
+            </Row>
+          </Col>
         }
       </Form.List>
   );

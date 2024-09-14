@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
-import {ConfigProvider} from "antd";
-import {AxiosProvider} from "@/app/axiosProvider/axiosProvider";
-import "react-datepicker/dist/react-datepicker.css";
-import "./global.css"
+import type { Metadata } from 'next';
+import { Open_Sans } from 'next/font/google';
+import { ConfigProvider } from 'antd';
+import { AxiosProvider } from '@/app/axiosProvider/axiosProvider';
+import 'react-datepicker/dist/react-datepicker.css';
+import './global.css';
 
-const openSans = Open_Sans({ subsets: ["latin"] });
+const openSans = Open_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Регистр ХСН",
-  description: "Регистр пациентов с хронической сердечной недостаточностью",
+  title: 'Регистр ХСН',
+  description: 'Регистр пациентов с хронической сердечной недостаточностью',
 };
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="ru">
+      <html lang="ru">
       <ConfigProvider theme={{
         components: {
           Table: {
@@ -29,7 +29,7 @@ export default function RootLayout({
           },
           Select: {
             borderRadius: 20,
-            colorBorder: "#E8E8E8",
+            colorBorder: '#E8E8E8',
             borderRadiusSM: 100,
             colorPrimary: '#7EB0C6',
             colorPrimaryHover: '#7EB0C6',
@@ -39,7 +39,7 @@ export default function RootLayout({
           TreeSelect: {
             colorPrimary: '#7EB0C6',
             colorPrimaryHover: '#7EB0C6',
-            colorPrimaryBorder: '#7EB0C6'
+            colorPrimaryBorder: '#7EB0C6',
 
           },
           Pagination: {
@@ -47,7 +47,7 @@ export default function RootLayout({
             colorPrimaryHover: '#EEE',
             itemActiveBg: '#7EB0C6',
             marginXS: 15,
-            borderRadius: 100
+            borderRadius: 100,
           },
           Input: {
             colorBorderBg: '#7EB0C6',
@@ -55,7 +55,7 @@ export default function RootLayout({
             activeBorderColor: '#7EB0C6',
             paddingInline: 25,
             paddingBlock: 6,
-            borderRadius: 100
+            borderRadius: 100,
           },
           Button: {
             primaryColor: '#FFF',
@@ -66,7 +66,7 @@ export default function RootLayout({
             colorPrimaryBorderHover: '#7EB0C6',
             colorPrimaryBgHover: '#7EB0C6',
             colorPrimaryActive: '#6597AC',
-            primaryShadow: "",
+            primaryShadow: '',
 
             defaultBorderColor: '#7EB0C6',
             defaultHoverBorderColor: '#7EB0C6',
@@ -74,13 +74,13 @@ export default function RootLayout({
             defaultHoverColor: '#7EB0C6',
             defaultActiveColor: '#7EB0C6',
             defaultActiveBorderColor: '#7EB0C6',
-            defaultActiveBg: "rgba(49, 69, 78, 0.05)",
-            defaultShadow: "",
+            defaultActiveBg: 'rgba(49, 69, 78, 0.05)',
+            defaultShadow: '',
             lineWidth: 2,
             borderRadius: 100,
             borderRadiusSM: 100,
 
-            colorBgContainerDisabled: "#FFF"
+            colorBgContainerDisabled: '#FFF',
           },
           Radio: {
             colorPrimary: '#7EB0C6',
@@ -91,7 +91,7 @@ export default function RootLayout({
             hoverBorderColor: '#7EB0C6',
           },
           Card: {
-            borderRadiusLG: 18
+            borderRadiusLG: 18,
           },
           Tag: {
             defaultBg: '#7EB0C6',
@@ -100,16 +100,16 @@ export default function RootLayout({
             colorBorder: '#FFF',
             borderRadiusSM: 100,
             paddingXXS: 10,
-            lineHeightSM: 2
-          }
-        }
+            lineHeightSM: 2,
+          },
+        },
       }}>
         <AxiosProvider>
           <body className={openSans.className}>
-            {children}
+          {children}
           </body>
         </AxiosProvider>
       </ConfigProvider>
-    </html>
+      </html>
   );
 }

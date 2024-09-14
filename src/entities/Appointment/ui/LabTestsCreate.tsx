@@ -1,22 +1,24 @@
 'use client';
-import React, { Dispatch } from 'react';
-import { Card, Col, DatePicker, Form, Input, message, Row, Space, Spin } from 'antd';
+import React, { Dispatch, useEffect } from 'react';
+import { Card, Col, DatePicker, Form, Input, message, notification, Row, Space, Spin } from 'antd';
 import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
 import { labTestsCreate, useGetLabTestsFields } from '@/entities/Appointment/api/labTestsApi';
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import { dateFormatConverter } from '@/shared/helpers/dateFormatConverter';
 import { useSWRConfig } from 'swr';
+import { useSearchParams } from 'next/navigation';
 
 const LabTestsCreate = ({ setStatus, appointmentId }: { setStatus: Dispatch<FormStatus>, appointmentId: string }) => {
   const { mutate } = useSWRConfig();
   const [form] = Form.useForm();
   const { fields, error: fieldsError, isLoading: fieldsIsLoading } = useGetLabTestsFields();
   const [messageApi, contextHolder] = message.useMessage();
+
+
   const formSubmitHandler = async (values: any) => {
     try {
       for (let key in values) {
         if (key.endsWith('date')) {
-          console.log('hood');
           values[key] = dateFormatConverter(values[key]);
         }
       }
@@ -34,31 +36,28 @@ const LabTestsCreate = ({ setStatus, appointmentId }: { setStatus: Dispatch<Form
   if (fieldsIsLoading) return <Spin />;
 
   return (
+    <>
+      {contextHolder}
       <Form
-          form={form}
-          layout={'inline'}
-          onFinish={formSubmitHandler}
+        form={form}
+        layout={'inline'}
+        onFinish={formSubmitHandler}
       >
         <Card
-            title={'Лабораторные тесты'}
-            extra={
-              <Form.Item>
-                <SubmitButton form={form}>
-                  Сохранить
-                </SubmitButton>
-              </Form.Item>
-            }
+          title={'Лабораторные тесты'}
+          extra={
+            <Form.Item>
+              <SubmitButton form={form}>
+                Сохранить
+              </SubmitButton>
+            </Form.Item>
+          }
         >
-          {contextHolder}
+
           <Row gutter={[32, 16]} align={'middle'}>
             <Col span={12}>
-              <Space
-                  direction={'vertical'}
-                  size={'middle'}
-              >
-                <Card
-                    title={'Гормональный анализ крови'}
-                >
+              <Space direction={'vertical'} size={'middle'}>
+                <Card title={'Гормональный анализ крови'}>
                   <Row gutter={[32, 16]}>
                     {fields.hormonal_blood_analysis.map(field => (
                         <>
@@ -164,17 +163,17 @@ const LabTestsCreate = ({ setStatus, appointmentId }: { setStatus: Dispatch<Form
                           </Col>
                           <Col span={8}>
                             <Form.Item
-                                name={field.textName}
-                                rules={[{ required: true, message: 'заполните поле' }]}
+                              name={field.textName}
+                              rules={[{ required: true, message: 'заполните поле' }]}
                             >
                               <Input />
                             </Form.Item>
                           </Col>
                           <Col span={12}>
                             <Form.Item
-                                label={'Дата'}
-                                name={field.dateName}
-                                rules={[{ required: true, message: 'введите дату' }]}
+                              label={'Дата'}
+                              name={field.dateName}
+                              rules={[{ required: true, message: 'введите дату' }]}
                             >
                               <DatePicker format={'DD.MM.YYYY'} />
                             </Form.Item>
@@ -188,8 +187,8 @@ const LabTestsCreate = ({ setStatus, appointmentId }: { setStatus: Dispatch<Form
             <Col span={24}>
               <span>Примечание:</span>
               <Form.Item
-                  style={{ width: '100%' }}
-                  name={'note'}
+                style={{ width: '100%' }}
+                name={'note'}
               >
                 <Input.TextArea style={{ height: 100 }} />
               </Form.Item>
@@ -197,6 +196,7 @@ const LabTestsCreate = ({ setStatus, appointmentId }: { setStatus: Dispatch<Form
           </Row>
         </Card>
       </Form>
+    </>
   );
 };
 

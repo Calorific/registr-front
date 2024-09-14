@@ -111,21 +111,8 @@ const PatientEdit = ({ data }: { data: IPatient }) => {
 
                     </Radio.Group>
                   </Form.Item>
-                  <Form.Item
-                    label={'Дата рождения'}
-                    name={'birth_date'}
-                    rules={[{ required: true, message: 'Введите дату рождения' }]}
-                    initialValue={dayjs(data.birth_date, 'DD.MM.YYYY')}
-                  >
-                    <DateInput />
-                  </Form.Item>
-                  <Form.Item
-                    label={'Дата смерти'}
-                    name={'dod'}
-                    initialValue={data.dod ? dayjs(data.dod, 'DD.MM.YYYY') : null}
-                  >
-                    <DateInput />
-                  </Form.Item>
+                  <DateInput label="Дата рождения" name="birth_date" />
+                  <DateInput label="Дата смерти" name="dod" required={false} />
                 </Space>
               </Card>
               <span>Примечание:</span>
@@ -253,14 +240,7 @@ const PatientEdit = ({ data }: { data: IPatient }) => {
                     )}
                   </Space>
                   {hasHospitalization && (
-                    <Form.Item
-                      label={'Дата последней госпитализации'}
-                      name={'last_hospitalization_date'}
-                      rules={[{ required: true, message: 'Введите дату последней госпитализации' }]}
-                      initialValue={data.last_hospitalization_date ? dayjs(data.last_hospitalization_date, 'DD.MM.YYYY') : null}
-                    >
-                      <DateInput />
-                    </Form.Item>
+                    <DateInput label="Дата последней госпитализации" name="last_hospitalization_date" />
                   )}
                 </Space>
               </Card>
