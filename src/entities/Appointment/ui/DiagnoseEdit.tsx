@@ -31,6 +31,7 @@ const DiagnoseEdit = ({ status, setStatus, appointmentId, data }: DiagnoseEdit) 
 
   const formSubmitHandler = async (values: IDiagnose) => {
     try {
+      await form.validateFields();
       if (status === 'edit') {
         await diagnoseUpdate(appointmentId, values);
         messageApi.success('Данные успешно обновлены');
@@ -43,22 +44,18 @@ const DiagnoseEdit = ({ status, setStatus, appointmentId, data }: DiagnoseEdit) 
         });
       }
       setStatus('display');
+
+      return true;
     } catch (e: any) {
-      messageApi.error(e.message);
+      messageApi.error(e?.response?.data?.message ?? 'Данные заполнены некорректно');
+      return false;
     }
   };
 
   const handleNext = async () => {
-    try {
-      await diagnoseCreate(appointmentId, form.getFieldsValue());
-      await mutate({
-        key: 'appointments/block/diagnose/',
-        appointmentId,
-      });
-
+    const res = await formSubmitHandler(form.getFieldsValue());
+    if (res) {
       router.push(`/appointments/${appointmentId}/labTests?m=success`);
-    } catch (e: any) {
-      messageApi.error(JSON.stringify(e?.response?.data?.message ?? 'Данные заполнены некорректно'));
     }
   }
 

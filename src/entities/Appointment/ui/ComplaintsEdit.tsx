@@ -32,7 +32,10 @@ const ComplaintsEdit = ({ status, setStatus, appointmentId, data }: ComplaintsEd
     values['heart_failure_om'] = true;
 
     try {
+      await form.validateFields();
+
       values.bmi = (weight / Math.pow((height / 100), 2)).toFixed(2);
+
       if (status !== 'edit') {
         await complaintsCreate(appointmentId, values);
         await mutate({
@@ -52,7 +55,7 @@ const ComplaintsEdit = ({ status, setStatus, appointmentId, data }: ComplaintsEd
 
       return true;
     } catch (e: any) {
-      messageApi.error(JSON.stringify(e?.response?.data?.message ?? 'Данные заполнены некорректно'));
+      messageApi.error(e?.response?.data?.message ?? 'Данные заполнены некорректно');
       return false;
     }
   };
@@ -177,7 +180,7 @@ const ComplaintsEdit = ({ status, setStatus, appointmentId, data }: ComplaintsEd
                 <span>Примечание:</span>
                 <Form.Item
                   name={'note'}
-                  initialValue={data.note}
+                  initialValue={data.note ?? ''}
                 >
                   <Input.TextArea />
                 </Form.Item>
@@ -203,7 +206,7 @@ const ComplaintsEdit = ({ status, setStatus, appointmentId, data }: ComplaintsEd
               <span>Примечание:</span>
               <Form.Item
                 name={'other_symptoms'}
-                initialValue={data.other_symptoms}
+                initialValue={data.other_symptoms ?? ''}
               >
                 <Input.TextArea />
               </Form.Item>

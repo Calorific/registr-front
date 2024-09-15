@@ -29,6 +29,7 @@ const LabTestsEdit = ({ status, setStatus, appointmentId, data }: LabTestsEditPr
 
   const formSubmitHandler = async (values: any) => {
     try {
+      await form.validateFields();
       for (let key in values) {
         if (key.endsWith('date')) {
           values[key] = dateFormatConverter(values[key]);
@@ -50,7 +51,7 @@ const LabTestsEdit = ({ status, setStatus, appointmentId, data }: LabTestsEditPr
 
       return true;
     } catch (e: any) {
-      messageApi.error(JSON.stringify(e?.response?.data?.message ?? 'Данные заполнены некорректно'));
+      messageApi.error(e?.response?.data?.message ?? 'Данные заполнены некорректно');
       return false;
     }
   };

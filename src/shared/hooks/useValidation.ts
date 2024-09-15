@@ -4,17 +4,12 @@ import { useCallback, useEffect, useState } from 'react';
 export const useValidation = (form: FormInstance) => {
   const [isValid, setIsValid] = useState<boolean>(false);
 
-  const handleValidation: any = useCallback(async () => {
-    try {
-      await form.validateFields();
-    } catch (e: any) {
-      console.log(e)
-      setIsValid(!e.errorFields.length);
-    }
+  const handleValidation: any = useCallback(() => {
+    setIsValid(!form.getFieldsError().some(e => e.errors.length));
   }, [form]);
 
   useEffect(() => {
-    handleValidation().then();
+    handleValidation();
   }, [handleValidation]);
 
   return [isValid, handleValidation];

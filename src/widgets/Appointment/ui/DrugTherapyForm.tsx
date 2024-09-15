@@ -4,7 +4,6 @@ import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentA
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import { useGetCurrentDrugTherapyData } from '@/entities/Appointment/api/drugTherapyApi';
 import DrugTherapyEdit from '@/entities/Appointment/ui/DrugTherapyEdit';
-import DrugTherapyCreate from '@/entities/Appointment/ui/DrugTherapyCreate';
 import { Spin } from 'antd';
 
 const DrugTherapyForm = ({ appointmentId }: { appointmentId: string }) => {
@@ -14,7 +13,7 @@ const DrugTherapyForm = ({ appointmentId }: { appointmentId: string }) => {
     isLoading: currentDataIsLoading,
   } = useGetCurrentDrugTherapyData(appointmentId);
   const { appointmentStatus, isLoading: statusIsLoading, error: statusError } = useGetAppointmentStatus(appointmentId);
-  const [status, setStatus] = useState<FormStatus>();
+  const [status, setStatus] = useState<FormStatus>('create');
   useEffect(() => {
     if (currentData && appointmentStatus == 'completed') {
       setStatus('display');
@@ -30,7 +29,7 @@ const DrugTherapyForm = ({ appointmentId }: { appointmentId: string }) => {
 
   return (
     <>
-      <DrugTherapyEdit setStatus={setStatus} appointmentId={appointmentId} data={currentData} />x
+      <DrugTherapyEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={currentData} />x
     </>
   );
 };

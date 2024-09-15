@@ -30,8 +30,10 @@ const EkgEdit = ({ status, setStatus, appointmentId, data }: EkgEditProps) => {
 
   const formSubmitHandler = async (values: IEkg) => {
     try {
+      await form.validateFields();
       values.date_ekg = dateFormatConverter(values.date_ekg);
       values.date_echo_ekg = dateFormatConverter(values.date_echo_ekg);
+
       if (status === 'edit') {
         await ekgUpdate(appointmentId, values);
         messageApi.success('Данные успешно обновлены');
@@ -46,7 +48,7 @@ const EkgEdit = ({ status, setStatus, appointmentId, data }: EkgEditProps) => {
 
       return true;
     } catch (e: any) {
-      messageApi.error(JSON.stringify(e?.response?.data?.message ?? 'Данные заполнены некорректно'));
+      messageApi.error(e?.response?.data?.message ?? 'Данные заполнены некорректно');
       return false;
     }
   };
