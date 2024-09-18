@@ -28,7 +28,7 @@ const DrugTherapyEdit = ({ status, setStatus, appointmentId, data }: DrugTherapy
     try {
       const data: {
         medicine_prescriptions: {
-          medicine_prescription_id: number,
+          drug_id: number,
           dosa: string,
           note: string
         }[]
@@ -37,7 +37,7 @@ const DrugTherapyEdit = ({ status, setStatus, appointmentId, data }: DrugTherapy
         if (values[key]?.isActive) {
           data.medicine_prescriptions.push({
             dosa: values[key].dosa,
-            medicine_prescription_id: values[key].medicine_prescription_id,
+            drug_id: values[key].drug_id,
             note: values[key].note,
           });
         }
@@ -133,7 +133,7 @@ const DrugTherapyField = ({ field, data }: { field: IDrugTherapyFields, data: an
               <Space>
                 <Form.Item
                   style={{ width: 200 }}
-                  name={'medicine_prescription_id'}
+                  name={'drug_id'}
                   rules={[{ required: isActive }]}
                   initialValue={data[field.displayName]?.id}
                 >
