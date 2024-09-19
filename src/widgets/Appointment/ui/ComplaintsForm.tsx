@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentApi';
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import { useGetCurrentComplaintsData } from '@/entities/Appointment/api/complaintsApi';
-import ComplaintsCreate from '@/entities/Appointment/ui/ComplaintsCreate';
 import ComplaintsEdit from '@/entities/Appointment/ui/ComplaintsEdit';
 import { Spin } from 'antd';
 

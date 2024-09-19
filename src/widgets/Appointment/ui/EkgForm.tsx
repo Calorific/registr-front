@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentApi';
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import EkgEdit from '@/entities/Appointment/ui/EkgEdit';
-import EkgCreate from '@/entities/Appointment/ui/EkgCreate';
 import { Spin } from 'antd';
 import { useGetCurrentEkgData } from '@/entities/Appointment/api/ekgsApi';
 
