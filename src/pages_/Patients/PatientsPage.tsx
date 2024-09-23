@@ -6,6 +6,7 @@ const PatientsPage = ({ page }: { page: number }) => {
     ssr: false,
     loading: () => <div>Загрузка...</div>,
   });
+
   return (
     <>
       <PatientsList page={page} />

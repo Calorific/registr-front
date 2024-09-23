@@ -1,3 +1,8 @@
+import dayjs from 'dayjs';
+
 export const dateFormatConverter = (date: Date | string) => {
-  return date;
+  if (typeof date === 'string') {
+    return date;
+  }
+  return dayjs(date).format('DD.MM.YYYY');
 };

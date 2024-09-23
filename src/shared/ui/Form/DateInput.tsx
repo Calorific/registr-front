@@ -1,6 +1,7 @@
 import React, { FC, memo, useMemo } from 'react';
 import MaskedInput from 'antd-mask-input';
 import { DatePicker, Form } from 'antd';
+import dayjs from 'dayjs';
 
 interface DateInputProps {
   required?: boolean;
@@ -13,15 +14,25 @@ interface DateInputProps {
 const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialValue, type = 'DEFAULT' }) => {
 
   const rules = useMemo(() => {
-    if (required) {
+    if (required && type === 'MASKED') {
       return [
-        { required: true, message: 'Введите дату последней госпитализации', },
-        { pattern: new RegExp(/^\d\d\.\d\d.\d\d\d\d$/), message: "Введите корректную дату" },
+        { required: true, message: 'Введите дату', },
+        { pattern: new RegExp(/^\d\d\.\d\d\.\d\d\d\d$/), message: 'Введите корректную дату' },
       ];
     }
 
-    return [{ pattern: new RegExp(/^(\d\d\.\d\d.\d\d\d\d|__\.__\.____)$/), message: "Введите корректную дату" }];
-  }, [required]);
+    if (required && type === 'DEFAULT') {
+      return [
+        { required: true, message: 'Введите дату', },
+      ];
+    }
+
+    if (type === 'MASKED') {
+      return [{ pattern: new RegExp(/^(\d\d\.\d\d.\d\d\d\d|__\.__\.____)$/), message: 'Введите корректную дату' }];
+    }
+
+    return [];
+  }, [required, type]);
 
   return (
     <Form.Item
@@ -30,7 +41,7 @@ const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialV
       rules={rules}
       initialValue={initialValue}
     >
-      {type === 'DEFAULT' ? <DatePicker /> : <MaskedInput mask="00.00.0000" />}
+      {type === 'DEFAULT' ? <DatePicker inputReadOnly format="DD.MM.YYYY" /> : <MaskedInput mask="00.00.0000" />}
     </Form.Item>
 
   );

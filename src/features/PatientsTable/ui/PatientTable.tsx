@@ -19,6 +19,7 @@ interface props {
 const PatientTable = ({ tableParams, setTableParams, data }: props) => {
 
   const { data: columns, error, isLoading } = useGetPatientColumns();
+
   if (isLoading) return <div><Table
       className={styles.table}
       pagination={false}

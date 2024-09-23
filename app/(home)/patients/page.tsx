@@ -1,15 +1,17 @@
 import React from 'react';
 import PatientsPage from '@/pages_/Patients/PatientsPage';
 
-const Page = ({ searchParams }: {
+interface PageProps {
   searchParams: {
-    page: number
+    page: number;
   }
-}) => {
+}
+
+const Page = ({ searchParams }: PageProps) => {
   return (
-      <>
-        <PatientsPage page={searchParams.page} />
-      </>
+    <>
+      <PatientsPage page={searchParams.page} />
+    </>
   );
 };
 
