@@ -8,7 +8,7 @@ export const useSuccessMessage = () => {
   useEffect(() => {
     if (searchParams.get('m') === 'success') {
       notification.destroy();
-      notification.success({ type: 'success', message: 'Прием успешно сохранен' });
+      notification.success({ type: 'success', message: 'Прием успешно сохранен', placement: 'top' });
     }
   }, [searchParams]);
 }

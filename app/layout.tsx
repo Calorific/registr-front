@@ -57,6 +57,13 @@ export default function RootLayout({
             paddingBlock: 6,
             borderRadius: 100,
           },
+          InputNumber: {
+            colorBorderBg: '#7EB0C6',
+            hoverBorderColor: '#7EB0C6',
+            activeBorderColor: '#7EB0C6',
+            paddingBlock: 6,
+            borderRadius: 100,
+          },
           Button: {
             primaryColor: '#FFF',
             colorPrimary: '#7EB0C6',

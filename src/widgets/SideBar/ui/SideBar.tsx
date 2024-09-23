@@ -9,23 +9,24 @@ const SideBar = () => {
   const ProfileLink = dynamic(() => import('@/entities/Profile/ui/ProfileLink'), { ssr: false });
   const LogoutButton = dynamic(() => import('@/entities/Session/ui/LogoutButton'), { ssr: false });
   const SettingsButton = dynamic(() => import('@/features/Settings/ui/SettingsButton'), { ssr: false });
+
   return (
-      <aside className={styles.sideBar}>
-        <NavBar />
-        <nav className={styles.bottomNav}>
-          <ul className={styles.ul}>
-            <li className={styles.li}>
-              <ProfileLink />
-            </li>
-            <li className={styles.li}>
-              <SettingsButton />
-            </li>
-            <li className={styles.li}>
-              <LogoutButton />
-            </li>
-          </ul>
-        </nav>
-      </aside>
+    <aside className={styles.sideBar}>
+      <NavBar />
+      <nav className={styles.bottomNav}>
+        <ul className={styles.ul}>
+          <li className={styles.li}>
+            <ProfileLink />
+          </li>
+          <li className={styles.li}>
+            <SettingsButton />
+          </li>
+          <li className={styles.li}>
+            <LogoutButton />
+          </li>
+        </ul>
+      </nav>
+    </aside>
   );
 };
 

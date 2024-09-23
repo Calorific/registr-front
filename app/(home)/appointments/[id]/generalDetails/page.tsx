@@ -1,21 +1,20 @@
 import React from 'react';
 import GeneralDetailsPage from '@/pages_/GeneralDetails/GeneralDetailsPage';
 
-const Page = ({
-                params,
-                searchParams,
-              }: {
+interface Props {
   params: {
     id: string
   },
   searchParams: {
     status: string
   }
-}) => {
+}
+
+const Page = ({ params, searchParams }: Props) => {
   return (
-      <>
-        <GeneralDetailsPage status={searchParams.status} appointmentId={params.id} />
-      </>
+    <>
+      <GeneralDetailsPage status={searchParams.status} appointmentId={params.id} />
+    </>
   );
 };
 

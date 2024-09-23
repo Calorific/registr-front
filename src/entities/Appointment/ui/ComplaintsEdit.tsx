@@ -114,7 +114,7 @@ const ComplaintsEdit = ({ status, setStatus, appointmentId, data }: ComplaintsEd
                     rules={[{ required: true, message: 'Укажите рост' }]}
                     initialValue={data.height}
                   >
-                    <InputNumber />
+                    <InputNumber type="number" />
                   </Form.Item>
                   <Form.Item
                     label={'Вес'}
@@ -122,7 +122,7 @@ const ComplaintsEdit = ({ status, setStatus, appointmentId, data }: ComplaintsEd
                     rules={[{ required: true, message: 'Укажите вес' }]}
                     initialValue={data.weight}
                   >
-                    <InputNumber />
+                    <InputNumber type="number" />
                   </Form.Item>
                   <Form.Item
                     label={'ИМТ'}
@@ -138,7 +138,7 @@ const ComplaintsEdit = ({ status, setStatus, appointmentId, data }: ComplaintsEd
                     rules={[{ required: true, message: 'Укажите систолическое АД' }]}
                     initialValue={data.systolic_bp}
                   >
-                    <InputNumber />
+                    <InputNumber type="number" />
                   </Form.Item>
                   <Form.Item
                     label={'Диастолическое АД'}
@@ -146,7 +146,7 @@ const ComplaintsEdit = ({ status, setStatus, appointmentId, data }: ComplaintsEd
                     rules={[{ required: true, message: 'Укажите диастолическое АД' }]}
                     initialValue={data.diastolic_bp}
                   >
-                    <InputNumber />
+                    <InputNumber type="number" />
                   </Form.Item>
                   <Form.Item
                     label={'ЧСС'}
@@ -154,7 +154,7 @@ const ComplaintsEdit = ({ status, setStatus, appointmentId, data }: ComplaintsEd
                     rules={[{ required: true, message: 'Укажите ЧСС' }]}
                     initialValue={data.heart_rate}
                   >
-                    <InputNumber />
+                    <InputNumber type="number" />
                   </Form.Item>
                   <Form.Item
                     label={'Дистанция 6-минутной ходьбы'}
@@ -162,7 +162,7 @@ const ComplaintsEdit = ({ status, setStatus, appointmentId, data }: ComplaintsEd
                     rules={[{ required: true, message: 'Укажите дистанцию 6-минутной ходьбы' }]}
                     initialValue={data.six_min_walk_distance}
                   >
-                    <InputNumber />
+                    <InputNumber type="number" />
                   </Form.Item>
                 </Space>
               </Card>

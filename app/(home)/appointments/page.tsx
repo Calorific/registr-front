@@ -7,9 +7,9 @@ const Page = ({ searchParams }: {
   }
 }) => {
   return (
-      <>
-        <AppointmentsPage page={searchParams.page} />
-      </>
+    <>
+      <AppointmentsPage page={searchParams.page} />
+    </>
   );
 };
 

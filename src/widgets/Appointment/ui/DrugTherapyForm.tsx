@@ -4,7 +4,7 @@ import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentA
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import { useGetCurrentDrugTherapyData } from '@/entities/Appointment/api/drugTherapyApi';
 import DrugTherapyEdit from '@/entities/Appointment/ui/DrugTherapyEdit';
-import { Spin } from 'antd';
+import { Spin, Typography } from 'antd';
 
 const DrugTherapyForm = ({ appointmentId }: { appointmentId: string }) => {
   const {
@@ -29,6 +29,10 @@ const DrugTherapyForm = ({ appointmentId }: { appointmentId: string }) => {
 
   return (
     <>
+      <Typography.Title>
+        Прием пациента
+      </Typography.Title>
+
       <DrugTherapyEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={currentData} />x
     </>
   );

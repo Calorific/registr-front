@@ -3,6 +3,7 @@ import React from 'react';
 import { useGetPatientByAppointment } from '@/entities/Patient/api/getPatient';
 import PatientEdit from '@/entities/Patient/ui/PatientEdit';
 import PatientDisplay from '@/entities/Patient/ui/PatientDisplay';
+import { Typography } from 'antd';
 
 const GeneralDetailsForm = ({ appointmentId, status }: { appointmentId: string, status: string }) => {
   const { data, error, isLoading } = useGetPatientByAppointment(appointmentId);
@@ -15,12 +16,16 @@ const GeneralDetailsForm = ({ appointmentId, status }: { appointmentId: string, 
   if (isLoading) return <div>Загрузка</div>;
 
   return (
-      <>
-        {(status == 'edit')
-            ? (<PatientEdit data={data} />)
-            : (<PatientDisplay data={data} />)
-        }
-      </>
+    <>
+      <Typography.Title>
+        Прием пациента
+      </Typography.Title>
+
+      {(status == 'edit')
+        ? (<PatientEdit data={data} />)
+        : (<PatientDisplay data={data} />)
+      }
+    </>
   );
 };
 

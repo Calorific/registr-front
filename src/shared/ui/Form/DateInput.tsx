@@ -1,15 +1,16 @@
 import React, { FC, memo, useMemo } from 'react';
 import MaskedInput from 'antd-mask-input';
-import { Form } from 'antd';
+import { DatePicker, Form } from 'antd';
 
 interface DateInputProps {
   required?: boolean;
   label: string;
   name: string;
   initialValue?: string;
+  type?: 'DEFAULT' | 'MASKED';
 }
 
-const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialValue }) => {
+const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialValue, type = 'DEFAULT' }) => {
 
   const rules = useMemo(() => {
     if (required) {
@@ -29,7 +30,7 @@ const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialV
       rules={rules}
       initialValue={initialValue}
     >
-      <MaskedInput mask="00.00.0000" />
+      {type === 'DEFAULT' ? <DatePicker /> : <MaskedInput mask="00.00.0000" />}
     </Form.Item>
 
   );

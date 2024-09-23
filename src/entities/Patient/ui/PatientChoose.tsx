@@ -1,47 +1,88 @@
 'use client';
-import React, { useState } from 'react';
-import { Card, Empty, Select, Space, Spin } from 'antd';
+import React, { CSSProperties, useMemo, useState } from 'react';
+import { Button, Card, Empty, Select, Spin } from 'antd';
 import { useGetPatientsByName } from '@/entities/Patient/api/getPatientsByName';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { initAppointment } from '@/entities/Patient/api/initAppointment';
 
+const style: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: 16
+};
+
+const select: CSSProperties = {
+  width: 300,
+  border: 'solid #aaa 1px',
+  borderRadius: 20,
+};
+
+const button: CSSProperties = {
+  width: 300,
+}
+
+
 const PatientChoose = () => {
   const [name, setName] = useState('');
-  const { patients, isLoading, error, mutate } = useGetPatientsByName(name);
+  const { patients, mutate } = useGetPatientsByName(name);
+  const [patient, setPatient] = useState<number>();
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const selectHandler = async (value: any) => {
+
+  const selectHandler = async () => {
     try {
-      const appointmentId = await initAppointment(value.value);
+      if (!patient) {
+        return;
+      }
+
+      setLoading(true);
+
+      const appointmentId = await initAppointment(patient.toString());
       router.push(`/appointments/${appointmentId}/generalDetails`);
+      setLoading(false);
     } catch (e) {
       console.log(e);
+      setLoading(false);
     }
   };
 
+  const handleConfirm = () => {
+    if (confirm('Продолжить с этим пациентом?')) {
+      selectHandler().then();
+    }
+  }
+
+  const options = useMemo(() => {
+    return patients?.data.map(patient => ({ label: patient.full_name, value: patient.id })) || <Empty />;
+  }, [patients]);
+
   return (
-      <Card
-          title={'Выбор пациента'}
-      >
-        <Space size={'large'}>
-          ФИО пациента
-          <Select
-              labelInValue
-              filterOption={false}
-              value={name}
-              style={{ width: 300, border: 'solid #aaa 1px', borderRadius: 20 }}
-              showSearch={true}
-              onSearch={setName}
-              onChange={setName}
-              onSelect={selectHandler}
-              notFoundContent={isLoading ? <Spin size={'small'} /> : null}
-              options={patients?.data.map(patient => ({ label: patient.full_name, value: patient.id })) || <Empty />}
-          />
+      <Card title={'Выбор пациента'} loading={loading}>
+        <div style={style}>
+          <div>
+            <div>ФИО пациента</div>
+            <Select
+              style={select}
+              showSearch
+              placeholder="Выберите пациента"
+              optionFilterProp="label"
+              value={patient}
+              onChange={value => setPatient(value)}
+              options={options}
+            />
+          </div>
+
+          {patient && (
+            <Button style={button} onClick={handleConfirm}>
+              Выбрать пациента
+            </Button>
+          )}
+
           <Link href={'?status=create'}>
             Новый пациент
           </Link>
-        </Space>
-
+        </div>
       </Card>
   );
 };

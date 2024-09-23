@@ -1,7 +1,6 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { IPatientTable } from '@/entities/Patient/model/IPatientTable';
-import { ITableParams } from '../../../shared/ui/CustomTable';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ITableParams } from '@/shared/types/ITableParams';
 import SearchBar from '@/shared/ui/SearchBar/SearchBar';
 import ButtonNew from '@/shared/ui/Buttons/ButtonNew';
 import styles from './AppointmentsList.module.css';
@@ -18,21 +17,11 @@ const AppointmentsList = ({ page }: { page: number }) => {
         sortParams: null,
       },
   );
-  const [appointments, setAppointments] = useState<{ data: IPatientTable[], total: number }>({
-    data: [],
-    total: 0,
-  });
+
   const [searchValue, setSearchValue] = useState('');
   const { data, error, isLoading } = useGetAppointments(appointmentsTableParams);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      searchHandler();
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [searchValue]);
-
-  const searchHandler = () => {
+  const searchHandler = useCallback(() => {
     setAppointmentsTableParams(
         {
           ...appointmentsTableParams,
@@ -42,34 +31,41 @@ const AppointmentsList = ({ page }: { page: number }) => {
           },
         },
     );
-  };
+  }, [appointmentsTableParams, searchValue]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      searchHandler();
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [searchValue, searchHandler]);
+
+
 
   const onChangeSearchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.currentTarget.value);
   };
-  if (error) return <div>Ошибка загрузки</div>;
+
+  if (error)
+    return <div>Ошибка загрузки</div>;
+
   return (
-      <>
-        {
-          (<>
-                <h2>Список приемов</h2>
-                <div className={styles.container}>
-                  <SearchBar
-                      value={searchValue}
-                      onChange={onChangeSearchHandler}
-                      onPressEnter={searchHandler}
-                  />
-                  <ButtonNew href={'/appointments/new/'}>Новый прием</ButtonNew>
-                </div>
-                <AppointmentTable
-                    data={{ ...data, isLoading }}
-                    tableParams={appointmentsTableParams}
-                    setTableParams={setAppointmentsTableParams}
-                />
-              </>
-          )
-        }
-      </>
+    <>
+      <h2>Список приемов</h2>
+      <div className={styles.container}>
+        <SearchBar
+          value={searchValue}
+          onChange={onChangeSearchHandler}
+          onPressEnter={searchHandler}
+        />
+        <ButtonNew href={'/appointments/new/'}>Новый прием</ButtonNew>
+      </div>
+      <AppointmentTable
+        data={{ ...data, isLoading }}
+        tableParams={appointmentsTableParams}
+        setTableParams={setAppointmentsTableParams}
+      />
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentA
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import { useGetCurrentComplaintsData } from '@/entities/Appointment/api/complaintsApi';
 import ComplaintsEdit from '@/entities/Appointment/ui/ComplaintsEdit';
-import { Spin } from 'antd';
+import { Spin, Typography } from 'antd';
 
 const ComplaintsForm = ({ appointmentId }: { appointmentId: string }) => {
   const { data, error: currentDataError, isLoading: currentDataIsLoading } = useGetCurrentComplaintsData(appointmentId);
@@ -24,6 +24,10 @@ const ComplaintsForm = ({ appointmentId }: { appointmentId: string }) => {
   if (currentDataIsLoading || statusIsLoading) return <Spin />;
   return (
     <>
+      <Typography.Title>
+        Прием пациента
+      </Typography.Title>
+
       <ComplaintsEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={data} />
     </>
   );

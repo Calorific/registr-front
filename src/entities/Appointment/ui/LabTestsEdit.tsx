@@ -1,5 +1,5 @@
 import React, { Dispatch, Fragment } from 'react';
-import { Button, Card, Col, Form, Input, message, Row, Space, Spin } from 'antd';
+import { Button, Card, Col, Form, Input, InputNumber, message, Row, Space, Spin } from 'antd';
 import { labTestsCreate, labTestsUpdate, useGetLabTestsFields } from '@/entities/Appointment/api/labTestsApi';
 import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
@@ -113,7 +113,7 @@ const LabTestsEdit = ({ status, setStatus, appointmentId, data }: LabTestsEditPr
                           initialValue={data[field.textName]}
                           rules={[{ required: true, message: 'заполните поле' }]}
                         >
-                          <Input />
+                          <InputNumber type="number" />
                         </Form.Item>
                       </Col>
                       <Col span={12}>
@@ -136,7 +136,7 @@ const LabTestsEdit = ({ status, setStatus, appointmentId, data }: LabTestsEditPr
                           initialValue={data[field.textName]}
                           rules={[{ required: true, message: 'заполните поле' }]}
                         >
-                          <Input />
+                          <InputNumber type="number" />
                         </Form.Item>
                       </Col>
                       <Col span={12}>
@@ -162,7 +162,7 @@ const LabTestsEdit = ({ status, setStatus, appointmentId, data }: LabTestsEditPr
                         initialValue={data[field.textName]}
                         rules={[{ required: true, message: 'заполните поле' }]}
                       >
-                        <Input />
+                        <InputNumber type="number" />
                       </Form.Item>
                     </Col>
                     <Col span={11}>
@@ -188,7 +188,7 @@ const LabTestsEdit = ({ status, setStatus, appointmentId, data }: LabTestsEditPr
                           initialValue={data[field.textName]}
                           rules={[{ required: true, message: 'заполните поле' }]}
                         >
-                          <Input />
+                          <InputNumber type="number" />
                         </Form.Item>
                       </Col>
                       <Col span={12}>

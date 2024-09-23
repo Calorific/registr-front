@@ -4,7 +4,7 @@ import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentA
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import { useGetCurrentLabTestsData } from '@/entities/Appointment/api/labTestsApi';
 import LabTestsEdit from '@/entities/Appointment/ui/LabTestsEdit';
-import { Spin } from 'antd';
+import { Spin, Typography } from 'antd';
 
 const LabTestsForm = ({ appointmentId }: { appointmentId: string }) => {
   const {
@@ -28,6 +28,10 @@ const LabTestsForm = ({ appointmentId }: { appointmentId: string }) => {
   if (currentDataIsLoading || statusIsLoading) return <Spin />;
   return (
     <>
+      <Typography.Title>
+        Прием пациента
+      </Typography.Title>
+
       <LabTestsEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={currentData} />
     </>
   );

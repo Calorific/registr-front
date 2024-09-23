@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentApi';
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import EkgEdit from '@/entities/Appointment/ui/EkgEdit';
-import { Spin } from 'antd';
+import { Spin, Typography } from 'antd';
 import { useGetCurrentEkgData } from '@/entities/Appointment/api/ekgsApi';
 
 const EkgForm = ({ appointmentId }: { appointmentId: string }) => {
@@ -24,6 +24,10 @@ const EkgForm = ({ appointmentId }: { appointmentId: string }) => {
   if (currentDataIsLoading || statusIsLoading) return <Spin />;
   return (
     <>
+      <Typography.Title>
+        Прием пациента
+      </Typography.Title>
+
       <EkgEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={currentData} />
     </>
   );

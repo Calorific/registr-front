@@ -4,7 +4,7 @@ import { useGetCurrentDiagnoseData, useGetPreviousDiagnoseData } from '@/entitie
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentApi';
 import DiagnoseEdit from '@/entities/Appointment/ui/DiagnoseEdit';
-import { Spin } from 'antd';
+import { Spin, Typography } from 'antd';
 
 const DiagnoseForm = ({ appointmentId }: { appointmentId: string }) => {
   const {
@@ -37,6 +37,10 @@ const DiagnoseForm = ({ appointmentId }: { appointmentId: string }) => {
 
   return (
     <>
+      <Typography.Title>
+        Прием пациента
+      </Typography.Title>
+
       <DiagnoseEdit status={status} appointmentId={appointmentId} data={currentData} setStatus={setStatus} />
     </>
   );

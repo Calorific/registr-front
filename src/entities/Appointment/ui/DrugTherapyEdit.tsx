@@ -10,6 +10,7 @@ import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
 import { IDrugTherapyFields } from '@/entities/Appointment/model/IFormDataFields';
 import { FormStatus } from '@/entities/Appointment/model/FormStatus';
 import { useSWRConfig } from 'swr';
+import { useRouter } from 'next/navigation';
 
 interface DrugTherapyEditProps {
   status: FormStatus;
@@ -19,6 +20,7 @@ interface DrugTherapyEditProps {
 }
 
 const DrugTherapyEdit = ({ status, setStatus, appointmentId, data }: DrugTherapyEditProps) => {
+  const router = useRouter();
   const { mutate } = useSWRConfig();
   const [form] = Form.useForm();
   const { fields, error: fieldsError, isLoading: fieldsIsLoading } = useGetDrugTherapyFields();
@@ -74,14 +76,19 @@ const DrugTherapyEdit = ({ status, setStatus, appointmentId, data }: DrugTherapy
         extra={
           <Space>
             <Form.Item>
-              <Button onClick={() => setStatus('display')}>
-                Отмена
+              <Button onClick={() => router.push(`/appointments/${appointmentId}/ekg`)}>
+                Назад
               </Button>
             </Form.Item>
             <Form.Item>
               <SubmitButton form={form}>
                 Сохранить
               </SubmitButton>
+            </Form.Item>
+            <Form.Item>
+              <Button onClick={() => router.push(`/appointments/${appointmentId}/generalDetails`)}>
+                Закончить прием
+              </Button>
             </Form.Item>
           </Space>
         }

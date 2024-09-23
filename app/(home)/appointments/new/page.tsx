@@ -1,18 +1,14 @@
 import React from 'react';
 import AppointmentNewPage from '@/pages_/AppointmentNew/AppointmentNewPage';
 
-const Page = ({
-                searchParams,
-              }: {
+interface Props {
   searchParams: {
-    status: string
-  }
-}) => {
-  return (
-      <>
-        <AppointmentNewPage status={searchParams.status} />
-      </>
-  );
+    status: string;
+  };
+}
+
+const Page = ({ searchParams, }: Props) => {
+  return <AppointmentNewPage status={searchParams.status} />;
 };
 
 export default Page;

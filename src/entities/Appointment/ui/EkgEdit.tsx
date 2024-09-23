@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React, { CSSProperties, Dispatch } from 'react';
 import { Button, Card, Checkbox, Col, Form, Input, InputNumber, message, Row, Space, Spin } from 'antd';
 import { ekgCreate, ekgUpdate, useGetEkgFields } from '@/entities/Appointment/api/ekgsApi';
 import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
@@ -17,6 +17,23 @@ interface EkgEditProps {
   appointmentId: string,
   data: any
 }
+
+const s: { [key: string]: CSSProperties } = {
+  wFull: {
+    width: '100%',
+  },
+  hFull: {
+    height: '100%',
+  },
+  pt15: {
+    paddingTop: 15,
+  },
+  space: {
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 16
+  }
+};
 
 const EkgEdit = ({ status, setStatus, appointmentId, data }: EkgEditProps) => {
   const router = useRouter();
@@ -72,7 +89,7 @@ const EkgEdit = ({ status, setStatus, appointmentId, data }: EkgEditProps) => {
       onChange={handleValidation}
     >
       <Card
-        style={{ width: '100%' }}
+        style={s.wFull}
         title={'ЭКГ и Эхо-КГ'}
         extra={
           <Space>
@@ -100,12 +117,12 @@ const EkgEdit = ({ status, setStatus, appointmentId, data }: EkgEditProps) => {
             <Card
               title={'ЭКГ'}
               extra={
-                <div style={{ paddingTop: 15 }}>
-                  <DateInput initialValue={data.date_ekg} label="Дата" name="date_ekg" />
+                <div style={s.pt15}>
+                  <DateInput type="MASKED" initialValue={data.date_ekg} label="Дата" name="date_ekg" />
                 </div>
               }
             >
-              <Space direction={'vertical'} size={'middle'}>
+              <div style={s.space}>
                 {fields.ekg.map(field => (
                   <Form.Item
                     key={field.name}
@@ -118,23 +135,23 @@ const EkgEdit = ({ status, setStatus, appointmentId, data }: EkgEditProps) => {
                 ))}
                 <span>Другие изменения:</span>
                 <Form.Item
-                  style={{ width: '100%' }}
+                  style={s.wFull}
                   name={'another_changes'}
                   initialValue={data?.another_changes}
                 >
-                  <Input.TextArea />
+                  <Input.TextArea style={{ width: '100%', }} />
                 </Form.Item>
-              </Space>
+              </div>
             </Card>
           </Col>
 
           <Col span={12}>
             <Card
               title={'Эхо-КГ'}
-              style={{ height: '100%', }}
+              style={s.hFull}
               extra={
-                <div style={{ paddingTop: 15 }}>
-                  <DateInput initialValue={data.date_echo_ekg} label="Дата" name="date_echo_ekg" />
+                <div style={s.pt15}>
+                  <DateInput type="MASKED" initialValue={data.date_echo_ekg} label="Дата" name="date_echo_ekg" />
                 </div>
               }
             >
@@ -152,7 +169,7 @@ const EkgEdit = ({ status, setStatus, appointmentId, data }: EkgEditProps) => {
                             initialValue={data[field.name]}
                             rules={[{ required: true, message: 'Заполните поле' }]}
                           >
-                            <InputNumber />
+                            <InputNumber type="number" />
                           </Form.Item>
                         </Col>
                       </>
@@ -179,7 +196,7 @@ const EkgEdit = ({ status, setStatus, appointmentId, data }: EkgEditProps) => {
               </Row>
               <span>Примечание:</span>
               <Form.Item
-                style={{ width: '100%' }}
+                style={s.wFull}
                 name={'note'}
                 initialValue={data.note}
               >
