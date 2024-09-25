@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
 
   return (
-      <html lang="ru">
+    <html lang="ru">
       <ConfigProvider theme={{
         components: {
           Table: {
@@ -117,6 +117,6 @@ export default function RootLayout({
           </body>
         </AxiosProvider>
       </ConfigProvider>
-      </html>
+    </html>
   );
 }

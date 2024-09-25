@@ -5,6 +5,7 @@ import styles from './LoginForm.module.css';
 import { Card, Form, Input, Space, Typography } from 'antd';
 import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
 import { ILoginForm } from '@/entities/Session/model/ILoginForm';
+import './index.css';
 
 const LoginForm = () => {
   const [form] = Form.useForm();
@@ -18,39 +19,38 @@ const LoginForm = () => {
     }
   };
   return (
-      <Space className={styles.container}>
-        <Card title={'Авторизация'} className={styles.form}>
-          <Form
-              form={form}
-              layout={'vertical'}
-              onFinish={formSubmitHandler}
+    <Space className={styles.container}>
+      <Card title={'Авторизация'} className={styles.form}>
+        <Form
+          form={form}
+          layout={'vertical'}
+          onFinish={formSubmitHandler}
+        >
+          <Typography.Text type={'danger'}>
+            {errorMessage}
+          </Typography.Text>
+          <Form.Item
+            label={'Логин:'}
+            name={'login'}
+            rules={[{ required: true, message: 'Пожалуйста, введите логин', }]}
           >
-            <Typography.Text type={'danger'}>
-              {errorMessage}
-            </Typography.Text>
-            <Form.Item
-                label={'Логин:'}
-                name={'login'}
-                rules={[{ required: true }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-                label={'Пароль:'}
-                name={'password'}
-                rules={[{ required: true }]}
-            >
-              <Input.Password />
-            </Form.Item>
-            <Form.Item>
-              <SubmitButton form={form}>
-                Войти
-              </SubmitButton>
-            </Form.Item>
-          </Form>
-        </Card>
-      </Space>
-
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label={'Пароль:'}
+            name={'password'}
+            rules={[{ required: true, message: 'Пожалуйста, введите пароль', }]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item>
+            <SubmitButton form={form}>
+              Войти
+            </SubmitButton>
+          </Form.Item>
+        </Form>
+      </Card>
+    </Space>
   );
 };
 

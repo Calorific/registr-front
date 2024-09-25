@@ -3,7 +3,7 @@ import AuthorizationPage from '@/pages_/Authorization/AuthorizationPage';
 
 const AuthPage = () => {
   return (
-      <AuthorizationPage />
+    <AuthorizationPage />
   );
 };
 export default AuthPage;
