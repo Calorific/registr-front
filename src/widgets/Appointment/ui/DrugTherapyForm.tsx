@@ -33,7 +33,7 @@ const DrugTherapyForm = ({ appointmentId }: { appointmentId: string }) => {
         Прием пациента
       </Typography.Title>
 
-      <DrugTherapyEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={currentData} />x
+      <DrugTherapyEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={currentData} />
     </>
   );
 };
