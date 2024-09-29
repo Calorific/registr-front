@@ -16,5 +16,15 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-#          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: whoami
+          script: |
+            cd hsn/registr-front
+            git pull
+            docker build -t hsn-app .
+            docker run -p 3000:3000 -d hsn-app
+#            cd hsn
+#            git pull
+#            docker stop hsn-app
+#            docker rm hsn-app
+#            docker rmi hsn-app
+#            docker build -t hsn-app .
+#            docker run -p 3000:3000 -d hsn-app

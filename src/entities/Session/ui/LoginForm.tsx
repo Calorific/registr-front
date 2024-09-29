@@ -20,7 +20,7 @@ const LoginForm = () => {
   };
   return (
     <Space className={styles.container}>
-      <Card title={'Авторизация'} className={styles.form}>
+      <Card title={'Авторизация 1'} className={styles.form}>
         <Form
           form={form}
           layout={'vertical'}
