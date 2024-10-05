@@ -9,6 +9,7 @@ import { useSWRConfig } from 'swr';
 import { useRouter } from 'next/navigation';
 import { useSuccessMessage } from '@/shared/hooks/useSuccessMessage';
 import { useValidation } from '@/shared/hooks/useValidation';
+import dayjs from 'dayjs';
 
 interface LabTestsEditProps {
   setStatus: Dispatch<FormStatus>;
@@ -117,7 +118,7 @@ const LabTestsEdit = ({ status, setStatus, appointmentId, data }: LabTestsEditPr
                         </Form.Item>
                       </Col>
                       <Col span={12}>
-                        <DateInput initialValue={data[field.dateName]} label="Дата" name={field.dateName} />
+                        <DateInput initialValue={dayjs(data[field.dateName], 'DD.MM.YYYY')} label="Дата" name={field.dateName} />
                       </Col>
                     </Fragment>
                   ))}
@@ -140,7 +141,7 @@ const LabTestsEdit = ({ status, setStatus, appointmentId, data }: LabTestsEditPr
                         </Form.Item>
                       </Col>
                       <Col span={12}>
-                        <DateInput initialValue={data[field.dateName]} label="Дата" name={field.dateName} />
+                        <DateInput initialValue={dayjs(data[field.dateName], 'DD.MM.YYYY')} label="Дата" name={field.dateName} />
                       </Col>
                     </Fragment>
                   ))}
@@ -166,7 +167,7 @@ const LabTestsEdit = ({ status, setStatus, appointmentId, data }: LabTestsEditPr
                       </Form.Item>
                     </Col>
                     <Col span={11}>
-                      <DateInput initialValue={data[field.dateName]} label="Дата" name={field.dateName} />
+                      <DateInput initialValue={dayjs(data[field.dateName], 'DD.MM.YYYY')} label="Дата" name={field.dateName} />
                     </Col>
                   </Fragment>
                 ))}
@@ -192,7 +193,7 @@ const LabTestsEdit = ({ status, setStatus, appointmentId, data }: LabTestsEditPr
                         </Form.Item>
                       </Col>
                       <Col span={12}>
-                        <DateInput initialValue={data[field.dateName]} label="Дата" name={field.dateName} />
+                        <DateInput initialValue={dayjs(data[field.dateName], 'DD.MM.YYYY')} label="Дата" name={field.dateName} />
                       </Col>
                     </Row>
                   </Col>

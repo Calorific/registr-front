@@ -1,13 +1,13 @@
 import React, { FC, memo, useMemo } from 'react';
 import MaskedInput from 'antd-mask-input';
 import { DatePicker, Form } from 'antd';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 interface DateInputProps {
   required?: boolean;
   label: string;
   name: string;
-  initialValue?: string;
+  initialValue?: string | Dayjs;
   type?: 'DEFAULT' | 'MASKED';
 }
 
