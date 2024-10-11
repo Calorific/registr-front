@@ -1,7 +1,7 @@
 import React, { FC, memo, useMemo } from 'react';
 import MaskedInput from 'antd-mask-input';
 import { DatePicker, Form } from 'antd';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 
 interface DateInputProps {
   required?: boolean;
@@ -39,7 +39,7 @@ const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialV
       label={label}
       name={name}
       rules={rules}
-      initialValue={initialValue}
+      initialValue={(!initialValue || Number.isNaN(+initialValue)) ? undefined : initialValue}
     >
       {type === 'DEFAULT' ? <DatePicker inputReadOnly format="DD.MM.YYYY" /> : <MaskedInput mask="00.00.0000" />}
     </Form.Item>
