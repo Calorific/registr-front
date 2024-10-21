@@ -4,14 +4,15 @@ import ExitIcon from '@/shared/icons/ExitIcon';
 import styles from './LogoutButton.module.css';
 import { useSession } from '@/entities/Session/api';
 
-const LogoutButton = () => {
+export const LogoutButton = () => {
   const session = useSession();
+
   return (
-      <a className={styles.link} href="" onClick={session.logout}>
+    <li>
+      <button className="flex gap-x-[12px] items-center text-[16px] text-red" onClick={session.logout}>
         <ExitIcon />
-        <span className={styles.linkText}>Выход</span>
-      </a>
+        Выход
+      </button>
+    </li>
   );
 };
-
-export default LogoutButton;

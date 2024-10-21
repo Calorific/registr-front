@@ -1,29 +1,22 @@
-import ProfileLink from '@/entities/Profile/ui/ProfileLink';
-import LogoutButton from '@/entities/Session/ui/LogoutButton';
+import { ProfileLink } from '@/entities/Profile/ui/ProfileLink';
+import { LogoutButton } from '@/entities/Session/ui/LogoutButton';
+import { SettingsButton } from '@/features/Settings/ui/SettingsButton';
+import { NavBar } from '@/widgets/SideBar/ui/NavBar';
 import styles from './SideBar.module.css';
-import SettingsButton from '@/features/Settings/ui/SettingsButton';
-import dynamic from 'next/dynamic';
 
 const SideBar = () => {
-  const NavBar = dynamic(() => import('@/widgets/SideBar/ui/NavBar'), { ssr: false });
-  const ProfileLink = dynamic(() => import('@/entities/Profile/ui/ProfileLink'), { ssr: false });
-  const LogoutButton = dynamic(() => import('@/entities/Session/ui/LogoutButton'), { ssr: false });
-  const SettingsButton = dynamic(() => import('@/features/Settings/ui/SettingsButton'), { ssr: false });
 
   return (
-    <aside className={styles.sideBar}>
+    <aside className={styles.sideBar + ' p-[42px] pb-[62px] pr-0 block w-[320px] shrink-0 grow-0'}>
       <NavBar />
-      <nav className={styles.bottomNav}>
-        <ul className={styles.ul}>
-          <li className={styles.li}>
-            <ProfileLink />
-          </li>
-          <li className={styles.li}>
-            <SettingsButton />
-          </li>
-          <li className={styles.li}>
-            <LogoutButton />
-          </li>
+
+      <nav>
+        <ul>
+          <ProfileLink />
+
+          <SettingsButton />
+
+          <LogoutButton />
         </ul>
       </nav>
     </aside>

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -35,6 +39,10 @@ section {
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
  */
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
 
 h1 {
   font-size: 2em;
@@ -443,4 +451,8 @@ body {
 
 .ant-descriptions-item-label, .ant-descriptions-item-content {
   font-size: 17px !important;
+}
+
+.ant-form-item {
+  margin-bottom: 0 !important;
 }

@@ -1,15 +1,15 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import SideBar from '@/widgets/SideBar/ui/SideBar';
-import styles from './MainLayout.module.css';
 
 export const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <>
+    <div className="flex gap-x-[42px] pl-[16px]">
       <SideBar />
-      <main className={styles.main}>
+
+      <main className="pr-[42px]">
         {children}
       </main>
-    </>
+    </div>
   );
 };
 

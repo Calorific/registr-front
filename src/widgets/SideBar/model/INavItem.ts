@@ -1,9 +1,8 @@
-import { SVGProps } from 'react';
+import React from 'react';
 
 
 export interface INavItem {
   href: string,
-  Icon: (props: SVGProps<SVGSVGElement>) => React.JSX.Element,
+  Icon: (props: { isActive: boolean }) => React.ReactNode,
   name: string,
-  disabled?: boolean
 }

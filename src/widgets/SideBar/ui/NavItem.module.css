@@ -3,14 +3,6 @@
   text-decoration: none;
 }
 
-.linkIcon {
-
-}
-
-.linkText {
-  margin: 10px;
-}
-
 .activeLink {
   font-weight: bold;
   text-decoration: none;

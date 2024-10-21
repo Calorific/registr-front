@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
 import { ConfigProvider } from 'antd';
@@ -12,12 +13,7 @@ export const metadata: Metadata = {
   description: 'Регистр пациентов с хронической сердечной недостаточностью',
 };
 
-export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
-  children: React.ReactNode;
-}>) {
-
+export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="ru">
       <ConfigProvider theme={{
@@ -53,7 +49,7 @@ export default function RootLayout({
             colorBorderBg: '#7EB0C6',
             hoverBorderColor: '#7EB0C6',
             activeBorderColor: '#7EB0C6',
-            paddingInline: 25,
+            paddingInline: 15,
             paddingBlock: 6,
             borderRadius: 100,
           },

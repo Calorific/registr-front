@@ -1,35 +1,23 @@
 'use client';
 import React from 'react';
-import styles from '@/widgets/SideBar/ui/SideBar.module.css';
 import { navRoutes } from '@/widgets/SideBar/config/navRoutes';
 import { INavItem } from '@/widgets/SideBar/model/INavItem';
 import NavItem from '@/widgets/SideBar/ui/NavItem';
-import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { Logo } from '@/widgets/SideBar/ui/Logo';
 
-const NavBar = () => {
-  const pathName = usePathname();
-  const params = useParams();
+export const NavBar = () => {
   return (
-      <nav className={styles.topNav}>
-        <h1 className={styles.logo}><Link href={'/'} style={{ color: 'black', textDecoration: 'none' }}>Logo</Link></h1>
-        <ul className={styles.ul}>
-          {(pathName == '/patients/new' || pathName == '/appointments/new')
-              ? navRoutes.appointment.map(({ href, Icon, name }: INavItem) =>
-                  <li className={styles.li} key={href}><NavItem disabled={true} href={href} Icon={Icon} name={name} />
-                  </li>,
-              )
-              : (params && pathName?.startsWith(`/appointments/${params?.id}`))
-                  ? navRoutes.appointment.map(({ href, Icon, name }: INavItem) =>
-                      <li className={styles.li} key={href}><NavItem href={`/appointments/${params.id}/${href}`}
-                                                                    Icon={Icon} name={name} /></li>,
-                  )
-                  : navRoutes.general.map(({ href, Icon, name }: INavItem) =>
-                      <li className={styles.li} key={href}><NavItem href={href} Icon={Icon} name={name} /></li>,
-                  )}
-        </ul>
-      </nav>
+    <nav>
+      <Link href="/">
+        <Logo />
+      </Link>
+
+      <ul className="flex flex-col gap-y-[24px] mt-[42px]">
+        {navRoutes.map(({ href, Icon, name }: INavItem, i) => (
+          <NavItem key={i} href={href} Icon={Icon} name={name} />
+        ))}
+      </ul>
+    </nav>
   );
 };
-
-export default NavBar;

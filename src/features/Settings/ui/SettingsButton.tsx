@@ -2,35 +2,34 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
 import SettingsIcon from '@/shared/icons/SettingsIcon';
-import styles from './SettingsButton.module.css';
 
-const SettingsButton = () => {
+export const SettingsButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const handleOk = () => {
     setIsModalOpen(false);
   };
+  
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
   return (
-      <>
-        <a className={styles.link} onClick={() => setIsModalOpen(true)}>
-          <SettingsIcon />
-          <span className={styles.linkText}>Настройки</span>
-        </a>
-        <Modal
-            title={'Настройки'}
-            open={isModalOpen}
-            cancelText={'Отмена'}
-            okText={'Сохранить'}
-            onCancel={handleCancel}
-            onOk={handleOk}
-        >
+    <li>
+      <a className="flex gap-x-[12px] items-center text-[16px] mb-[24px]" onClick={() => setIsModalOpen(true)}>
+        <SettingsIcon />
+        Настройки
+      </a>
+      <Modal
+        title="Настройки"
+        open={isModalOpen}
+        cancelText="Отмена"
+        okText="Сохранить"
+        onCancel={handleCancel}
+        onOk={handleOk}
+      >
 
-        </Modal>
-      </>
+      </Modal>
+    </li>
   );
 };
-
-export default SettingsButton;
