@@ -1,39 +1,110 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentApi';
-import { FormStatus } from '@/entities/Appointment/model/FormStatus';
-import { useGetCurrentLabTestsData } from '@/entities/Appointment/api/labTestsApi';
-import LabTestsEdit from '@/entities/Appointment/ui/LabTestsEdit';
-import { Spin, Typography } from 'antd';
+import { useGetCurrentLabTestsData, useGetLabTestsFields } from '@/entities/Appointment/api/labTestsApi';
+import { Card, Col, Form, notification, Row, Spin, Typography } from 'antd';
+import { IComplaints } from '@/entities/Appointment/model/IComplaints';
+import { complaintsCreate, complaintsUpdate } from '@/entities/Appointment/api/complaintsApi';
+import { useSWRConfig } from 'swr';
 
 const LabTestsForm = ({ appointmentId }: { appointmentId: string }) => {
+  const [form] = Form.useForm();
+  const { mutate } = useSWRConfig();
+
   const {
     currentData,
     error: currentDataError,
     isLoading: currentDataIsLoading,
   } = useGetCurrentLabTestsData(appointmentId);
   const { appointmentStatus, isLoading: statusIsLoading, error: statusError } = useGetAppointmentStatus(appointmentId);
-  const [status, setStatus] = useState<FormStatus>('create');
-  useEffect(() => {
-    if (currentData && appointmentStatus == 'completed') {
-      setStatus('display');
-    } else if (currentData) {
-      setStatus('edit');
-    } else if (currentDataError?.response?.data?.error_code === 404) {
-      setStatus('create');
+  const { fields, error: fieldsError, isLoading: fieldsIsLoading } = useGetLabTestsFields();
+  console.log(fields)
+  const formSubmitHandler = async (values: IComplaints) => {
+    values['heart_failure_om'] = true;
+
+    try {
+      await form.validateFields();
+
+
+      if (!currentData) {
+        await complaintsCreate(appointmentId, values);
+        await mutate({
+          key: 'appointments/block/complaint/',
+          appointmentId,
+        });
+        await mutate({
+          key: 'appointments/block/clinical_condition/',
+          appointmentId,
+        });
+      } else {
+        await complaintsUpdate(appointmentId, values);
+        notification.success({ message: 'Данные успешно обновлены' });
+      }
+
+      return true;
+    } catch (e: any) {
+      notification.error({ message: e?.response?.data?.message ?? 'Данные заполнены некорректно'
+    });
+      return false;
     }
-  }, [currentData, appointmentStatus, currentDataError]);
+  };
 
-  if (statusError) return <div>Ошибка загрузки</div>;
-  if (currentDataIsLoading || statusIsLoading) return <Spin />;
+  if (statusError) {
+    return <div>{statusError?.message ?? 'Что-то пошло не так...'}</div>;
+  }
+
+  if (fieldsError) {
+    return <div>{fieldsError?.message ?? 'Что-то пошло не так...'}</div>;
+  }
+
+  if (currentDataIsLoading || statusIsLoading || fieldsIsLoading) {
+    return <Spin />;
+  }
+
   return (
-    <>
-      <Typography.Title>
-        Прием пациента
-      </Typography.Title>
+    <Form layout="vertical" form={form} initialValues={currentData} onFinish={formSubmitHandler}>
+      <Row gutter={[24, 24]}>
+        <Col span={12}>
+          <div className="flex flex-col gap-y-[24px]">
+            <Card title="Анализ крови">
+              <Row gutter={[24, 24]}>
+                <Col span={12}>
 
-      <LabTestsEdit status={status} setStatus={setStatus} appointmentId={appointmentId} data={currentData} />
-    </>
+                </Col>
+
+                <Col span={12}>
+
+                </Col>
+
+                <Col span={12}>
+
+                </Col>
+
+                <Col span={12}>
+
+                </Col>
+              </Row>
+            </Card>
+
+            <Card title="Общий анализ крови">
+
+            </Card>
+          </div>
+        </Col>
+
+        <Col span={12}>
+          <Card title="Биохимический анализ крови" className="h-full">
+
+          </Card>
+        </Col>
+
+        <Col span={24}>
+          <Card title="Общий анализ мочи">
+
+          </Card>
+        </Col>
+      </Row>
+    </Form>
   );
 };
 

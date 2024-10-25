@@ -53,7 +53,6 @@ const DiagnoseForm = ({ appointmentId }: { appointmentId: string }) => {
     }
   };
 
-
   if (statusError) {
     return <div>{statusError?.message}</div>;
   }
@@ -162,7 +161,7 @@ const DiagnoseForm = ({ appointmentId }: { appointmentId: string }) => {
         </Col>
       </Row>
 
-      <SubmitButton form={form} className="!mt-[24px] w-[224px] h-[42px]">
+      <SubmitButton form={form}>
         Далее
       </SubmitButton>
     </Form>

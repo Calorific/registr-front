@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
 
-type Name = 'DIAGNOSE' | '';
+type Name = 'DIAGNOSE' | 'COMPLAINTS' | 'LAB_TESTS' | '';
 
 export const AppointmentLayout = ({ children, name, current }: { children: ReactNode, name: string, current: Name }) => {
   return (
@@ -35,23 +35,23 @@ export const AppointmentLayout = ({ children, name, current }: { children: React
 
       <div className="bg-white rounded-[20px]">
         <div className="pt-[19px] px-[24px] mb-[24px] border-b border-solid border-[#E8E8E8] flex gap-x-[24px] items-center">
-          <Link href={'/'} className={'w-[188px] text-center pb-[19px] text-[16px] leading-[22px] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>
-            Общие сведения
-          </Link>
-          <Link href={'/'} className={'w-[115px] text-center pb-[19px] text-[16px] leading-[22px] ' + (current === 'DIAGNOSE' ? 'font-bold border-b border-solid border-blue' : '')}>
+          <Link href="diagnose" className={'w-[115px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === 'DIAGNOSE' ? 'font-bold border-b border-solid border-blue' : '')}>
             Диагноз
           </Link>
-          <Link href={'/'} className={'w-[221px] text-center pb-[19px] text-[16px] leading-[22px] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>
+          <Link href="labTests" className={'w-[221px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === 'LAB_TESTS' ? 'font-bold border-b border-solid border-blue' : '')}>
             Лабораторные тесты
           </Link>
-          <Link href={'/'} className={'w-[113px] text-center pb-[19px] text-[16px] leading-[22px] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>
+          <Link href="complaints" className={'w-[113px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === 'COMPLAINTS' ? 'font-bold border-b border-solid border-blue' : '')}>
             Жалобы
           </Link>
-          <Link href={'/'} className={'w-[154px] text-center pb-[19px] text-[16px] leading-[22px] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>
+          <Link href={'/'} className={'w-[154px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>
             ЭКГ и ЭХО-КГ
           </Link>
-          <Link href={'/'} className={'w-[246px] text-center pb-[19px] text-[16px] leading-[22px] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>
+          <Link href={'/'} className={'w-[246px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>
             Лекарственная терапия
+          </Link>
+          <Link href={'/'} className={'w-[188px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>
+            Общие сведения
           </Link>
         </div>
         <div className="p-[24px] pt-0">

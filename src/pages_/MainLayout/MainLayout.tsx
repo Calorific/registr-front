@@ -6,7 +6,7 @@ export const MainLayout = ({ children }: { children: ReactNode }) => {
     <div className="flex gap-x-[42px] pl-[16px]">
       <SideBar />
 
-      <main className="pr-[42px]">
+      <main className="pr-[42px] grow-[1] pb-[16px]">
         {children}
       </main>
     </div>

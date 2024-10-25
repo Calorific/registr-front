@@ -17,23 +17,23 @@ export const useGetDiagnoseFields = (): {
   isLoading: boolean
 } => {
   const { data, error, isLoading } = useSWR(
-      'appointments/block/diagnose/fields',
-      getDiagnoseFields,
+    'appointments/block/diagnose/fields',
+    getDiagnoseFields,
   );
   return { fields: data, error, isLoading };
 };
 
 export const useGetCurrentDiagnoseData = (appointmentId?: string) => {
   const { data, error, isLoading } = useSWR({
-        key: 'appointments/block/diagnose/',
-        appointmentId,
-      },
-      getDiagnoseData,
-      {
-        revalidateIfStale: false,
-        revalidateOnFocus: false,
-        shouldRetryOnError: (err => !(err.response.data.error_code === 404)),
-      },
+      key: 'appointments/block/diagnose/',
+      appointmentId,
+    },
+    getDiagnoseData,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      shouldRetryOnError: (err => !(err.response.data.error_code === 404)),
+    },
   );
   return { currentData: data, error, isLoading };
 };

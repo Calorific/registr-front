@@ -20,7 +20,7 @@ const SubmitButton = ({ form, children, className }: props) => {
       .catch(() => setSubmittable(false));
   }, [form, values]);
   return (
-    <Button className={`${styles.button} ${className}`}  type="primary" htmlType="submit" disabled={!submittable}>
+    <Button className={`${styles.button} !mt-[24px] w-[224px] h-[42px]`}  type="primary" htmlType="submit" disabled={!submittable}>
       {children}
     </Button>
   );
