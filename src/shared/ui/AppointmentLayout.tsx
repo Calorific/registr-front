@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
 
-type Name = 'DIAGNOSE' | 'COMPLAINTS' | 'LAB_TESTS' | '';
+type Name = 'DIAGNOSE' | 'COMPLAINTS' | 'LAB_TESTS' | 'EKG' | 'DRUG_THERAPY' | '';
 
 export const AppointmentLayout = ({ children, name, current }: { children: ReactNode, name: string, current: Name }) => {
   return (
@@ -44,10 +44,10 @@ export const AppointmentLayout = ({ children, name, current }: { children: React
           <Link href="complaints" className={'w-[113px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === 'COMPLAINTS' ? 'font-bold border-b border-solid border-blue' : '')}>
             Жалобы
           </Link>
-          <Link href={'/'} className={'w-[154px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>
+          <Link href={'ekg'} className={'w-[154px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === 'EKG' ? 'font-bold border-b border-solid border-blue' : '')}>
             ЭКГ и ЭХО-КГ
           </Link>
-          <Link href={'/'} className={'w-[246px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>
+          <Link href={'drugTherapy'} className={'w-[246px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === 'DRUG_THERAPY' ? 'font-bold border-b border-solid border-blue' : '')}>
             Лекарственная терапия
           </Link>
           <Link href={'/'} className={'w-[188px] text-center pb-[19px] text-[16px] leading-[22px] text-[#7D7D7D] ' + (current === '' ? 'font-bold border-b border-solid border-blue' : '')}>

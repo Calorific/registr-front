@@ -18,7 +18,7 @@ const LabTestsForm = ({ appointmentId }: { appointmentId: string }) => {
   } = useGetCurrentLabTestsData(appointmentId);
   const { appointmentStatus, isLoading: statusIsLoading, error: statusError } = useGetAppointmentStatus(appointmentId);
   const { fields, error: fieldsError, isLoading: fieldsIsLoading } = useGetLabTestsFields();
-  console.log(fields)
+
   const formSubmitHandler = async (values: IComplaints) => {
     values['heart_failure_om'] = true;
 

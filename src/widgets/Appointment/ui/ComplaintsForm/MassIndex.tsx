@@ -20,7 +20,7 @@ const _MassIndex: FC<MassIndexProps> = ({ form }) => {
         rules={[{ required: true, message: 'Укажите рост' }]}
         className="w-[222px] shrink-0 grow-0"
       >
-        <InputNumber placeholder="СМ" type="number" className="w-full [&_.ant-input-number-handler-wrap]:hidden" />
+        <InputNumber placeholder="СМ" type="number" className="w-full" />
       </Form.Item>
       
       <Form.Item
@@ -29,7 +29,7 @@ const _MassIndex: FC<MassIndexProps> = ({ form }) => {
         rules={[{ required: true, message: 'Укажите вес' }]}
         className="w-[222px] shrink-0 grow-0"
       >
-        <InputNumber placeholder="кг" type="number" className="w-full [&_.ant-input-number-handler-wrap]:hidden" />
+        <InputNumber placeholder="кг" type="number" className="w-full" />
       </Form.Item>
 
       <div>

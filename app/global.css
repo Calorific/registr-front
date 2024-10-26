@@ -473,5 +473,8 @@ body {
 .ant-form-item-control-input-content input {
   font-size: 16px !important;
   padding: 3px 15px !important;
+}
 
+.ant-input-number-handler-wrap {
+  display: none !important;
 }

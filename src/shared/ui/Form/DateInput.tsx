@@ -5,13 +5,13 @@ import { Dayjs } from 'dayjs';
 
 interface DateInputProps {
   required?: boolean;
-  label: string;
+  label?: string;
   name: string;
   initialValue?: string | Dayjs;
   type?: 'DEFAULT' | 'MASKED';
 }
 
-const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialValue, type = 'DEFAULT' }) => {
+const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialValue, type = 'MASKED' }) => {
 
   const rules = useMemo(() => {
     if (required && type === 'MASKED') {
