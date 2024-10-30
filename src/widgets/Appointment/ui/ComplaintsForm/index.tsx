@@ -49,10 +49,6 @@ const ComplaintsForm = ({ appointmentId }: { appointmentId: string }) => {
     }
   };
 
-  if (statusError) {
-    return <div>{statusError?.message}</div>;
-  }
-
   if (fieldsError) {
     return <div>{fieldsError?.message}</div>;
   }

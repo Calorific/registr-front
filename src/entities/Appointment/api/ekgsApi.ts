@@ -17,7 +17,7 @@ export const useGetEkgFields = (): {
   fields: {
     ekg: IBooleanFields[],
     echo_ekg: {
-      integer_fields: IIntegerFields[],
+      float_fields: IIntegerFields[],
       boolean_fields: IBooleanFields[]
     }
   }

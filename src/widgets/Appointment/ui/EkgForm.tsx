@@ -83,7 +83,7 @@ const EkgForm = ({ appointmentId }: { appointmentId: string }) => {
             <Row gutter={[24, 24]}>
               <Col span={16}>
                 <Row gutter={[24, 14]}>
-                  {fields.echo_ekg.integer_fields.map((field, i) => (
+                  {fields.echo_ekg.float_fields.map((field, i) => (
                     <Col span={12} key={i}>
                       <Form.Item
                         label={field.displayName}
