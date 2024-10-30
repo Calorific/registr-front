@@ -158,7 +158,7 @@ const EkgEdit = ({ status, setStatus, appointmentId, data }: EkgEditProps) => {
               <Row gutter={32}>
                 <Col span={12}>
                   <Row gutter={[32, 16]}>
-                    {fields.echo_ekg.integer_fields.map(field => (
+                    {fields.echo_ekg.float_fields.map(field => (
                       <>
                         <Col span={10}>
                           <span style={{ color: 'red', }}>*{' '}</span>{field.displayName}:
