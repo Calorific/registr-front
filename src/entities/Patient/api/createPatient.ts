@@ -4,7 +4,7 @@ import { dateFormatConverter } from '@/shared/helpers/dateFormatConverter';
 
 export const createPatient = async (values: IPatientNew) => {
   if (values.birth_date) {
-    values.birth_date = dateFormatConverter(values.birth_date);
+    values.birth_date = dateFormatConverter(values.birth_date) as any;
   }
   if (values.dod) {
     values.dod = dateFormatConverter(values.dod);

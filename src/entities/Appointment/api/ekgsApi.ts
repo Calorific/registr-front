@@ -48,13 +48,6 @@ export const useGetCurrentEkgData = (appointmentId: string) => {
 
 
 export const ekgCreate = async (appointment_id: string, values: IEkg) => {
-  if (values.date_ekg) {
-    values.date_ekg = dateFormatConverter(values.date_ekg);
-  }
-  console.log(values);
-  if (values.date_echo_ekg) {
-    values.date_echo_ekg = dateFormatConverter(values.date_echo_ekg);
-  }
   return axiosInstance.post('appointments/block/ekg/create', { appointment_id, ...values }).then(res => res.data);
 };
 export const ekgUpdate = async (appointment_id: string, values: any) => {

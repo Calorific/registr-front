@@ -67,5 +67,5 @@ export const complaintsCreate = async (appointment_id: string, values: any) => {
   return axiosInstance.post('appointments/block/complaint/create_with_condition/', { appointment_id, ...values }).then(res => res.data);
 };
 export const complaintsUpdate = async (appointment_id: string, values: any) => {
-  return axiosInstance.patch('appointments/block/complaint/update/' + appointment_id, values).then(res => res.data);
+  return axiosInstance.patch('appointments/block/complaint/update_with_condition/' + appointment_id, values).then(res => res.data);
 };

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-export const dateFormatConverter = (date: Date | string) => {
+export const dateFormatConverter = (date?: Date | string) => {
   if (date === '__.__.____') {
     return undefined;
   }

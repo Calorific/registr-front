@@ -71,9 +71,9 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
             <Row gutter={[24, 14]}>
               <Col span={12}>
                 <Form.Item
-                    label="Систолическое АД"
-                    name="systolic_bp"
-                    rules={[{ required: true, message: 'Укажите систолическое АД' }]}
+                  label="Систолическое АД"
+                  name="systolic_bp"
+                  rules={[{ required: true, message: 'Укажите систолическое АД' }]}
                 >
                   <Input placeholder="Систолическое" />
                 </Form.Item>
