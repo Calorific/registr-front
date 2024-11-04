@@ -1,16 +1,17 @@
 'use client';
-import React, { useEffect } from 'react';
+
+import React, { useEffect, useState } from 'react';
+import { Card, Checkbox, Col, Form, Input, notification, Radio, Row, Space, Spin } from 'antd';
+import { useSWRConfig } from 'swr';
 import {
   diagnoseCreate,
   diagnoseUpdate,
   useGetCurrentDiagnoseData,
   useGetDiagnoseFields,
 } from '@/entities/Appointment/api/diagnoseApi';
-import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentApi';
-import { Card, Checkbox, Col, Form, Input, message, Radio, Row, Space, Spin } from 'antd';
-import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
 import { IDiagnose } from '@/entities/Appointment/model/IDiagnose';
-import { useSWRConfig } from 'swr';
+import { NavigationButtons } from '@/features/NavigationButtons';
+import { useRouter } from 'next/navigation';
 
 const initialValues = {
   classification_adjacent_release: 'низкая',
@@ -18,56 +19,51 @@ const initialValues = {
   classification_nc_stage: '1',
 };
 
-const DiagnoseForm = ({ appointmentId }: { appointmentId: string }) => {
+const DiagnosePage = ({ appointmentId }: { appointmentId: string }) => {
+  const router = useRouter();
   const [form] = Form.useForm();
   const { mutate } = useSWRConfig();
-  const [messageApi, contextHolder] = message.useMessage();
 
   const { currentData, isLoading: currentDataIsLoading, } = useGetCurrentDiagnoseData(appointmentId);
-  const { isLoading: statusIsLoading, error: statusError } = useGetAppointmentStatus(appointmentId);
   const { fields, error: fieldsError, isLoading: fieldsIsLoading } = useGetDiagnoseFields();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     form.setFieldsValue(currentData);
   }, [currentData, form]);
 
   const formSubmitHandler = async (values: IDiagnose) => {
+    setLoading(true);
     try {
       await form.validateFields();
       if (currentData) {
         await diagnoseUpdate(appointmentId, values);
-        messageApi.success('Данные успешно обновлены');
       } else {
         await diagnoseCreate(appointmentId, values);
         await mutate({
           key: 'appointments/block/diagnose/',
           appointmentId,
         });
-        messageApi.success('Диагноз успешно добавлен');
       }
-
+      router.push('complaints');
       return true;
     } catch (e: any) {
-      messageApi.error(e?.response?.data?.message ?? 'Данные заполнены некорректно');
+      setLoading(false);
+      notification.error(e?.response?.data?.message ?? 'Данные заполнены некорректно');
       return false;
     }
   };
-
-  if (statusError) {
-    return <div>{statusError?.message}</div>;
-  }
 
   if (fieldsError) {
     return <div>{fieldsError?.message}</div>;
   }
 
-  if (currentDataIsLoading || statusIsLoading || fieldsIsLoading) {
+  if (currentDataIsLoading || fieldsIsLoading || loading) {
     return <Spin />;
   }
 
   return (
     <Form form={form} initialValues={initialValues} onFinish={formSubmitHandler}>
-      {contextHolder}
       <Row gutter={[24, 24]}>
         <Col span={12}>
           <Card title="Диагноз" className="h-full">
@@ -161,11 +157,9 @@ const DiagnoseForm = ({ appointmentId }: { appointmentId: string }) => {
         </Col>
       </Row>
 
-      <SubmitButton form={form}>
-        Далее
-      </SubmitButton>
+      <NavigationButtons form={form} />
     </Form>
   );
 };
 
-export default DiagnoseForm;
+export default DiagnosePage;

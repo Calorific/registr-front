@@ -7,7 +7,7 @@ const AppointmentsPage = ({ page }: { page: number }) => {
     loading: () => <div>Загрузка...</div>,
   });
   return (
-    <AppointmentsList page={page} />
+      <AppointmentsList page={page} />
   );
 };
 

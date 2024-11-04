@@ -22,7 +22,7 @@ const _MassIndex: FC<MassIndexProps> = ({ form }) => {
       >
         <InputNumber placeholder="СМ" type="number" className="w-full" />
       </Form.Item>
-      
+
       <Form.Item
         label="Вес"
         name="weight"

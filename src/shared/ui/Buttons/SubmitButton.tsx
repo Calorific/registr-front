@@ -17,10 +17,13 @@ const SubmitButton = ({ form, children, className }: props) => {
     form
       .validateFields({ validateOnly: true })
       .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
+      .catch(data => {
+        setSubmittable(data?.errorFields?.length === 0);
+      });
   }, [form, values]);
+
   return (
-    <Button className={`${styles.button} !mt-[24px] w-[224px] h-[42px] ${className}`}  type="primary" htmlType="submit" disabled={!submittable}>
+    <Button className={`${styles.button} w-[224px] h-[42px] ${className}`} type="primary" htmlType="submit" disabled={!submittable}>
       {children}
     </Button>
   );

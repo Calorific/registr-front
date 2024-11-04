@@ -1,6 +1,7 @@
 import React from 'react';
-import ComplaintsPage from '@/pages_/Complaints/ComplaintsPage';
 import { AppointmentLayout } from '@/shared/ui/AppointmentLayout';
+import dynamic from 'next/dynamic';
+import { Spin } from 'antd';
 
 interface PageProps {
   params: {
@@ -9,6 +10,8 @@ interface PageProps {
 }
 
 const Page = ({ params, }: PageProps) => {
+  const ComplaintsPage = dynamic(() => import('@/pages_/appointments/Complaints'), { ssr: false, loading: () => <Spin />});
+
   return (
     <AppointmentLayout current="COMPLAINTS" name="Test">
       <ComplaintsPage appointmentId={params.id} />
