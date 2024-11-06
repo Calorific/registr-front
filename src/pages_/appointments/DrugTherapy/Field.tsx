@@ -3,7 +3,6 @@ import React from 'react';
 import { Checkbox, Col, Form, FormInstance, Input, Row, Select } from 'antd';
 
 export const Field = ({ field, form }: { field: IDrugTherapyFields, form: FormInstance }) => {
-
   const checked = Form.useWatch([field.displayName, 'isActive'], form);
 
   return (
@@ -36,7 +35,7 @@ export const Field = ({ field, form }: { field: IDrugTherapyFields, form: FormIn
           </Form.Item>
         </Col>
         <Col span={3}>
-          <Form.Item
+        <Form.Item
             name={[field.displayName, 'dosa']}
             label={'Доза'}
             rules={[{ required: checked, message: 'Укажите дозу', }]}

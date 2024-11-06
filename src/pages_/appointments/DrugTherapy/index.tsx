@@ -1,26 +1,31 @@
 'use client';
-import React from 'react';
-import { useGetAppointmentStatus } from '@/entities/Appointment/api/appointmentApi';
-import {
-  drugTherapyCreate,
-  drugTherapyUpdate,
-  useGetCurrentDrugTherapyData, useGetDrugTherapyFields,
-} from '@/entities/Appointment/api/drugTherapyApi';
+
+import React, { useState } from 'react';
 import { Form, notification, Spin } from 'antd';
 import { useSWRConfig } from 'swr';
+import {
+  drugTherapyCreate, drugTherapyUpdate,
+  useGetCurrentDrugTherapyData,
+  useGetDrugTherapyFields,
+} from '@/entities/Appointment/api/drugTherapyApi';
 import { IDrugTherapy } from '@/entities/Appointment/model/IDrugTherapy';
 import { Field } from './Field';
 import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
+import { useRouter } from 'next/navigation';
+import { NavigationButtons } from '@/features/NavigationButtons';
 
-const DrugTherapyForm = ({ appointmentId }: { appointmentId: string }) => {
+const DrugTherapyPage = ({ appointmentId }: { appointmentId: string }) => {
+  const router = useRouter();
   const [form] = Form.useForm();
   const { mutate } = useSWRConfig();
 
   const { currentData, isLoading: currentDataIsLoading, } = useGetCurrentDrugTherapyData(appointmentId);
-  const { isLoading: statusIsLoading, error: statusError } = useGetAppointmentStatus(appointmentId);
   const { fields, error: fieldsError, isLoading: fieldsIsLoading } = useGetDrugTherapyFields();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const formSubmitHandler = async (values: IDrugTherapy) => {
+    setLoading(true);
+
     try {
       const data: {
         medicine_prescriptions: {
@@ -48,22 +53,21 @@ const DrugTherapyForm = ({ appointmentId }: { appointmentId: string }) => {
         });
       } else {
         await drugTherapyUpdate(appointmentId, data);
-        notification.success({ message: 'Данные успешно обновлены' });
       }
+
+      router.push('generalDetails');
+      return true;
     } catch (e: any) {
+      setLoading(false);
       notification.error({ message: e?.response?.data?.message ?? 'Данные заполнены некорректно' });
     }
   };
-
-  if (statusError) {
-    return <div>{statusError?.message ?? 'Что-то пошло не так...'}</div>;
-  }
 
   if (fieldsError) {
     return <div>{fieldsError?.message ?? 'Что-то пошло не так...'}</div>;
   }
 
-  if (currentDataIsLoading || statusIsLoading || fieldsIsLoading) {
+  if (currentDataIsLoading || fieldsIsLoading || loading) {
     return <Spin />;
   }
 
@@ -73,11 +77,9 @@ const DrugTherapyForm = ({ appointmentId }: { appointmentId: string }) => {
         <Field field={field} key={field.displayName} form={form} />
       ))}
 
-      <SubmitButton form={form} className="!w-[306px]">
-        Сохранить и завершить прием
-      </SubmitButton>
+      <NavigationButtons form={form} prevRoute="ekg" btnText="Сохранить и завершить прием" btnClassName="!w-[306px]" />
     </Form>
   );
 };
 
-export default DrugTherapyForm;
+export default DrugTherapyPage;

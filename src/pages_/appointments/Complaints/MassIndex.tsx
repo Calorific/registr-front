@@ -1,5 +1,6 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useEffect } from 'react';
 import { Form, FormInstance, InputNumber } from 'antd';
+import { formatInteger } from '@/shared/ui/Form';
 
 interface MassIndexProps {
   form: FormInstance;
@@ -12,6 +13,10 @@ const _MassIndex: FC<MassIndexProps> = ({ form }) => {
 
   const bmi = ((weight || 0) / Math.pow(((height || 1) / 100), 2)).toFixed(1);
 
+  useEffect(() => {
+    form.setFieldValue('bmi', bmi);
+  }, [bmi, form]);
+
   return (
     <div className="flex gap-x-[24px] mb-[14px]">
       <Form.Item
@@ -19,6 +24,7 @@ const _MassIndex: FC<MassIndexProps> = ({ form }) => {
         name="height"
         rules={[{ required: true, message: 'Укажите рост' }]}
         className="w-[222px] shrink-0 grow-0"
+        normalize={formatInteger}
       >
         <InputNumber placeholder="СМ" type="number" className="w-full" />
       </Form.Item>

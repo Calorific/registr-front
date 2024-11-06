@@ -7,9 +7,11 @@ import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
 interface NavigationButtonsProps {
   form: FormInstance;
   prevRoute?: string;
+  btnText?: string;
+  btnClassName?: string;
 }
 
-const _NavigationButtons: FC<NavigationButtonsProps> = ({ prevRoute, form }) => {
+const _NavigationButtons: FC<NavigationButtonsProps> = ({ prevRoute, form, btnText, btnClassName }) => {
 
   return (
     <div className="mt-[24px] flex justify-between items-center">
@@ -21,8 +23,8 @@ const _NavigationButtons: FC<NavigationButtonsProps> = ({ prevRoute, form }) => 
         </Link>
       ) : <div></div>}
 
-      <SubmitButton form={form}>
-        Далее
+      <SubmitButton form={form} className={btnClassName}>
+        {btnText ?? 'Далее'}
       </SubmitButton>
     </div>
   );

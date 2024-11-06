@@ -13,7 +13,7 @@ const Page = ({ params, }: PageProps) => {
   const ComplaintsPage = dynamic(() => import('@/pages_/appointments/Complaints'), { ssr: false, loading: () => <Spin />});
 
   return (
-    <AppointmentLayout current="COMPLAINTS" name="Test">
+    <AppointmentLayout appointmentId={params.id} current="COMPLAINTS">
       <ComplaintsPage appointmentId={params.id} />
     </AppointmentLayout>
   );

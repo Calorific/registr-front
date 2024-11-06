@@ -12,6 +12,7 @@ import {
 import { IComplaints } from '@/entities/Appointment/model/IComplaints';
 import { NavigationButtons } from '@/features/NavigationButtons';
 import { useRouter } from 'next/navigation';
+import { formatInteger } from '@/shared/ui/Form';
 
 const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
   const router = useRouter();
@@ -74,6 +75,7 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
                   label="Систолическое АД"
                   name="systolic_bp"
                   rules={[{ required: true, message: 'Укажите систолическое АД' }]}
+                  normalize={formatInteger}
                 >
                   <Input placeholder="Систолическое" />
                 </Form.Item>
@@ -81,9 +83,10 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
 
               <Col span={12}>
                 <Form.Item
-                    label="Диастолическое АД"
-                    name="diastolic_bp"
-                    rules={[{ required: true, message: 'Укажите диастолическое АД' }]}
+                  label="Диастолическое АД"
+                  name="diastolic_bp"
+                  rules={[{ required: true, message: 'Укажите диастолическое АД' }]}
+                  normalize={formatInteger}
                 >
                   <Input placeholder="уд/мин" />
                 </Form.Item>
@@ -91,9 +94,10 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
 
               <Col span={12}>
                 <Form.Item
-                    label="ЧСС"
-                    name="heart_rate"
-                    rules={[{ required: true, message: 'Укажите ЧСС' }]}
+                  label="ЧСС"
+                  name="heart_rate"
+                  rules={[{ required: true, message: 'Укажите ЧСС' }]}
+                  normalize={formatInteger}
                 >
                   <Input placeholder="Диастолическое" />
                 </Form.Item>
@@ -101,9 +105,11 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
 
               <Col span={12}>
                 <Form.Item
-                    label="Дистанция 6-минутной ходьбы"
-                    name="six_min_walk_distance"
-                    rules={[{ required: true, message: 'Укажите дистанцию 6-минутной ходьбы' }]}
+                  label="Дистанция 6-минутной ходьбы"
+                  name="six_min_walk_distance"
+                  rules={[
+                    { max: 40, message: 'Значение не может превышать 40 символов', },
+                  ]}
                 >
                   <Input placeholder="м" />
                 </Form.Item>
@@ -115,13 +121,13 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
           <Card title="Жалобы" className="h-full">
             <div className="flex flex-wrap mb-[24px] [&>div:nth-child(3n-2)]:w-[196px] [&>div:nth-child(3n-1)]:w-[272px] [&>div:nth-child(3n)]:w-[102px]">
               {fields.complaints.map(field => (
-                  <Form.Item
-                      key={field.name}
-                      name={field.name}
-                      valuePropName="checked"
-                  >
-                    <Checkbox>{field.displayName}</Checkbox>
-                  </Form.Item>
+                <Form.Item
+                  key={field.name}
+                  name={field.name}
+                  valuePropName="checked"
+                >
+                  <Checkbox>{field.displayName}</Checkbox>
+                </Form.Item>
               ))}
             </div>
 
@@ -135,18 +141,23 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
           <Card title="Клиническое состояние">
             <Row gutter={[10, 5]}>
               {fields.conditions.map(field => (
-                  <Col span={6} key={field.name}>
-                    <Form.Item
-                        name={field.name}
-                        valuePropName="checked"
-                    >
-                      <Checkbox>{field.displayName}</Checkbox>
-                    </Form.Item>
-                  </Col>
+                <Col span={6} key={field.name}>
+                  <Form.Item
+                    name={field.name}
+                    valuePropName="checked"
+                  >
+                    <Checkbox>{field.displayName}</Checkbox>
+                  </Form.Item>
+                </Col>
               ))}
             </Row>
 
-            <Form.Item className="mt-[24px]" name="other_symptoms" label="Примечание:">
+            <Form.Item
+              className="mt-[24px]"
+              name="other_symptoms"
+              label="Примечание:"
+              rules={[{ max: 1000, message: 'Примечание не должно превышать 1000 символов' }]}
+            >
               <Input.TextArea rows={3} placeholder="Введите комментарий..." />
             </Form.Item>
           </Card>

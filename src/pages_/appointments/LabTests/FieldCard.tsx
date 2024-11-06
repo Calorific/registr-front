@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { LabTestFields } from '@/entities/Appointment/model/ILabTestsFields';
-import { DateInput } from '@/shared/ui/Form/DateInput';
 import { Card, Col, Form, FormInstance, Input, InputNumber, Row } from 'antd';
+import { CardDateInput } from '@/pages_/appointments/LabTests/CardDateInput';
 
 interface FieldCardProps {
   title: string;
@@ -13,12 +13,12 @@ interface FieldCardProps {
 }
 
 const _FieldCard: FC<FieldCardProps> = ({ title, fields, fieldType, gutter, form, className, }) => {
-  const values: any = Form.useWatch([], form);
+
 
   return (
     <Card
       title={title}
-      extra={<DateInput name={fields.dateName} required={fields.fields.some(f => !!values?.[f.textName])} />}
+      extra={<CardDateInput fields={fields.fields} form={form} name={fields.dateName} />}
       className={className}
     >
       <Row gutter={gutter}>

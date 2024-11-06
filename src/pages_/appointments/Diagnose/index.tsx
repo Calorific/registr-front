@@ -72,7 +72,10 @@ const DiagnosePage = ({ appointmentId }: { appointmentId: string }) => {
               label="Диагноз"
               name="diagnose"
               required
-              rules={[{ required: true, message: 'Пожалуйста, укажите диагноз' }]}
+              rules={[
+                { required: true, message: 'Пожалуйста, укажите диагноз' },
+                { max: 1000, message: 'Диагноз не может превышать 1000 символов' },
+              ]}
             >
               <Input.TextArea className="w-full" rows={3} placeholder="Введите диагноз..." />
             </Form.Item>
@@ -113,7 +116,7 @@ const DiagnosePage = ({ appointmentId }: { appointmentId: string }) => {
               label="по стадии НК"
               name="classification_nc_stage"
               rules={[{ required: true, message: 'Выберите стадию НК' }]}
-              required={true}
+              required
               className="!mb-0"
             >
               <Radio.Group name="classification_nc_stage">
@@ -139,12 +142,16 @@ const DiagnosePage = ({ appointmentId }: { appointmentId: string }) => {
                         <Form.Item
                           name={field.booleanName}
                           valuePropName="checked"
-                          style={{ width: 230 }}
+                          className="w-[230px]"
                         >
                           <Checkbox>{field.displayName}</Checkbox>
                         </Form.Item>
 
-                        <Form.Item name={field.textName} style={{ width: 340 }}>
+                        <Form.Item
+                          className="w-[340px]"
+                          name={field.textName}
+                          rules={[{ max: 40, message: 'Комментарий не может превышать 40 символов' }]}
+                        >
                           <Input placeholder="Введите комментарий" disabled={!getFieldValue(field.booleanName)} />
                         </Form.Item>
                       </div>

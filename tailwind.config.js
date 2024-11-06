@@ -12,6 +12,9 @@ module.exports = {
         blue: '#7EB0C6',
         red: '#B01212',
       },
+      fontFamily: {
+        'open-sans': 'Open Sans, sans-serif',
+      }
     },
   },
   plugins: [],
