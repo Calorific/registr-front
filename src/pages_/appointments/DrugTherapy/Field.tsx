@@ -1,8 +1,14 @@
 import { IDrugTherapyFields } from '@/entities/Appointment/model/IFormDataFields';
-import React from 'react';
+import React, { FC } from 'react';
 import { Checkbox, Col, Form, FormInstance, Input, Row, Select } from 'antd';
 
-export const Field = ({ field, form }: { field: IDrugTherapyFields, form: FormInstance }) => {
+interface FieldProps {
+  field: IDrugTherapyFields;
+  form: FormInstance;
+  data: any;
+}
+
+export const Field: FC<FieldProps> = ({ field, form, data }) => {
   const checked = Form.useWatch([field.displayName, 'isActive'], form);
 
   return (
@@ -23,6 +29,7 @@ export const Field = ({ field, form }: { field: IDrugTherapyFields, form: FormIn
             className="mt-[-7px]"
             name={[field.displayName, 'drug_id']}
             rules={[{ required: checked, message: 'Укажите лекарство', }]}
+            initialValue={field.medicine_prescriptions.find(p => p.displayName === data?.[field.displayName]?.name)?.id}
           >
             <Select
               placeholder={field.displayName}

@@ -20,6 +20,7 @@ const PatientEdit = ({ data }: { data: IPatient }) => {
   const pathname = usePathname();
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
+
   const formSubmitHandler = async (values: IPatientNew) => {
     values.phone = values.phone.toString().replaceAll(' ', '');
 

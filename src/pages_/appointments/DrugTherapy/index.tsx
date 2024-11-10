@@ -10,7 +10,6 @@ import {
 } from '@/entities/Appointment/api/drugTherapyApi';
 import { IDrugTherapy } from '@/entities/Appointment/model/IDrugTherapy';
 import { Field } from './Field';
-import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
 import { useRouter } from 'next/navigation';
 import { NavigationButtons } from '@/features/NavigationButtons';
 
@@ -47,19 +46,25 @@ const DrugTherapyPage = ({ appointmentId }: { appointmentId: string }) => {
 
       if (!currentData) {
         await drugTherapyCreate(appointmentId, data);
-        await mutate({
-          key: 'appointments/block/purpose/',
-          appointmentId,
-        });
       } else {
         await drugTherapyUpdate(appointmentId, data);
       }
+
+      await mutate({
+        key: 'appointments/block/purpose/',
+        appointmentId,
+      });
+
+      await mutate({
+        key: 'appointments/',
+        appointmentId,
+      });
 
       router.push('generalDetails');
       return true;
     } catch (e: any) {
       setLoading(false);
-      notification.error({ message: e?.response?.data?.message ?? 'Данные заполнены некорректно' });
+      notification.error({ message: e?.message ?? 'Данные заполнены некорректно' });
     }
   };
 
@@ -74,7 +79,7 @@ const DrugTherapyPage = ({ appointmentId }: { appointmentId: string }) => {
   return (
     <Form layout="vertical" form={form} initialValues={currentData} onFinish={formSubmitHandler}>
       {fields.map(field => (
-        <Field field={field} key={field.displayName} form={form} />
+        <Field field={field} key={field.displayName} form={form} data={currentData} />
       ))}
 
       <NavigationButtons form={form} prevRoute="ekg" btnText="Сохранить и завершить прием" btnClassName="!w-[306px]" />

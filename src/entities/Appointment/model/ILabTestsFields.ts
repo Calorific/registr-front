@@ -2,7 +2,7 @@ import { ITextDateFields } from '@/entities/Appointment/model/IFormDataFields';
 
 export interface LabTestFields {
   fields: ITextDateFields[];
-  dateName: string ;
+  dateName: string;
 }
 
 export interface ILabTestsFields {

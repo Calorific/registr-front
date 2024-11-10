@@ -20,25 +20,33 @@ const PatientTable = ({ tableParams, setTableParams, data }: props) => {
 
   const { data: columns, error, isLoading } = useGetPatientColumns();
 
-  if (isLoading) return <div><Table
-      className={styles.table}
-      pagination={false}
-      scroll={{ x: 900, y: 600 }}
-      virtual={true}
-      size={'middle'}
-      bordered={false}
-  /></div>;
+  if (isLoading) {
+    return (
+      <div>
+        <Table
+          className={styles.table}
+          pagination={false}
+          scroll={{ x: 900, y: 600 }}
+          virtual={true}
+          size={'middle'}
+          bordered={false}
+        />
+      </div>
+    );
+  }
+
   if (error) return <div>Ошибка загрузки</div>;
+
   return (
-      <CustomTable
-          baseColumns={columns}
-          availableColumns={availablePatientColumns}
-          data={data}
-          tableParams={tableParams}
-          setTableParams={setTableParams}
-          saveColumns={savePatientTableColumns}
-          getRecordLink={(recordId) => `/patients/${recordId}`}
-      />
+    <CustomTable
+      baseColumns={columns}
+      availableColumns={availablePatientColumns}
+      data={data}
+      tableParams={tableParams}
+      setTableParams={setTableParams}
+      saveColumns={savePatientTableColumns}
+      getRecordLink={(recordId) => `/patients/${recordId}`}
+    />
   );
 };
 

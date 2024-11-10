@@ -26,29 +26,37 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
   const formSubmitHandler = async (values: IComplaints) => {
     setLoading(true);
     values['heart_failure_om'] = true;
+    values['bmi'] = ((values.weight || 0) / Math.pow(((values.height || 1) / 100), 2)).toFixed(1);
 
     try {
       await form.validateFields();
 
       if (!data) {
         await complaintsCreate(appointmentId, values);
-        await mutate({
-          key: 'appointments/block/complaint/',
-          appointmentId,
-        });
-        await mutate({
-          key: 'appointments/block/clinical_condition/',
-          appointmentId,
-        });
       } else {
         await complaintsUpdate(appointmentId, values);
       }
+
+      await mutate({
+        key: 'appointments/block/complaint/',
+        appointmentId,
+      });
+
+      await mutate({
+        key: 'appointments/block/clinical_condition/',
+        appointmentId,
+      });
+
+      await mutate({
+        key: 'appointments/',
+        appointmentId,
+      });
 
       router.push('labTests');
       return true;
     } catch (e: any) {
       setLoading(false);
-      notification.error({ message: e?.response?.data?.message ?? 'Данные заполнены некорректно'});
+      notification.error({ message: e?.message ?? 'Данные заполнены некорректно'});
       return false;
     }
   };
@@ -63,7 +71,6 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
 
   return (
     <Form layout="vertical" form={form} initialValues={data} onFinish={formSubmitHandler}>
-
       <Row gutter={[24, 24]}>
         <Col span={12}>
           <Card title="Витальные показатели" className="h-full">
@@ -83,9 +90,9 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
 
               <Col span={12}>
                 <Form.Item
-                  label="Диастолическое АД"
-                  name="diastolic_bp"
-                  rules={[{ required: true, message: 'Укажите диастолическое АД' }]}
+                  label="ЧСС"
+                  name="heart_rate"
+                  rules={[{ required: true, message: 'Укажите ЧСС' }]}
                   normalize={formatInteger}
                 >
                   <Input placeholder="уд/мин" />
@@ -94,9 +101,9 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
 
               <Col span={12}>
                 <Form.Item
-                  label="ЧСС"
-                  name="heart_rate"
-                  rules={[{ required: true, message: 'Укажите ЧСС' }]}
+                  label="Диастолическое АД"
+                  name="diastolic_bp"
+                  rules={[{ required: true, message: 'Укажите диастолическое АД' }]}
                   normalize={formatInteger}
                 >
                   <Input placeholder="Диастолическое" />

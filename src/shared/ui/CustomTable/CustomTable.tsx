@@ -93,14 +93,14 @@ const TableHeaderCell: FC<HeaderCellProps> = (props) => {
 };
 
 export function CustomTable({
-                              baseColumns,
-                              availableColumns,
-                              data,
-                              tableParams,
-                              saveColumns,
-                              setTableParams,
-                              getRecordLink,
-                            }: props) {
+  baseColumns,
+  availableColumns,
+  data,
+  tableParams,
+  saveColumns,
+  setTableParams,
+  getRecordLink,
+}: props) {
   const [dragIndex, setDragIndex] = useState<DragIndexState>({ active: -1, over: -1 });
   const [columns, setColumns] = useState(() =>
       baseColumns.map((column, i) => ({
@@ -192,30 +192,30 @@ export function CustomTable({
 
   return (
       <div className={'flex flex-col'}>
-        <TreeSelect
-            className={styles.selector}
-            treeData={availableColumns}
-            value={selectedColumns}
-            tagRender={(props) => (
-                <Tag
-                    closable={props.closable}
-                    onClose={props.onClose}
-                >
-                  {props.label}
-                </Tag>)}
-            onChange={(value) => {
-              setSelectedColumns(value);
-              saveColumns({
-                table_columns: columns.map(column => ({
-                  dataIndex: column.dataIndex,
-                  hidden: !value.includes(column.dataIndex),
-                })),
-              });
-            }}
-            showSearch={false}
-            treeCheckable={true}
-            variant={'outlined'}
-        />
+        {/*<TreeSelect*/}
+        {/*    className={styles.selector}*/}
+        {/*    treeData={availableColumns}*/}
+        {/*    value={selectedColumns}*/}
+        {/*    tagRender={(props) => (*/}
+        {/*        <Tag*/}
+        {/*            closable={props.closable}*/}
+        {/*            onClose={props.onClose}*/}
+        {/*        >*/}
+        {/*          {props.label}*/}
+        {/*        </Tag>)}*/}
+        {/*    onChange={(value) => {*/}
+        {/*      setSelectedColumns(value);*/}
+        {/*      saveColumns({*/}
+        {/*        table_columns: columns.map(column => ({*/}
+        {/*          dataIndex: column.dataIndex,*/}
+        {/*          hidden: !value.includes(column.dataIndex),*/}
+        {/*        })),*/}
+        {/*      });*/}
+        {/*    }}*/}
+        {/*    showSearch={false}*/}
+        {/*    treeCheckable={true}*/}
+        {/*    variant={'outlined'}*/}
+        {/*/>*/}
         <DndContext
             sensors={sensors}
             modifiers={[restrictToHorizontalAxis]}
@@ -224,34 +224,34 @@ export function CustomTable({
             collisionDetection={closestCenter}
         >
           <SortableContext
-              items={columns.map(i => i.id)}
-              strategy={horizontalListSortingStrategy}
+            items={columns.map(i => i.id)}
+            strategy={horizontalListSortingStrategy}
           >
             <DragIndexContext.Provider value={dragIndex}>
               <Table
-                  className={styles.table}
-                  columns={visibleColumns}
-                  rowKey={(record) => record.id}
-                  loading={data.isLoading}
-                  onRow={(record, index) => {
-                    return {
-                      onClick: () => {
-                        router.push(getRecordLink(record.id));
-                      },
-                    };
-                  }}
-                  components={{
-                    header: { cell: TableHeaderCell },
-                    body: { cell: TableBodyCell },
-                  }}
-                  rowClassName={styles.tableRow}
-                  dataSource={data.data}
-                  pagination={false}
-                  onChange={handleTableChange}
-                  scroll={{ x: 900, y: 600 }}
-                  virtual={true}
-                  size={'middle'}
-                  bordered={false}
+                className={styles.table}
+                columns={visibleColumns}
+                rowKey={(record) => record.id}
+                loading={data.isLoading}
+                onRow={(record, index) => {
+                  return {
+                    onClick: () => {
+                      router.push(getRecordLink(record.id));
+                    },
+                  };
+                }}
+                components={{
+                  header: { cell: TableHeaderCell },
+                  body: { cell: TableBodyCell },
+                }}
+                rowClassName={styles.tableRow}
+                dataSource={data.data}
+                pagination={false}
+                onChange={handleTableChange}
+                scroll={{ x: 900, y: 600 }}
+                virtual={true}
+                size={'middle'}
+                bordered={false}
               />
             </DragIndexContext.Provider>
           </SortableContext>
@@ -262,24 +262,24 @@ export function CustomTable({
           </DragOverlay>
         </DndContext>
         <Pagination
-            className={styles.pagination}
-            current={tableParams.currentPage}
-            pageSize={DEFAULT_TABLE_PAGE_SIZE}
-            total={data.total}
-            onChange={handlePaginationChange}
-            itemRender={(
-                page,
-                type,
-                originalItem,
-            ) => {
-              if (type == 'prev' || type == 'next') {
-                return (<div className={styles.paginationItemNav}>{originalItem}</div>);
-              }
-              if (page == tableParams.currentPage) {
-                return (<span className={styles.paginationItemActive}>{originalItem}</span>);
-              }
-              return (<span className={styles.paginationItem}>{originalItem}</span>);
-            }}
+          className={styles.pagination}
+          current={tableParams.currentPage}
+          pageSize={DEFAULT_TABLE_PAGE_SIZE}
+          total={data.total}
+          onChange={handlePaginationChange}
+          itemRender={(
+              page,
+              type,
+              originalItem,
+          ) => {
+            if (type == 'prev' || type == 'next') {
+              return (<div className={styles.paginationItemNav}>{originalItem}</div>);
+            }
+            if (page == tableParams.currentPage) {
+              return (<span className={styles.paginationItemActive}>{originalItem}</span>);
+            }
+            return (<span className={styles.paginationItem}>{originalItem}</span>);
+          }}
         />
       </div>
   );

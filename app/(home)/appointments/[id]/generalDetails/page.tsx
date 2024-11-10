@@ -1,20 +1,21 @@
 import React from 'react';
-import GeneralDetailsPage from '@/pages_/GeneralDetails/GeneralDetailsPage';
+import { AppointmentLayout } from '@/shared/ui/AppointmentLayout';
+import dynamic from 'next/dynamic';
+import { Spin } from 'antd';
 
-interface Props {
+interface PageProps {
   params: {
-    id: string
-  },
-  searchParams: {
-    status: string
-  }
+    id: string;
+  };
 }
 
-const Page = ({ params, searchParams }: Props) => {
+const Page = ({ params, }: PageProps) => {
+  const DetailsPage = dynamic(() => import('@/pages_/appointments/Details'), { ssr: false, loading: () => <Spin />});
+
   return (
-    <>
-      <GeneralDetailsPage status={searchParams.status} appointmentId={params.id} />
-    </>
+    <AppointmentLayout appointmentId={params.id} current="DETAILS" showSaveButton>
+      <DetailsPage appointmentId={params.id} />
+    </AppointmentLayout>
   );
 };
 

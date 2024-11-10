@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect } from 'react';
+import React, { FC, memo } from 'react';
 import { Form, FormInstance, InputNumber } from 'antd';
 import { formatInteger } from '@/shared/ui/Form';
 
@@ -12,10 +12,6 @@ const _MassIndex: FC<MassIndexProps> = ({ form }) => {
   const weight: number = Form.useWatch('weight', form);
 
   const bmi = ((weight || 0) / Math.pow(((height || 1) / 100), 2)).toFixed(1);
-
-  useEffect(() => {
-    form.setFieldValue('bmi', bmi);
-  }, [bmi, form]);
 
   return (
     <div className="flex gap-x-[24px] mb-[14px]">

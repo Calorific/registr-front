@@ -53,11 +53,13 @@ const AppointmentsList = ({ page }: { page: number }) => {
     <>
       <h2>Список приемов</h2>
       <div className={styles.container}>
-        <SearchBar
-          value={searchValue}
-          onChange={onChangeSearchHandler}
-          onPressEnter={searchHandler}
-        />
+        {/*<SearchBar*/}
+        {/*  value={searchValue}*/}
+        {/*  onChange={onChangeSearchHandler}*/}
+        {/*  onPressEnter={searchHandler}*/}
+        {/*/>*/}
+        <div></div>
+
         <ButtonNew href={'/appointments/new/'}>Новый прием</ButtonNew>
       </div>
       <AppointmentTable

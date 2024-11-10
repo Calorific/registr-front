@@ -39,7 +39,7 @@ const PatientChoose = () => {
       setLoading(true);
 
       const appointmentId = await initAppointment(patient.toString());
-      router.push(`/appointments/${appointmentId}/generalDetails`);
+      router.push(`/appointments/${appointmentId}/diagnose`);
       setLoading(false);
     } catch (e) {
       console.log(e);

@@ -1,12 +1,7 @@
 .sideBar {
-  position: sticky;
-  margin-top: 16px;
-  margin-bottom: 16px;
   background-color: #FFFFFF;
   border-radius: 20px;
-  width: 320px;
   display: flex;
-  min-height: 90vh;
   flex-direction: column;
   justify-content: space-between;
 }

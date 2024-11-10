@@ -5,7 +5,7 @@ import { AppointmentsIcon, HelpIcon, HosipitalizationsIcon, PatientsIcon, Statis
 export const navRoutes: INavItem[] =  [
   { href: `/patients`, Icon: PatientsIcon, name: `Пациенты` },
   { href: `/appointments`, Icon: AppointmentsIcon, name: `Приемы` },
-  { href: `/hospitalizations`, Icon: HosipitalizationsIcon, name: `Госпитализации` },
-  { href: `/statistics`, Icon: StatisticIcon, name: `Статистика` },
-  { href: `/help`, Icon: HelpIcon, name: `Помощь` },
+  // { href: `/hospitalizations`, Icon: HosipitalizationsIcon, name: `Госпитализации` },
+  // { href: `/statistics`, Icon: StatisticIcon, name: `Статистика` },
+  // { href: `/help`, Icon: HelpIcon, name: `Помощь` },
 ];

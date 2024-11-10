@@ -12,21 +12,21 @@ const PatientDisplay = ({ data }: { data: IPatient }) => {
       title={'Карточка пациента'}
       extra={
         <div style={{ display: 'flex', columnGap: 10 }}>
-          <Link href="/appointments/new">
-            <Button>
-              Отменить
-            </Button>
-          </Link>
+          {/*<Link href="/appointments/new">*/}
+          {/*  <Button>*/}
+          {/*    Отменить*/}
+          {/*  </Button>*/}
+          {/*</Link>*/}
           <Link href={`?status=edit`}>
             <Button>
               Изменить
             </Button>
           </Link>
-          <Link href={`/appointments/${id.toString()}/diagnose`}>
-            <Button>
-              Далее
-            </Button>
-          </Link>
+          {/*<Link href={`/appointments/${id.toString()}/diagnose`}>*/}
+          {/*  <Button>*/}
+          {/*    Далее*/}
+          {/*  </Button>*/}
+          {/*</Link>*/}
         </div>
       }
     >

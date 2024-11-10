@@ -7,18 +7,20 @@ import styles from './SideBar.module.css';
 const SideBar = () => {
 
   return (
-    <aside className={styles.sideBar + ' p-[42px] pb-[62px] pr-0 block w-[320px] shrink-0 grow-0'}>
-      <NavBar />
+    <aside className="w-[320px] shrink-0 grow-0 my-[16px]">
+      <div className={styles.sideBar + ' p-[42px] pb-[62px] pr-0 block w-[320px] shrink-0 grow-0 h-[922px] max-h-[97vh] top-[16px] !sticky'}>
+        <NavBar />
 
-      <nav>
-        <ul>
-          <ProfileLink />
+        <nav>
+          <ul>
+            {/*<ProfileLink />*/}
 
-          <SettingsButton />
+            {/*<SettingsButton />*/}
 
-          <LogoutButton />
-        </ul>
-      </nav>
+            <LogoutButton />
+          </ul>
+        </nav>
+      </div>
     </aside>
   );
 };

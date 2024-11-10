@@ -28,22 +28,30 @@ const EkgPage = ({ appointmentId }: { appointmentId: string }) => {
       values.date_ekg = dateFormatConverter(values.date_ekg);
       values.date_echo_ekg = dateFormatConverter(values.date_echo_ekg);
 
+      (values as any)['lp2'] = 1.2;
+      (values as any)['pp2'] = 1.2;
+
       if (!currentData) {
-        await ekgUpdate(appointmentId, values);
-        notification.success({ message: 'Данные успешно обновлены' });
-      } else {
         await ekgCreate(appointmentId, values);
-        await mutate({
-          key: 'appointments/block/ekg/',
-          appointmentId,
-        });
+      } else {
+        await ekgUpdate(appointmentId, values);
       }
+
+      await mutate({
+        key: 'appointments/block/ekg/',
+        appointmentId,
+      });
+
+      await mutate({
+        key: 'appointments/',
+        appointmentId,
+      });
 
       router.push('drugTherapy');
       return true;
     } catch (e: any) {
       setLoading(false);
-      notification.error({ message: e?.response?.data?.message ?? 'Данные заполнены некорректно' });
+      notification.error({ message: e?.message ?? 'Данные заполнены некорректно' });
       return false;
     }
   };
@@ -55,6 +63,8 @@ const EkgPage = ({ appointmentId }: { appointmentId: string }) => {
   if (currentDataIsLoading || fieldsIsLoading || loading) {
     return <Spin />;
   }
+
+  console.log(currentData)
 
   return (
     <Form layout="vertical" className="[&_.ant-card-body]:!flex [&_.ant-card-body]:!flex-col [&_.ant-card-body]:!h-full" form={form} initialValues={currentData} onFinish={formSubmitHandler}>
@@ -73,7 +83,7 @@ const EkgPage = ({ appointmentId }: { appointmentId: string }) => {
 
             <Form.Item
               className="w-full grow-[1] mt-[24px] [&_.ant-row]:!h-full [&_.ant-form-item-control-input]:!h-full [&_.ant-form-item-control-input-content]:!h-full"
-              name={'another_changes'}
+              name="another_changes"
               label="Другие изменения:"
               rules={[{ max: 500, message: 'Значение не должно превышать 500 символов', }]}
             >

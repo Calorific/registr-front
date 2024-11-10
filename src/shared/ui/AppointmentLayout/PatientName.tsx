@@ -14,7 +14,7 @@ const _PatientName: FC<PatientNameProps> = ({ appointmentId, }) => {
   const nameText = isLoading ? 'Загрузка...' : error ? 'Ошибка загрузки' : `${data.name} ${data.last_name} ${data.patronymic}`;
 
   return (
-    <Link href={`/patients/${data.id}`} className="text-dark text-[16px] leading-[22px] font-bold">
+    <Link href={`/patients/${data?.id}`} className="text-dark text-[16px] leading-[22px] font-bold">
       {nameText}
     </Link>
   );

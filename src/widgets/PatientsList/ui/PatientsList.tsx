@@ -44,11 +44,12 @@ const PatientsList = ({ page }: { page: number }) => {
     <>
       <h2>Список пациентов</h2>
       <div className={styles.container}>
-        <SearchBar
-          value={searchValue}
-          onChange={onChangeSearchHandler}
-          onPressEnter={searchHandler}
-        />
+        {/*<SearchBar*/}
+        {/*  value={searchValue}*/}
+        {/*  onChange={onChangeSearchHandler}*/}
+        {/*  onPressEnter={searchHandler}*/}
+        {/*/>*/}
+        <div></div>
         <ButtonNew href={'/appointments/new/?status=create'}>Новый пациент</ButtonNew>
       </div>
       <PatientTable

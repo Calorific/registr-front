@@ -34,22 +34,31 @@ const DiagnosePage = ({ appointmentId }: { appointmentId: string }) => {
 
   const formSubmitHandler = async (values: IDiagnose) => {
     setLoading(true);
+
     try {
       await form.validateFields();
+
       if (currentData) {
         await diagnoseUpdate(appointmentId, values);
       } else {
         await diagnoseCreate(appointmentId, values);
-        await mutate({
-          key: 'appointments/block/diagnose/',
-          appointmentId,
-        });
       }
+
+      await mutate({
+        key: 'appointments/block/diagnose/',
+        appointmentId,
+      });
+
+      await mutate({
+        key: 'appointments/block/laboratory_test/',
+        appointmentId,
+      });
+
       router.push('complaints');
       return true;
     } catch (e: any) {
       setLoading(false);
-      notification.error(e?.response?.data?.message ?? 'Данные заполнены некорректно');
+      notification.error(e?.message ?? 'Данные заполнены некорректно');
       return false;
     }
   };

@@ -17,10 +17,7 @@ const SubmitButton = ({ form, children, className }: props) => {
     form
       .validateFields({ validateOnly: true })
       .then(() => setSubmittable(true))
-      .catch(data => {
-        console.log(data)
-        setSubmittable(data?.errorFields?.length === 0);
-      });
+      .catch(data => setSubmittable(data?.errorFields?.length === 0));
   }, [form, values]);
 
   return (

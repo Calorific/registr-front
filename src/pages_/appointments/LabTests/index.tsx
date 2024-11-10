@@ -39,17 +39,23 @@ const LabTestsPage = ({ appointmentId }: { appointmentId: string }) => {
         await labTestsUpdate(appointmentId, values);
       } else {
         await labTestsCreate(appointmentId, values);
-        await mutate({
-          key: 'appointments/block/laboratory_test/',
-          appointmentId,
-        });
       }
+
+      await mutate({
+        key: 'appointments/block/laboratory_test/',
+        appointmentId,
+      });
+
+      await mutate({
+        key: 'appointments/',
+        appointmentId,
+      });
 
       router.push('ekg');
       return true;
     } catch (e: any) {
       setLoading(false);
-      notification.error({ message: e?.response?.data?.message ?? 'Данные заполнены некорректно' });
+      notification.error({ message: e?.message ?? 'Данные заполнены некорректно' });
       return false;
     }
   };
