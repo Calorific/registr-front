@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Form, notification, Spin } from 'antd';
+import { Form, notification, Row, Spin } from 'antd';
 import { useSWRConfig } from 'swr';
 import {
   drugTherapyCreate, drugTherapyUpdate,
@@ -78,11 +78,13 @@ const DrugTherapyPage = ({ appointmentId }: { appointmentId: string }) => {
 
   return (
     <Form layout="vertical" form={form} initialValues={currentData} onFinish={formSubmitHandler}>
-      {fields.map(field => (
-        <Field field={field} key={field.displayName} form={form} data={currentData} />
-      ))}
+      <Row gutter={[0, 15]}>
+        {fields.map(field => (
+          <Field field={field} key={field.displayName} form={form} data={currentData} />
+        ))}
+      </Row>
 
-      <NavigationButtons form={form} prevRoute="ekg" btnText="Сохранить и завершить прием" btnClassName="!w-[306px]" />
+      <NavigationButtons form={form} prevRoute="ekg" />
     </Form>
   );
 };

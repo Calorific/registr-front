@@ -32,12 +32,12 @@ const _EkgShow: FC<EkgShowProps> = ({ data, fields, }) => {
             ))}
           </div>
 
-          <Field name="Примечание:" value={data.note} />
+          <Field name="Примечание:" value={data.another_changes} />
         </Card>
       </Col>
 
       <Col span={12}>
-        <Card title="ЭКГ" className="h-full" extra={<p className="text-[16px] text-[#B4B4B4]">{data.date_echo_ekg ?? '-'}</p>}>
+        <Card title="ЭХО-КГ" className="h-full" extra={<p className="text-[16px] text-[#B4B4B4]">{data.date_echo_ekg ?? '-'}</p>}>
           <Row gutter={[0, 5]}>
             {fields?.echo_ekg?.float_fields.map((field, i) => (
               <Col span={6} key={i}>
@@ -61,7 +61,7 @@ const _EkgShow: FC<EkgShowProps> = ({ data, fields, }) => {
 
           <div className="flex flex-wrap gap-x-[24px] gap-y-[7px] mb-[24px] mt-[12px]">
             {fields?.echo_ekg?.boolean_fields?.filter(f => !!data[f.name]).map((field, i) => (
-                <Point name={field.displayName} key={i} />
+              <Point name={field.displayName} key={i} />
             ))}
           </div>
 

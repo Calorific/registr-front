@@ -27,14 +27,13 @@ export const PatientCreate = () => {
   const router = useRouter();
   const formSubmitHandler = async (values: IPatientNew) => {
     values.phone = values.phone.toString().replaceAll(' ', '');
-    values.dod = values.dod?.toString().match(/\d/gi) ? values.dod : undefined;
 
     setErrorMessage('');
 
     try {
       const patient: IPatient = await createPatient(values);
       const appointmentId = await initAppointment(patient.id);
-      router.push(`/appointments/${appointmentId}/generalDetails`);
+      router.push(`/appointments/${appointmentId}/diagnose`);
     } catch (e: any) {
       setErrorMessage(e.response.data.message);
     }
@@ -118,8 +117,8 @@ export const PatientCreate = () => {
 
                 </Space>
               </Card>
-              <Form.Item name={'patient_note'}>
-                Примечание:<Input.TextArea style={{ height: 150 }} />
+              <Form.Item name={'patient_note'} label="Примечание:" layout="vertical">
+                <Input.TextArea style={{ height: 150 }} />
               </Form.Item>
             </Space>
           </Col>

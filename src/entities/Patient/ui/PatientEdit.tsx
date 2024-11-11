@@ -1,17 +1,24 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Card, Checkbox, Col, Form, Input, InputNumber, message, Radio, Row, Space } from 'antd';
 import { IPatientNew } from '@/entities/Patient/model/IPatientNew';
 import SubmitButton from '@/shared/ui/Buttons/SubmitButton';
 import { updatePatient } from '@/entities/Patient/api/updatePatient';
 import { IPatient } from '@/entities/Patient/model/IPatient';
-import dayjs from 'dayjs';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSWRConfig } from 'swr';
 import { DateInput } from '@/shared/ui/Form/DateInput';
 import MaskedInput from 'antd-mask-input';
 import { PhoneMask } from '@/shared/ui/Form';
+
+function formatPhoneNumber(phoneNumber: string) {
+  // Убираем все символы, кроме цифр
+  const cleaned = phoneNumber.replace(/\D/g, '');
+
+  // Форматируем номер
+  return `+${cleaned[0]} ${cleaned.slice(1, 4)} ${cleaned.slice(4, 7)} ${cleaned.slice(7, 9)} ${cleaned.slice(9, 11)}`;
+}
 
 const PatientEdit = ({ data }: { data: IPatient }) => {
   const { mutate } = useSWRConfig();
@@ -42,6 +49,12 @@ const PatientEdit = ({ data }: { data: IPatient }) => {
       }
     }
   };
+
+  useEffect(() => {
+    form.setFieldValue('phone', formatPhoneNumber(data.phone));
+    form.setFieldValue('birth_date', data.birth_date);
+  }, [form, data]);
+
 
   return (
     <Form

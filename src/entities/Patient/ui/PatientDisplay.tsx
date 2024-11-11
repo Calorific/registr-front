@@ -12,12 +12,12 @@ const PatientDisplay = ({ data }: { data: IPatient }) => {
       title={'Карточка пациента'}
       extra={
         <div style={{ display: 'flex', columnGap: 10 }}>
-          {/*<Link href="/appointments/new">*/}
-          {/*  <Button>*/}
-          {/*    Отменить*/}
-          {/*  </Button>*/}
-          {/*</Link>*/}
-          <Link href={`?status=edit`}>
+          <Link href="/patients">
+            <Button>
+              Назад
+            </Button>
+          </Link>
+          <Link href="?status=edit">
             <Button>
               Изменить
             </Button>
@@ -38,8 +38,8 @@ const PatientDisplay = ({ data }: { data: IPatient }) => {
           {data.last_name}
         </Descriptions.Item>
         <Descriptions.Item
-            label={'Отчество'}
-            span={2}
+          label={'Отчество'}
+          span={2}
         >
           {data.patronymic}
         </Descriptions.Item>
@@ -53,11 +53,11 @@ const PatientDisplay = ({ data }: { data: IPatient }) => {
         >
           {data.birth_date.toString()}
         </Descriptions.Item>
-        <Descriptions.Item
-            label={'Дата смерти'}
-        >
-          {data.dod?.toString()}
-        </Descriptions.Item>
+        {data?.dod && (
+          <Descriptions.Item label={'Дата смерти'}>
+            {data.dod?.toString()}
+          </Descriptions.Item>
+        )}
         <Descriptions.Item
             label={'Телефон'}
         >

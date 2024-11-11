@@ -126,7 +126,7 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
         </Col>
         <Col span={12}>
           <Card title="Жалобы" className="h-full">
-            <div className="flex flex-wrap mb-[24px] [&>div:nth-child(3n-2)]:w-[196px] [&>div:nth-child(3n-1)]:w-[272px] [&>div:nth-child(3n)]:w-[102px]">
+            <div className="flex flex-wrap mb-[24px] [&>div:nth-child(3n-2)]:w-[196px] [&>div:nth-child(3n-1)]:w-[270px] [&>div:nth-child(3n)]:w-[102px]">
               {fields.complaints.map(field => (
                 <Form.Item
                   key={field.name}
@@ -138,7 +138,7 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
               ))}
             </div>
 
-            <Form.Item name="note" label="Примечание">
+            <Form.Item name="note" label="Примечание:" rules={[{ max: 300, message: 'Значение не должно превышать 300 символов' }]}>
               <Input.TextArea rows={3} placeholder="Введите комментарий..." />
             </Form.Item>
           </Card>

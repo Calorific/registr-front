@@ -9,7 +9,7 @@ export interface IPatient {
   location: 'НСО' | 'Новосибирск' | 'другое',
   district: string,
   address: string,
-  phone: number,
+  phone: string,
   clinic: string,
   patient_note?: string,
   referring_doctor?: string,

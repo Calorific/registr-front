@@ -28,6 +28,8 @@ const DetailsPage: FC<DetailsPageProps> = ({ appointmentId }) => {
     return e;
   }
 
+  console.log(data)
+
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>

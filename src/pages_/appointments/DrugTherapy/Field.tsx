@@ -45,7 +45,10 @@ export const Field: FC<FieldProps> = ({ field, form, data }) => {
         <Form.Item
             name={[field.displayName, 'dosa']}
             label={'Доза'}
-            rules={[{ required: checked, message: 'Укажите дозу', }]}
+            rules={[
+              { required: checked, message: 'Укажите дозу', },
+              { max: 10, message: 'Значение не должно превышать 10 символов'}
+            ]}
           >
             <Input placeholder="мг" disabled={!checked} style={{ width: 150 }} />
           </Form.Item>

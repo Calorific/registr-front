@@ -8,6 +8,7 @@ interface PatientCardProps {
 }
 
 const _PatientCard: FC<PatientCardProps> = ({ data }) => {
+
   return (
     <Card title="Карточка пациента" extra={<EditButton id={data.id} />}>
       <Row gutter={[0, 14]}>
@@ -18,7 +19,7 @@ const _PatientCard: FC<PatientCardProps> = ({ data }) => {
           <Field name="Дата рождения" value={data.birth_date} />
         </Col>
         <Col span={4}>
-          <Field name="Дата смерти" value={data.dod ?? '-'} />
+          {data.dod && <Field name="Дата смерти" value={data.dod ?? '-'} />}
         </Col>
         <Col span={8}>
           <Field name="Госпитализации" value={data.count_hospitalization} />

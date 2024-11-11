@@ -30,8 +30,8 @@ const _ComplaintsShow: FC<ComplaintsShowProps> = ({ data, fields }) => {
               <Field name="Вес" value={data.weight} />
             </Col>
             <Col span={4} className="flex justify-end">
-              <div className=" border border-solid border-blue rounded-full p-[10px] text-blue h-[42px]">
-                ИМТ {+data.bmi ? data.bmi.toString().padStart(4, '0') : '-'}
+              <div className=" border border-solid border-blue rounded-full p-[10px] text-blue h-[42px] whitespace-nowrap">
+                ИМТ {+data.bmi ? data.bmi.toFixed(1).padStart(4, '0') : '-'}
               </div>
             </Col>
 
@@ -60,7 +60,7 @@ const _ComplaintsShow: FC<ComplaintsShowProps> = ({ data, fields }) => {
             ))}
           </div>
 
-          <Field name="Примечание:" value={data.another_changes} />
+          <Field name="Примечание:" value={data.note} />
         </Card>
       </Col>
 
