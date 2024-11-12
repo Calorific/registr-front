@@ -75,16 +75,16 @@ export const PatientCreate = () => {
               <Card>
                 <Space size={'middle'} direction={'vertical'} wrap={true} style={{ display: 'flex' }}>
                   <Form.Item
-                    label={'Имя'}
-                    name={'name'}
-                    rules={[{ required: true, message: 'Введите имя' }]}
+                    label={'Фамилия'}
+                    name={'last_name'}
+                    rules={[{ required: true, message: 'Введите фамилию' }]}
                   >
                     <Input />
                   </Form.Item>
                   <Form.Item
-                    label={'Фамилия'}
-                    name={'last_name'}
-                    rules={[{ required: true, message: 'Введите фамилию' }]}
+                    label={'Имя'}
+                    name={'name'}
+                    rules={[{ required: true, message: 'Введите имя' }]}
                   >
                     <Input />
                   </Form.Item>

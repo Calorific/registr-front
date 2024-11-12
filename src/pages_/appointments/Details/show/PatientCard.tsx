@@ -15,7 +15,7 @@ const _PatientCard: FC<PatientCardProps> = ({ data }) => {
     >
       <Row gutter={[0, 14]}>
         <Col span={8}>
-          <Field name="ФИО" value={`${data.name ?? ''} ${data.last_name ?? ''} ${data.patronymic ?? ''}`} />
+          <Field name="ФИО" value={`${data.last_name ?? ''} ${data.name ?? ''} ${data.patronymic ?? ''}`} />
         </Col>
         <Col span={4}>
           <Field name="Дата рождения" value={data.birth_date} />
