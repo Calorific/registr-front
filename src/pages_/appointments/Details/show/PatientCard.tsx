@@ -1,5 +1,4 @@
 import React, { FC, memo } from 'react';
-import { EditButton } from '@/pages_/appointments/Details/EditButton';
 import { Card, Col, Row } from 'antd';
 import { Field } from '@/pages_/appointments/Details/Field';
 
@@ -10,7 +9,10 @@ interface PatientCardProps {
 const _PatientCard: FC<PatientCardProps> = ({ data }) => {
 
   return (
-    <Card title="Карточка пациента" extra={<EditButton id={data.id} />}>
+    <Card
+      title="Карточка пациента"
+      // extra={<EditButton id={data.id} />}
+    >
       <Row gutter={[0, 14]}>
         <Col span={8}>
           <Field name="ФИО" value={`${data.name ?? ''} ${data.last_name ?? ''} ${data.patronymic ?? ''}`} />

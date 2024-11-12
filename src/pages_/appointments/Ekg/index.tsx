@@ -23,13 +23,11 @@ const EkgPage = ({ appointmentId }: { appointmentId: string }) => {
 
   const formSubmitHandler = async (values: IEkg) => {
     setLoading(true);
+
     try {
       await form.validateFields();
       values.date_ekg = dateFormatConverter(values.date_ekg);
       values.date_echo_ekg = dateFormatConverter(values.date_echo_ekg);
-
-      (values as any)['lp2'] = 1.2;
-      (values as any)['pp2'] = 1.2;
 
       if (!currentData) {
         await ekgCreate(appointmentId, values);

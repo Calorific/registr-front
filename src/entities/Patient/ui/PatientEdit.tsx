@@ -89,18 +89,18 @@ const PatientEdit = ({ data }: { data: IPatient }) => {
               <Card>
                 <Space size={'middle'} direction={'vertical'} wrap={true} style={{ display: 'flex' }}>
                   <Form.Item
-                    label={'Имя'}
-                    name={'name'}
-                    rules={[{ required: true, message: 'Введите имя' }]}
-                    initialValue={data.name}
-                  >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
                     label={'Фамилия'}
                     name={'last_name'}
                     rules={[{ required: true, message: 'Введите фамилию' }]}
                     initialValue={data.last_name}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    label={'Имя'}
+                    name={'name'}
+                    rules={[{ required: true, message: 'Введите имя' }]}
+                    initialValue={data.name}
                   >
                     <Input />
                   </Form.Item>

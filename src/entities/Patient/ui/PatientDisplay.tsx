@@ -31,11 +31,11 @@ const PatientDisplay = ({ data }: { data: IPatient }) => {
       }
     >
       <Descriptions layout={'vertical'} column={4}>
-        <Descriptions.Item label={'Имя'}>
-          {data.name}
-        </Descriptions.Item>
         <Descriptions.Item label={'Фамилия'}>
           {data.last_name}
+        </Descriptions.Item>
+        <Descriptions.Item label={'Имя'}>
+          {data.name}
         </Descriptions.Item>
         <Descriptions.Item
           label={'Отчество'}
