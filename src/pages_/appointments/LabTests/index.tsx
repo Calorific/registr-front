@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, Col, Form, Input, notification, Row, Spin } from 'antd';
+import { Card, Col, Form, Input, notification, Row } from 'antd';
 import { useSWRConfig } from 'swr';
 import {
   labTestsCreate,
@@ -64,16 +64,14 @@ const LabTestsPage = ({ appointmentId }: { appointmentId: string }) => {
     return <div>{fieldsError?.message ?? 'Что-то пошло не так...'}</div>;
   }
 
-  if (currentDataIsLoading || fieldsIsLoading) {
-    return <Spin />;
-  }
+  const allLoading = loading || currentDataIsLoading || fieldsIsLoading;
 
   return (
     <Form layout="vertical" form={form} initialValues={currentData} onFinish={formSubmitHandler}>
       <Row gutter={[24, 24]}>
         <Col span={12}>
           <div className="flex flex-col gap-y-[24px]">
-            <Card title="Анализ крови">
+            <Card title="Анализ крови" loading={allLoading}>
               <Row gutter={[24, 24]}>
                 {fields.hormonal_blood_analysis.map((field, i) => (
                   <HormonalBloodField form={form} field={field} key={i} />
@@ -87,6 +85,7 @@ const LabTestsPage = ({ appointmentId }: { appointmentId: string }) => {
               gutter={[24, 24]}
               form={form}
               fieldType="number"
+              loading={allLoading}
             />
           </div>
         </Col>
@@ -99,6 +98,7 @@ const LabTestsPage = ({ appointmentId }: { appointmentId: string }) => {
             form={form}
             fieldType="number"
             className="h-full"
+            loading={allLoading}
           />
         </Col>
 
@@ -109,6 +109,7 @@ const LabTestsPage = ({ appointmentId }: { appointmentId: string }) => {
             gutter={[24, 24]}
             form={form}
             fieldType="string"
+            loading={allLoading}
           />
         </Col>
 

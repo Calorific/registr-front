@@ -67,15 +67,13 @@ const DiagnosePage = ({ appointmentId }: { appointmentId: string }) => {
     return <div>{fieldsError?.message}</div>;
   }
 
-  if (currentDataIsLoading || fieldsIsLoading || loading) {
-    return <Spin />;
-  }
+  const allLoading = currentDataIsLoading || fieldsIsLoading || loading;
 
   return (
     <Form form={form} initialValues={initialValues} onFinish={formSubmitHandler}>
       <Row gutter={[24, 24]}>
         <Col span={12}>
-          <Card title="Диагноз" className="h-full">
+          <Card title="Диагноз" className="h-full" loading={allLoading}>
             <Form.Item
               layout="vertical"
               label="Диагноз"
@@ -91,7 +89,7 @@ const DiagnosePage = ({ appointmentId }: { appointmentId: string }) => {
           </Card>
         </Col>
         <Col span={12}>
-          <Card title="Классификация" className="h-full">
+          <Card title="Классификация" className="h-full" loading={allLoading}>
             <Form.Item
               label="по ФВ"
               name="classification_adjacent_release"
@@ -141,9 +139,9 @@ const DiagnosePage = ({ appointmentId }: { appointmentId: string }) => {
         </Col>
 
         <Col span={24}>
-          <Card title="Сопутствующие заболевания">
+          <Card title="Сопутствующие заболевания" loading={allLoading}>
             <Row gutter={[72, 14]}>
-              {fields.map((field, i) => (
+              {fields?.map((field, i) => (
                 <Col span={12} key={i}>
                   <Form.Item noStyle shouldUpdate={true}>
                     {({ getFieldValue }) => (

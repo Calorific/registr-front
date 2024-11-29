@@ -10,16 +10,17 @@ interface FieldCardProps {
   gutter: [number, number];
   form: FormInstance;
   className?: string;
+  loading: boolean;
 }
 
-const _FieldCard: FC<FieldCardProps> = ({ title, fields, fieldType, gutter, form, className, }) => {
-
+const _FieldCard: FC<FieldCardProps> = ({ title, fields, fieldType, gutter, form, className, loading }) => {
 
   return (
     <Card
       title={title}
       extra={<CardDateInput fields={fields.fields} form={form} name={fields.dateName} />}
       className={className}
+      loading={loading}
     >
       <Row gutter={gutter}>
         {fields.fields.map((field, i) => (

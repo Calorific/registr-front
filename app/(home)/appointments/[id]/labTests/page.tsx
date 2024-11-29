@@ -1,7 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { Spin } from 'antd';
-import { AppointmentLayout } from '@/shared/ui/AppointmentLayout';
+import { AppointmentLayout } from '@/shared/ui/layout/AppointmentLayout';
 
 interface PageProps {
   params: {

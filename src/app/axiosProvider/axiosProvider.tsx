@@ -1,7 +1,7 @@
 'use client';
 import { ReactNode } from 'react';
 import axios, { AxiosError } from 'axios';
-import { useSession } from '@/entities/Session/api';
+import { useSession } from '@/entities/Session';
 import { getCookie } from 'cookies-next';
 import { isWindowDefined } from 'swr/_internal';
 

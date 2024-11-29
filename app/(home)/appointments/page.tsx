@@ -1,11 +1,16 @@
 import React from 'react';
-import AppointmentsPage from '@/pages_/appointments';
+import dynamic from 'next/dynamic';
+import { Spin } from 'antd';
 
-const Page = ({ searchParams }: {
+interface Props {
   searchParams: {
-    page: number
-  }
-}) => {
+    page: number;
+  };
+}
+
+const Page = ({ searchParams }: Props) => {
+  const AppointmentsPage = dynamic(() => import('@/pages_/appointments'), { ssr: false, loading: () => <Spin />});
+
   return (
     <>
       <AppointmentsPage page={searchParams.page} />

@@ -20,7 +20,7 @@ const validDateRule = {
 
     const date = dayjs(value, 'DD-MM-YYYY');
 
-    if (!Number.isNaN(date) && date < dayjs()) {
+    if (!Number.isNaN(date) && date < dayjs() && date > dayjs().subtract(100, 'y')) {
       return Promise.resolve();
     } else {
       return Promise.reject('Введите корректную дату');

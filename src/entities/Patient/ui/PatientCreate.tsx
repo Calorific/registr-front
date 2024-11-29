@@ -14,7 +14,7 @@ import { DateInput } from '@/shared/ui/Form/DateInput';
 import { PhoneMask } from '@/shared/ui/Form';
 
 const initialValues = {
-  birth_date: dayjs(new Date('1990.1.1')),
+
 };
 
 export const PatientCreate = () => {

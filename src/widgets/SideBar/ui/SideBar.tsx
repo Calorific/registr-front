@@ -1,10 +1,9 @@
-import { ProfileLink } from '@/entities/Profile/ui/ProfileLink';
-import { LogoutButton } from '@/entities/Session/ui/LogoutButton';
-import { SettingsButton } from '@/features/Settings/ui/SettingsButton';
+import { LogoutButton } from './LogoutButton';
 import { NavBar } from '@/widgets/SideBar/ui/NavBar';
 import styles from './SideBar.module.css';
+import { memo } from 'react';
 
-const SideBar = () => {
+const _SideBar = () => {
 
   return (
     <aside className="w-[320px] shrink-0 grow-0 my-[16px]">
@@ -25,4 +24,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export const SideBar = memo(_SideBar);

@@ -24,6 +24,7 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, horizontalListSortingStrategy, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
+import { Empty } from '@/shared/ui/Empty';
 
 
 interface props {
@@ -92,6 +93,10 @@ const TableHeaderCell: FC<HeaderCellProps> = (props) => {
   return <th {...props} ref={setNodeRef} style={style} {...attributes} {...listeners} />;
 };
 
+const locale = {
+  emptyText: <Empty />,
+};
+
 export function CustomTable({
   baseColumns,
   availableColumns,
@@ -103,13 +108,13 @@ export function CustomTable({
 }: props) {
   const [dragIndex, setDragIndex] = useState<DragIndexState>({ active: -1, over: -1 });
   const [columns, setColumns] = useState(() =>
-      baseColumns.map((column, i) => ({
-        ...column,
-        key: column.dataIndex,
-        id: i,
-        onHeaderCell: () => ({ id: i }),
-        onCell: () => ({ id: i }),
-      })),
+    baseColumns.map((column, i) => ({
+      ...column,
+      key: column.dataIndex,
+      id: i,
+      onHeaderCell: () => ({ id: i }),
+      onCell: () => ({ id: i }),
+    })),
   );
   const [selectedColumns, setSelectedColumns] = useState(columns.map(column => {
     if (!column.hidden) {
@@ -117,11 +122,11 @@ export function CustomTable({
     }
   }));
   const sensors = useSensors(
-      useSensor(PointerSensor, {
-        activationConstraint: {
-          distance: 1,
-        },
-      }),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 1,
+      },
+    }),
   );
   const onDragEnd = ({ active, over }: DragEndEvent) => {
     if (active.id !== over?.id) {
@@ -151,38 +156,33 @@ export function CustomTable({
   };
   const router = useRouter();
   const pathName = usePathname();
-  const handlePaginationChange = (
-      current: number,
-  ) => {
+  const handlePaginationChange = (current: number,) => {
     router.push(pathName + (current == 1) ? '' : ('?page=' + current));
     setTableParams(
-        {
-          ...tableParams,
-          currentPage: current,
-        },
+      {
+        ...tableParams,
+        currentPage: current,
+      },
     );
   };
-  const handleTableChange = (pagination: TablePaginationConfig,
-                             filters: Record<string, FilterValue | null>,
-                             sortParams: SorterResult<any> | SorterResult<any>[],
+  const handleTableChange = (
+    pagination: TablePaginationConfig,
+    filters: Record<string, FilterValue | null>,
+    sortParams: SorterResult<any> | SorterResult<any>[]
   ) => {
-    setTableParams(
-        {
-          ...tableParams,
-          filters: {
-            ...tableParams.filters,
-            ...filters,
-          },
-          sortParams: sortParams instanceof Array
-              ? null
-              : (sortParams.order && sortParams.column?.dataIndex)
-                  ?
-                  {
-                    columnKey: sortParams.column.dataIndex,
-                    order: sortParams.order,
-                  }
-                  : null,
-        },
+  setTableParams(
+    {
+      ...tableParams,
+      filters: {
+        ...tableParams.filters,
+        ...filters,
+      },
+    sortParams: sortParams instanceof Array
+      ? null
+      : sortParams.order && sortParams.column?.dataIndex
+        ? { columnKey: sortParams.column.dataIndex, order: sortParams.order, }
+        : null,
+      },
     );
   };
   const visibleColumns: IColumn[] = columns.map(item => ({
@@ -229,6 +229,7 @@ export function CustomTable({
           >
             <DragIndexContext.Provider value={dragIndex}>
               <Table
+                locale={locale}
                 className={styles.table}
                 columns={visibleColumns}
                 rowKey={(record) => record.id}

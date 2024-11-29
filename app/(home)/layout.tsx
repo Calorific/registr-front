@@ -1,11 +1,15 @@
 import React, { ReactNode } from 'react';
-import MainLayout from '@/pages_/MainLayout/MainLayout';
+import { SideBar } from '@/widgets/SideBar';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <MainLayout>
-      {children}
-    </MainLayout>
+    <div className="flex gap-x-[42px] pl-[16px] max-w-[1728px] mx-auto">
+      <SideBar />
+
+      <main className="pr-[42px] grow-[1] pb-[16px]">
+        {children}
+      </main>
+    </div>
   );
 };
 

@@ -1,9 +1,13 @@
 import React from 'react';
-import AuthorizationPage from '@/pages_/Authorization/AuthorizationPage';
+import dynamic from 'next/dynamic';
+import { Spin } from 'antd';
+
 
 const AuthPage = () => {
+  const AuthPage = dynamic(() => import('@/pages_/auth'), { ssr: false, loading: () => <Spin />});
+
   return (
-    <AuthorizationPage />
+    <AuthPage />
   );
 };
 export default AuthPage;

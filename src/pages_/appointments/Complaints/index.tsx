@@ -65,15 +65,13 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
     return <div>{fieldsError?.message}</div>;
   }
 
-  if (currentDataIsLoading || fieldsIsLoading || loading) {
-    return <Spin />;
-  }
+  const allLoading = currentDataIsLoading || fieldsIsLoading || loading;
 
   return (
     <Form layout="vertical" form={form} initialValues={data} onFinish={formSubmitHandler}>
       <Row gutter={[24, 24]}>
         <Col span={12}>
-          <Card title="Витальные показатели" className="h-full">
+          <Card title="Витальные показатели" className="h-full" loading={allLoading}>
             <MassIndex form={form} />
 
             <Row gutter={[24, 14]}>
@@ -114,9 +112,7 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
                 <Form.Item
                   label="Дистанция 6-минутной ходьбы"
                   name="six_min_walk_distance"
-                  rules={[
-                    { max: 40, message: 'Значение не может превышать 40 символов', },
-                  ]}
+                  rules={[{ max: 40, message: 'Значение не может превышать 40 символов', },]}
                 >
                   <Input placeholder="м" />
                 </Form.Item>
@@ -125,9 +121,9 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
           </Card>
         </Col>
         <Col span={12}>
-          <Card title="Жалобы" className="h-full">
+          <Card title="Жалобы" className="h-full" loading={allLoading}>
             <div className="flex flex-wrap mb-[24px] [&>div:nth-child(3n-2)]:w-[196px] [&>div:nth-child(3n-1)]:w-[270px] [&>div:nth-child(3n)]:w-[102px]">
-              {fields.complaints.map(field => (
+              {fields?.complaints?.map(field => (
                 <Form.Item
                   key={field.name}
                   name={field.name}
@@ -145,9 +141,9 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
         </Col>
 
         <Col span={24}>
-          <Card title="Клиническое состояние">
+          <Card title="Клиническое состояние" loading={allLoading}>
             <Row gutter={[10, 5]}>
-              {fields.conditions.map(field => (
+              {fields?.conditions?.map(field => (
                 <Col span={6} key={field.name}>
                   <Form.Item
                     name={field.name}

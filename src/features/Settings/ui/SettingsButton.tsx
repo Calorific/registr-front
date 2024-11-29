@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Modal } from 'antd';
-import SettingsIcon from '@/shared/icons/SettingsIcon';
+import { SettingsIcon } from '@/shared/icons';
 
 export const SettingsButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

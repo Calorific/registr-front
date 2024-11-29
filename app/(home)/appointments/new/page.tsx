@@ -1,5 +1,7 @@
 import React from 'react';
-import AppointmentNewPage from '@/pages_/AppointmentNew/AppointmentNewPage';
+import { ChoosePatientLayout } from '@/shared/ui/layout/ChoosePatientLayout';
+import dynamic from 'next/dynamic';
+import { Spin } from 'antd';
 
 interface Props {
   searchParams: {
@@ -8,7 +10,13 @@ interface Props {
 }
 
 const Page = ({ searchParams, }: Props) => {
-  return <AppointmentNewPage status={searchParams.status} />;
+  const AppointmentNewPage = dynamic(() => import('@/pages_/appointments/New'), { ssr: false, loading: () => <Spin />});
+
+  return (
+    <ChoosePatientLayout>
+      <AppointmentNewPage />
+    </ChoosePatientLayout>
+  );
 };
 
 export default Page;

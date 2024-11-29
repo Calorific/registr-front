@@ -1,14 +1,62 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
+'use client';
+import React, { useState } from 'react';
+import { ITableParams } from '@/shared/types/ITableParams';
+import ButtonNew from '@/shared/ui/Buttons/ButtonNew';
+import AppointmentTable from '@/features/AppointmentsTable/ui/AppointmentTable';
+import { useGetAppointments } from '@/shared/api/tableApi';
+import { Button, notification } from 'antd';
+import { DownloadIcon } from '@/shared/icons';
+import axiosInstance from '@/app/axiosProvider/axiosProvider';
+import { saveFile } from '@/shared/helpers/saveFile';
 
-const AppointmentsPage = ({ page }: { page: number }) => {
-  const AppointmentsList = dynamic(() => import('@/widgets/AppointmentsList/ui/AppointmentsList'), {
-    ssr: false,
-    loading: () => <div>Загрузка...</div>,
+const AppointmentsList = ({ page }: { page: number }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [appointmentsTableParams, setAppointmentsTableParams] = useState<ITableParams>({
+    currentPage: page || 1,
+    filters: {},
+    sortParams: null,
   });
+
+  const { data, error, isLoading: isDataLoading } = useGetAppointments(appointmentsTableParams);
+
+  const handleDownload = async () => {
+    setLoading(true);
+
+    try {
+      const csv: Blob = await axiosInstance.get('export/csv/all', { responseType: 'blob' }).then(r => new Blob([r.data]));
+      saveFile(csv, 'appointments.csv');
+    } catch (e: any) {
+      notification.error({ message: e?.message})
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (error) {
+    return <div>{error.message || 'Что-то пошло не так...'}</div>;
+  }
+
   return (
-      <AppointmentsList page={page} />
+    <>
+      <h2 className="font-bold text-[24px] mt-[58px] mb-[26px]">
+        Список приемов
+      </h2>
+
+      <div className="flex gap-x-[14px] justify-end mb-[24px]">
+        <Button type="default" className="my-[5px]" onClick={handleDownload}>
+          Скачать SCV
+          <DownloadIcon />
+        </Button>
+        <ButtonNew href={'/appointments/new/'}>Новый прием</ButtonNew>
+      </div>
+
+      <AppointmentTable
+        data={{ ...data, isLoading: isDataLoading || loading }}
+        tableParams={appointmentsTableParams}
+        setTableParams={setAppointmentsTableParams}
+      />
+    </>
   );
 };
 
-export default AppointmentsPage;
+export default AppointmentsList;

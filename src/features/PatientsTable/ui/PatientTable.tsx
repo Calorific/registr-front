@@ -6,6 +6,7 @@ import { IPatientTableData } from '@/features/PatientsTable/model/IPatientTableD
 import { savePatientTableColumns, useGetPatientColumns } from '@/features/PatientsTable/api/patientTableApi';
 import { Table } from 'antd';
 import styles from '@/shared/ui/CustomTable/CustomTable.module.css';
+import { Empty } from '@/shared/ui/Empty';
 
 
 interface props {
@@ -16,6 +17,10 @@ interface props {
   data: IPatientTableData;
 }
 
+const locale = {
+  emptyText: <Empty />,
+};
+
 const PatientTable = ({ tableParams, setTableParams, data }: props) => {
 
   const { data: columns, error, isLoading } = useGetPatientColumns();
@@ -24,6 +29,7 @@ const PatientTable = ({ tableParams, setTableParams, data }: props) => {
     return (
       <div>
         <Table
+          locale={locale}
           className={styles.table}
           pagination={false}
           scroll={{ x: 900, y: 600 }}

@@ -58,18 +58,14 @@ const EkgPage = ({ appointmentId }: { appointmentId: string }) => {
     return <div>{fieldsError?.message ?? 'Что-то пошло не так...'}</div>;
   }
 
-  if (currentDataIsLoading || fieldsIsLoading || loading) {
-    return <Spin />;
-  }
-
-  console.log(currentData)
+  const allLoading = currentDataIsLoading || fieldsIsLoading || loading;
 
   return (
     <Form layout="vertical" className="[&_.ant-card-body]:!flex [&_.ant-card-body]:!flex-col [&_.ant-card-body]:!h-full" form={form} initialValues={currentData} onFinish={formSubmitHandler}>
       <Row gutter={24}>
         <Col span={8}>
-          <Card className="h-full flex flex-col" title="ЭКГ" extra={<DateInput name="date_ekg" required={false} />}>
-            {fields.ekg.map(field => (
+          <Card className="h-full flex flex-col" title="ЭКГ" extra={<DateInput name="date_ekg" required={false} />} loading={allLoading}>
+            {fields?.ekg?.map(field => (
               <Form.Item
                 key={field.name}
                 name={field.name}
@@ -95,11 +91,12 @@ const EkgPage = ({ appointmentId }: { appointmentId: string }) => {
             className="h-full"
             title={<div className="flex gap-x-[14px] items-center">ЭХО-КГ <Info /></div>}
             extra={<DateInput name="date_echo_ekg" required={false} />}
+            loading={allLoading}
           >
             <Row gutter={[24, 24]}>
               <Col span={16}>
                 <Row gutter={[24, 14]}>
-                  {fields.echo_ekg.float_fields.map((field, i) => (
+                  {fields?.echo_ekg?.float_fields?.map((field, i) => (
                     <Col span={12} key={i}>
                       {!!field.secondName ? (
                         <DimensionInput field={field} form={form} />
@@ -120,7 +117,7 @@ const EkgPage = ({ appointmentId }: { appointmentId: string }) => {
 
               <Col span={8}>
                 <div className="flex flex-col gap-y-[5px]">
-                  {fields.echo_ekg.boolean_fields.map(field => (
+                  {(fields?.echo_ekg?.boolean_fields ??[]).map(field => (
                     <Form.Item
                       key={field.name}
                       name={field.name}

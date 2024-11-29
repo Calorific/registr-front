@@ -1,20 +1,21 @@
 import React from 'react';
-import PatientPage from '@/pages_/Patient/PatientPage';
+import dynamic from 'next/dynamic';
+import { Spin } from 'antd';
+import { PatientLayout } from '@/shared/ui/layout/PatientLayout';
 
 interface PageProps {
   params: {
-    id: string
-  };
-  searchParams: {
-    status: string
+    id: string;
   };
 }
 
-const Page = ({ params, searchParams, }: PageProps) => {
+const Page = ({ params, }: PageProps) => {
+  const PatientPage = dynamic(() => import('@/pages_/patients/Patient'), { ssr: false, loading: () => <Spin />});
+
   return (
-    <>
-      <PatientPage patientId={params.id} status={searchParams.status} />
-    </>
+    <PatientLayout id={params.id}>
+      <PatientPage id={params.id} />
+    </PatientLayout>
   );
 };
 

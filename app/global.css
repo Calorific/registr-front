@@ -482,3 +482,14 @@ body {
 .ant-input-number {
   width: 100% !important;
 }
+
+.ant-input-password {
+  height: 36px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.ant-input-password svg {
+  width: 21px;
+  height: 21px;
+}
