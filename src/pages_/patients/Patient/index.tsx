@@ -62,7 +62,7 @@ const PatientPage: FC<Props> = ({ id }) => {
         <div className="flex flex-col gap-y-[12px]">
           {data?.appointment_histories?.map((appointment: { id: string; date: string; }, i: number) => (
             <Link
-              href={'/appointments/' + appointment.id}
+              href={'/appointments/' + appointment.id + '/generalDetails'}
               key={i}
               className="py-[7px] px-[14px] flex justify-between items-center bg-[#F9F9F9] rounded-full transition-colors border border-solid border-transparent hover:border-blue"
             >
