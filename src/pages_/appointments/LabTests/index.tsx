@@ -73,7 +73,7 @@ const LabTestsPage = ({ appointmentId }: { appointmentId: string }) => {
           <div className="flex flex-col gap-y-[24px]">
             <Card title="Анализ крови" loading={allLoading}>
               <Row gutter={[24, 24]}>
-                {fields.hormonal_blood_analysis.map((field, i) => (
+                {(fields?.hormonal_blood_analysis ?? []).map((field, i) => (
                   <HormonalBloodField form={form} field={field} key={i} />
                 ))}
               </Row>
@@ -81,7 +81,7 @@ const LabTestsPage = ({ appointmentId }: { appointmentId: string }) => {
 
             <FieldCard
               title="Общий анализ крови"
-              fields={fields.general_blood_analysis}
+              fields={fields?.general_blood_analysis ?? []}
               gutter={[24, 24]}
               form={form}
               fieldType="number"
@@ -93,7 +93,7 @@ const LabTestsPage = ({ appointmentId }: { appointmentId: string }) => {
         <Col span={12}>
           <FieldCard
             title="Биохимический анализ крови"
-            fields={fields.blood_chemistry}
+            fields={fields?.blood_chemistry ?? []}
             gutter={[24, 6]}
             form={form}
             fieldType="number"
@@ -105,7 +105,7 @@ const LabTestsPage = ({ appointmentId }: { appointmentId: string }) => {
         <Col span={24}>
           <FieldCard
             title="Общий анализ мочи"
-            fields={fields.general_urine_analysis}
+            fields={fields?.general_urine_analysis ?? []}
             gutter={[24, 24]}
             form={form}
             fieldType="string"
