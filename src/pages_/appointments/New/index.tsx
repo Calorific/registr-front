@@ -67,7 +67,7 @@ export default function AppointmentNewPage() {
 
   const handleSubmit = (values: any) => {
     const data = Object.keys(values).reduce((acc, key) => values[key] ? ({ ...acc, [key]: encodeURI(values[key]) }) : acc, {});
-
+    setPage(1);
     setSearch(data);
   }
 
