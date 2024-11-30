@@ -18,12 +18,12 @@ const _FieldCard: FC<FieldCardProps> = ({ title, fields, fieldType, gutter, form
   return (
     <Card
       title={title}
-      extra={<CardDateInput fields={fields.fields} form={form} name={fields.dateName} />}
+      extra={<CardDateInput fields={fields?.fields ?? []} form={form} name={fields?.dateName} />}
       className={className}
       loading={loading}
     >
       <Row gutter={gutter}>
-        {fields.fields.map((field, i) => (
+        {(fields.fields ?? []).map((field, i) => (
           <Col span={12} key={i}>
             <Form.Item
               label={field.displayName}

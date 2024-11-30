@@ -44,7 +44,7 @@ const AppointmentsList = ({ page }: { page: number }) => {
 
       <div className="flex gap-x-[14px] justify-end mb-[24px]">
         <Button type="default" className="my-[5px]" onClick={handleDownload}>
-          Скачать SCV
+          Скачать CSV
           <DownloadIcon />
         </Button>
         <ButtonNew href={'/appointments/new/'}>Новый прием</ButtonNew>
