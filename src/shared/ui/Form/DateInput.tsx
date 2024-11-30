@@ -9,6 +9,7 @@ interface DateInputProps {
   name: string;
   initialValue?: string | Dayjs;
   type?: 'DEFAULT' | 'MASKED';
+  layout?: 'vertical' | 'horizontal';
 }
 
 const validDateRule = {
@@ -28,7 +29,7 @@ const validDateRule = {
   },
 };
 
-const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialValue, type = 'MASKED' }) => {
+const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialValue, type = 'MASKED', layout }) => {
   const rules = useMemo(() => {
     if (required && type === 'MASKED') {
       return [
@@ -56,6 +57,7 @@ const _DateInput: FC<DateInputProps> = ({ required = true, label, name, initialV
       name={name}
       rules={rules}
       initialValue={initialValue}
+      layout={layout}
     >
       {type === 'DEFAULT' ? <DatePicker inputReadOnly format="DD.MM.YYYY" /> : <MaskedInput mask="00.00.0000" />}
     </Form.Item>

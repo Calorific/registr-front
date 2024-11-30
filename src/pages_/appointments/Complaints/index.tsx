@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, Checkbox, Col, Form, Input, notification, Row, Spin } from 'antd';
+import { Card, Checkbox, Col, Form, Input, notification, Row } from 'antd';
 import { MassIndex } from './MassIndex';
 import { useSWRConfig } from 'swr';
 import {
@@ -30,7 +30,15 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
 
     try {
       await form.validateFields();
+    } catch (e: any) {
+      if (e?.errorFields?.length > 0) {
+        notification.error(e?.errorFields?.[0]?.errors?.[0] ?? 'Данные заполнены некорректно');
+        setLoading(false);
+        return false;
+      }
+    }
 
+    try {
       if (!data) {
         await complaintsCreate(appointmentId, values);
       } else {

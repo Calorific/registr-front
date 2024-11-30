@@ -26,6 +26,16 @@ const DrugTherapyPage = ({ appointmentId }: { appointmentId: string }) => {
     setLoading(true);
 
     try {
+      await form.validateFields();
+    } catch (e: any) {
+      if (e?.errorFields?.length > 0) {
+        notification.error(e?.errorFields?.[0]?.errors?.[0] ?? 'Данные заполнены некорректно');
+        setLoading(false);
+        return false;
+      }
+    }
+
+    try {
       const data: {
         medicine_prescriptions: {
           drug_id: number,

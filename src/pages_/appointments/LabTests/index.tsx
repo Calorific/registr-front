@@ -26,9 +26,18 @@ const LabTestsPage = ({ appointmentId }: { appointmentId: string }) => {
 
   const formSubmitHandler = async (values: any) => {
     setLoading(true);
+
     try {
       await form.validateFields();
+    } catch (e: any) {
+      if (e?.errorFields?.length > 0) {
+        notification.error(e?.errorFields?.[0]?.errors?.[0] ?? 'Данные заполнены некорректно');
+        setLoading(false);
+        return false;
+      }
+    }
 
+    try {
       for (let key in values) {
         if (key.endsWith('date')) {
           values[key] = dateFormatConverter(values[key]);

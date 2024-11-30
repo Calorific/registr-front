@@ -13,6 +13,10 @@ const Page = ({ searchParams }: Props) => {
 
   return (
     <>
+      <h2 className="text-[24px] font-bold mt-[58px] mb-[26px]">
+        Список пациентов
+      </h2>
+
       <PatientsPage page={searchParams.page} />
     </>
   );

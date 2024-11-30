@@ -38,10 +38,6 @@ const AppointmentsList = ({ page }: { page: number }) => {
 
   return (
     <>
-      <h2 className="font-bold text-[24px] mt-[58px] mb-[26px]">
-        Список приемов
-      </h2>
-
       <div className="flex gap-x-[14px] justify-end mb-[24px]">
         <Button type="default" className="my-[5px]" onClick={handleDownload}>
           Скачать CSV

@@ -20,10 +20,6 @@ const PatientsList = ({ page }: { page: number }) => {
 
   return (
     <>
-      <h2 className="text-[24px] font-bold mt-[58px] mb-[26px]">
-        Список пациентов
-      </h2>
-
       <div className="flex justify-between mb-[24px]">
         <div></div>
         <ButtonNew href={'/patients/create'}>Новый пациент</ButtonNew>

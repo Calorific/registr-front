@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, Checkbox, Col, Form, Input, InputNumber, notification, Row, Spin } from 'antd';
+import { Card, Checkbox, Col, Form, Input, InputNumber, notification, Row } from 'antd';
 import { ekgCreate, ekgUpdate, useGetCurrentEkgData, useGetEkgFields } from '@/entities/Appointment/api/ekgsApi';
 import { useSWRConfig } from 'swr';
 import { IEkg } from '@/entities/Appointment/model/IEkg';
@@ -26,6 +26,15 @@ const EkgPage = ({ appointmentId }: { appointmentId: string }) => {
 
     try {
       await form.validateFields();
+    } catch (e: any) {
+      if (e?.errorFields?.length > 0) {
+        notification.error(e?.errorFields?.[0]?.errors?.[0] ?? 'Данные заполнены некорректно');
+        setLoading(false);
+        return false;
+      }
+    }
+
+    try {
       values.date_ekg = dateFormatConverter(values.date_ekg);
       values.date_echo_ekg = dateFormatConverter(values.date_echo_ekg);
 
@@ -61,10 +70,21 @@ const EkgPage = ({ appointmentId }: { appointmentId: string }) => {
   const allLoading = currentDataIsLoading || fieldsIsLoading || loading;
 
   return (
-    <Form layout="vertical" className="[&_.ant-card-body]:!flex [&_.ant-card-body]:!flex-col [&_.ant-card-body]:!h-full" form={form} initialValues={currentData} onFinish={formSubmitHandler}>
+    <Form
+      layout="vertical"
+      className="[&_.ant-card-body]:!flex [&_.ant-card-body]:!flex-col [&_.ant-card-body]:!h-full"
+      form={form}
+      initialValues={currentData}
+      onFinish={formSubmitHandler}
+    >
       <Row gutter={24}>
         <Col span={8}>
-          <Card className="h-full flex flex-col" title="ЭКГ" extra={<DateInput name="date_ekg" required={false} />} loading={allLoading}>
+          <Card
+            title="ЭКГ"
+            className="h-full flex flex-col"
+            extra={<DateInput name="date_ekg" label="Дата:" layout="horizontal" required={false} />}
+            loading={allLoading}
+          >
             {fields?.ekg?.map(field => (
               <Form.Item
                 key={field.name}
@@ -90,7 +110,7 @@ const EkgPage = ({ appointmentId }: { appointmentId: string }) => {
           <Card
             className="h-full"
             title={<div className="flex gap-x-[14px] items-center">ЭХО-КГ <Info /></div>}
-            extra={<DateInput name="date_echo_ekg" required={false} />}
+            extra={<DateInput name="date_echo_ekg" label="Дата:" layout="horizontal" required={true} />}
             loading={allLoading}
           >
             <Row gutter={[24, 24]}>

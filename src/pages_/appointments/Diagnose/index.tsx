@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Card, Checkbox, Col, Form, Input, notification, Radio, Row, Space, Spin } from 'antd';
+import { Card, Checkbox, Col, Form, Input, notification, Radio, Row, Space } from 'antd';
 import { useSWRConfig } from 'swr';
 import {
   diagnoseCreate,
@@ -37,7 +37,15 @@ const DiagnosePage = ({ appointmentId }: { appointmentId: string }) => {
 
     try {
       await form.validateFields();
+    } catch (e: any) {
+      if (e?.errorFields?.length > 0) {
+        notification.error(e?.errorFields?.[0]?.errors?.[0] ?? 'Данные заполнены некорректно');
+        setLoading(false);
+        return false;
+      }
+    }
 
+    try {
       if (currentData) {
         await diagnoseUpdate(appointmentId, values);
       } else {
@@ -46,11 +54,6 @@ const DiagnosePage = ({ appointmentId }: { appointmentId: string }) => {
 
       await mutate({
         key: 'appointments/block/diagnose/',
-        appointmentId,
-      });
-
-      await mutate({
-        key: 'appointments/block/laboratory_test/',
         appointmentId,
       });
 

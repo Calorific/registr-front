@@ -13,7 +13,7 @@ const _CardDateInput: FC<CardDateInputProps> = ({ form, fields, name, }) => {
   const values: any = Form.useWatch([], form);
 
   return (
-    <DateInput name={name} required={fields.some(f => !!values?.[f.textName])} />
+    <DateInput label="Дата:" layout="horizontal" name={name} required={fields.some(f => !!values?.[f.textName])} />
   );
 }
 
