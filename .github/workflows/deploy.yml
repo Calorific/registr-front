@@ -21,6 +21,5 @@ jobs:
             git pull
             cd ..
             git pull --recurse
-            git submodule update registr-front
             docker-compose build frontend
             docker-compose restart frontend
