@@ -24,7 +24,7 @@ const AppointmentsList = ({ page }: { page: number }) => {
 
     try {
       const csv: Blob = await axiosInstance.get('export/csv/all', { responseType: 'blob' }).then(r => new Blob([r.data]));
-      saveFile(csv, 'appointments.csv');
+      saveFile(csv, 'appointments.xlsx');
     } catch (e: any) {
       notification.error({ message: e?.message})
     } finally {

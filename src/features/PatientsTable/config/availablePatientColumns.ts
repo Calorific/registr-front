@@ -1,4 +1,4 @@
-import { IAvailableColumns } from '../../../shared/ui/CustomTable';
+import { IAvailableColumns } from '@/shared/types/IColumn';
 
 export const availablePatientColumns: IAvailableColumns[] = [
   {

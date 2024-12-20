@@ -96,23 +96,23 @@ const ComplaintsPage = ({ appointmentId }: { appointmentId: string }) => {
 
               <Col span={12}>
                 <Form.Item
-                  label="ЧСС"
-                  name="heart_rate"
-                  rules={[{ required: true, message: 'Укажите ЧСС' }]}
-                  normalize={formatInteger}
-                >
-                  <Input placeholder="уд/мин" />
-                </Form.Item>
-              </Col>
-
-              <Col span={12}>
-                <Form.Item
                   label="Диастолическое АД"
                   name="diastolic_bp"
                   rules={[{ required: true, message: 'Укажите диастолическое АД' }]}
                   normalize={formatInteger}
                 >
                   <Input placeholder="Диастолическое" />
+                </Form.Item>
+              </Col>
+
+              <Col span={12}>
+                <Form.Item
+                  label="ЧСС"
+                  name="heart_rate"
+                  rules={[{ required: true, message: 'Укажите ЧСС' }]}
+                  normalize={formatInteger}
+                >
+                  <Input placeholder="уд/мин" />
                 </Form.Item>
               </Col>
 
