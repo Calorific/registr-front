@@ -17,7 +17,10 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            cd hsn/
+            cd hsn/registr-front
+            git pull
+            cd ..
+            git pull --recurse
             git submodule update registr-front
             docker-compose build frontend
             docker-compose restart frontend
